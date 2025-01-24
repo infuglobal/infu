@@ -11,7 +11,7 @@ const Footer = () => {
           {/* Logo and Description */}
           <div>
             <h1 className="text-4xl font-extrabold bg-gradient-to-r from-purple-700 to-purple-900 text-transparent bg-clip-text">
-              Infinity Funds
+              Infinity Fund
             </h1>
             <p className="mt-4 text-gray-800 text-lg leading-relaxed">
               Empowering investors, businesses, and learners to achieve financial growth with innovation and security.
@@ -40,6 +40,11 @@ const Footer = () => {
               <li>
                 <Link href="#" className="hover:text-pink-400 transition">
                   Contact
+                </Link>
+              </li>
+              <li>
+                <Link href="/faqs" className="hover:text-pink-400 transition">
+                  Faqs
                 </Link>
               </li>
             </ul>
@@ -83,14 +88,14 @@ const Footer = () => {
         {/* Footer Bottom */}
         <div className="mt-16 border-t border-gray-500 pt-6 text-center">
           <p className="text-gray-600 text-sm">
-            © {new Date().getFullYear()} Infinity Funds. All Rights Reserved. |{" "}
-            <Link href="/privacy" passHref>
+            © {new Date().getFullYear()} Infinity Fund. All Rights Reserved. |{" "}
+            <Link href="/terms-conditions" passHref>
               <span className="hover:text-pink-400 cursor-pointer">
                 Privacy Policy
               </span>
             </Link>{" "}
             |{" "}
-            <Link href="#" passHref>
+            <Link href="/terms-conditions" passHref>
               <span className="hover:text-pink-400 cursor-pointer">
                 Terms of Service
               </span>

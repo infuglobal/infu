@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const About = () => {
   return (
@@ -20,22 +21,22 @@ const About = () => {
         {/* Right Section: Content */}
         <div className="w-full md:w-1/2 text-center md:text-left">
           <h2 className="text-4xl font-extrabold text-purple-800 mb-6">
-            About Infinity Funds
+            About Infinity Fund
           </h2>
           <p className="text-gray-700 text-lg mb-6 leading-relaxed">
-            At Infinity Funds, we aim to bridge the gap between innovative 
+            At Infinity Fund, we aim to bridge the gap between innovative 
             businesses, eager investors, and curious learners. Our platform 
             empowers users to explore investment opportunities, fund their 
             ideas, and learn about smart financial growth.
           </p>
           <p className="text-gray-700 text-lg mb-6 leading-relaxed">
             Whether you&apos;re looking to expand your portfolio, take your business 
-            to new heights, or deepen your knowledge, Infinity Funds is the 
+            to new heights, or deepen your knowledge, Infinity Fund is the 
             trusted platform to achieve your goals.
           </p>
-          <button className="bg-purple-600 text-white px-6 py-3 rounded-full font-medium shadow-lg hover:bg-purple-700 transition duration-300">
+          <Link href="/about-infu" className="bg-purple-600 text-white px-6 py-3 rounded-full font-medium shadow-lg hover:bg-purple-700 transition duration-300">
             Learn More
-          </button>
+          </Link>
         </div>
       </div>
     </section>

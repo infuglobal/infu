@@ -69,7 +69,7 @@ const Navbar = () => {
 
             {/* Stunning Login/Sign-Up Button */}
             <Link
-              href="/register"
+              href="/sign-up"
               className="px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-500 text-white font-semibold rounded-full shadow-md hover:shadow-lg hover:from-purple-700 hover:to-pink-600 transition duration-300"
             >
               Login / Sign-Up
@@ -134,7 +134,7 @@ const Navbar = () => {
                 Features
               </a>
               <Link
-                href="/register"
+                href="/sign-up"
                 className="block px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-500 text-white font-semibold rounded-full shadow-md hover:shadow-lg hover:from-purple-700 hover:to-pink-600 transition duration-300 text-center"
               >
                 Login / Sign-Up
