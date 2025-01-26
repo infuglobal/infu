@@ -1,11 +1,14 @@
 "use client";
+
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { SignedIn, SignedOut, useUser } from "@clerk/nextjs";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
+  const { user } = useUser(); // Get the signed-in user details
+  
   // Smooth scrolling function
   const handleScroll = (e: React.SyntheticEvent | MouseEvent, targetId: string) => {
     e.preventDefault();
@@ -16,13 +19,13 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="w-full bg-white shadow-md fixed top-0 z-50 ">
+    <nav className="w-full bg-white shadow-md fixed top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 ">
+        <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center flex-shrink-0">
             <Image
-              src="/infu-logo.jpg" 
+              src="/infu-logo.jpg"
               alt="Infinity Fund Logo"
               width={40}
               height={40}
@@ -67,13 +70,25 @@ const Navbar = () => {
               Features
             </a>
 
-            {/* Stunning Login/Sign-Up Button */}
-            <Link
-              href="/sign-up"
-              className="px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-500 text-white font-semibold rounded-full shadow-md hover:shadow-lg hover:from-purple-700 hover:to-pink-600 transition duration-300"
-            >
-              Login / Sign-Up
-            </Link>
+            {/* Login/Sign-Up or Dashboard Button */}
+            <SignedIn>
+              {/* If the user is signed in */}
+              <Link
+                href={user?.publicMetadata?.role === "Investor" ? "/investor-dashboard" : "/business-dashboard"}
+                className="px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-500 text-white font-semibold rounded-full shadow-md hover:shadow-lg hover:from-purple-700 hover:to-pink-600 transition duration-300"
+              >
+                Dashboard
+              </Link>
+            </SignedIn>
+            <SignedOut>
+              {/* If the user is not signed in */}
+              <Link
+                href="/sign-up"
+                className="px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-500 text-white font-semibold rounded-full shadow-md hover:shadow-lg hover:from-purple-700 hover:to-pink-600 transition duration-300"
+              >
+                Login / Sign-Up
+              </Link>
+            </SignedOut>
           </div>
 
           {/* Mobile Menu Button */}
@@ -107,7 +122,7 @@ const Navbar = () => {
             <div className="space-y-2 px-4 py-3 text-center">
               <Link
                 href="/"
-                onClick={(e) =>( handleScroll(e, "home"), setIsMobileMenuOpen(false))}
+                onClick={(e) => (handleScroll(e, "home"), setIsMobileMenuOpen(false))}
                 className="block text-gray-700 hover:text-purple-600 font-medium transition duration-300 cursor-pointer"
               >
                 Home
@@ -128,17 +143,27 @@ const Navbar = () => {
               </a>
               <a
                 href="#features"
-                onClick={(e) =>( handleScroll(e, "features"), setIsMobileMenuOpen(false))}
+                onClick={(e) => (handleScroll(e, "features"), setIsMobileMenuOpen(false))}
                 className="block text-gray-700 hover:text-purple-600 font-medium transition duration-300 cursor-pointer"
               >
                 Features
               </a>
-              <Link
-                href="/sign-up"
-                className="block px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-500 text-white font-semibold rounded-full shadow-md hover:shadow-lg hover:from-purple-700 hover:to-pink-600 transition duration-300 text-center"
-              >
-                Login / Sign-Up
-              </Link>
+              <SignedIn>
+                <Link
+                  href={user?.publicMetadata?.role === "Investor" ? "/investor-dashboard" : "/business-dashboard"}
+                  className="block px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-500 text-white font-semibold rounded-full shadow-md hover:shadow-lg hover:from-purple-700 hover:to-pink-600 transition duration-300 text-center"
+                >
+                  Dashboard
+                </Link>
+              </SignedIn>
+              <SignedOut>
+                <Link
+                  href="/sign-up"
+                  className="block px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-500 text-white font-semibold rounded-full shadow-md hover:shadow-lg hover:from-purple-700 hover:to-pink-600 transition duration-300 text-center"
+                >
+                  Login / Sign-Up
+                </Link>
+              </SignedOut>
             </div>
           </div>
         )}

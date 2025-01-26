@@ -195,3 +195,50 @@ body {
   font-style: italic;
 }
 
+/* Clerk Overrides */
+.cl-socialButtonsIconButton {
+  border: 2px solid #6b46c1; /* Purple border */
+}
+
+
+
+.cl-formButtonPrimary {
+  background-color: #6b46c1 !important; /* Primary form buttons in purple */
+  color: #ffffff !important; /* White text */
+}
+
+.cl-formButtonPrimary:hover {
+  background-color: #553c9a !important; /* Darker purple on hover */
+}
+
+.cl-footerActionLink {
+  color: #6b46c1; /* Purple for links */
+}
+
+.cl-headerSubtitle {
+  color: #4a5568; /* Neutral gray for subtitles */
+}
+
+.cl-logoImage {
+  width: 8rem; /* Adjust width to match your design */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.cl-userButtonPopoverActionButtonIcon {
+  color: #6b46c1; /* Purple icons in popovers */
+}
+
+.cl-internal-4a7e9l {
+  color: #4a5568; /* Adjust form text colors to match theme */
+}
+
+.cl-internal-wkkub3 {
+  color: #4a5568; /* Adjust secondary text colors */
+}
+
+.cl-internal-b3fm6y,
+.cl-internal-4a7e9l,
+.cl-formContainer {
+  background: transparent !important; /* Transparent background for forms */
+  box-shadow: none !important; /* Remove shadow */
+}

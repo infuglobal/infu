@@ -6,25 +6,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="flex bg-white min-h-screen flex-col lg:flex-row">
-          <section className="w-full lg:w-[40%] flex justify-center items-center">
-            <div className="w-full flex flex-col p-10 items-center justify-center shadow-sm rounded-lg">
-              
-    
-         {children}
-            </div>
-          </section>
-    
-          {/* Right Section: Image */}
-          <div className="hidden lg:block w-[60%]">
-            <Image
-              src="/i5.jpg"
-              alt="login image"
-              height={1000}
-              width={1000}
-              className="object-cover w-full h-full rounded-sm shadow-lg"
-            />
-          </div>
+    <div className="flex bg-white min-h-screen h-screen overflow-hidden flex-col lg:flex-row">
+      {/* Left Section: Form */}
+      <section className="w-full lg:w-[35%] flex justify-center items-center bg-gray-50">
+        <div className="w-full h-full flex flex-col items-center justify-center">
+          {children}
         </div>
+      </section>
+
+      {/* Right Section: Image */}
+      <div className="hidden lg:block w-[65%]">
+        <Image
+          src="/i7.jpg"
+          alt="login image"
+          height={1000}
+          width={1000}
+          className="object-cover w-full h-full"
+        />
+      </div>
+    </div>
   );
 }
