@@ -179,3 +179,119 @@ export const HOW_INFU_WORKS = {
       description: "Regular updates and proportional profit sharing for investors.",
     },
   ];
+
+
+  export const categories = [
+    {
+      name: "Beginner’s Guide",
+      subcategories: [
+        { name: "Step 1: Register on Infu", route: "/beginners-guide/register-on-infu" },
+        { name: "Step 2: Add Funds to Your Infu Wallet", route: "/beginners-guide/add-funds-to-wallet" },
+        { name: "Step 3: Explore Investment Opportunities", route: "/beginners-guide/explore-investment-opportunities" },
+        { name: "Step 4: Make Your First Investment", route: "/beginners-guide/make-first-investment" },
+        { name: "Step 5: Track Your Investment", route: "/beginners-guide/track-your-investment" },
+      ],
+    },
+    {
+      name: "Infu Pools",
+      subcategories: [
+        { name: "What Are Infu Pools?", route: "/infu-pools/what-are-infu-pools" },
+        { name: "Types of Infu Pools", route: "/infu-pools/types-of-pools" },
+        { name: "How Infu Pools Work", route: "/infu-pools/how-pools-work" },
+        { name: "Benefits of Investing in Infu Pools", route: "/infu-pools/benefits-of-investing" },
+        { name: "How to Choose the Right Pool", route: "/infu-pools/choose-the-right-pool" },
+        { name: "Success Stories", route: "/infu-pools/success-stories" },
+      ],
+    },
+    {
+      name: "Power of Compounding",
+      subcategories: [
+        { name: "What Is Compounding?", route: "/power-of-compounding/what-is-compounding" },
+        { name: "How Infu Helps You Leverage Compounding", route: "/power-of-compounding/leverage-compounding" },
+        { name: "The Math Behind Small Investments", route: "/power-of-compounding/math-behind-small-investments" },
+        { name: "Steps to Build Wealth with Small Investments", route: "/power-of-compounding/build-wealth" },
+        { name: "Case Study: Turning ₹1 Daily into ₹1 Lakh", route: "/power-of-compounding/case-study-daily-to-lakh" },
+        { name: "Why Small Investments Are Powerful", route: "/power-of-compounding/why-small-investments" },
+      ],
+    },
+    {
+      name: "Risk Management",
+      subcategories: [
+        { name: "What is Diversification?", route: "/risk-management/what-is-diversification" },
+        { name: "How Infu Enables Diversification", route: "/risk-management/enables-diversification" },
+        { name: "Steps to Diversify Your Portfolio on Infu", route: "/risk-management/steps-to-diversify" },
+        { name: "Diversification in Action: Sample Portfolio", route: "/risk-management/sample-portfolio" },
+        { name: "Mistakes to Avoid When Diversifying", route: "/risk-management/mistakes-to-avoid" },
+        { name: "Benefits of Diversification on Infu", route: "/risk-management/benefits-of-diversification" },
+      ],
+    },
+    {
+      name: "Profits and Withdraw",
+      subcategories: [
+        { name: "Introduction to Infu's Dashboard", route: "/profits-and-withdraw/dashboard-introduction" },
+        { name: "Step 1: Access the Infu Dashboard", route: "/profits-and-withdraw/access-dashboard" },
+        { name: "Step 2: Analyze Investment Performance", route: "/profits-and-withdraw/analyze-performance" },
+        { name: "Step 3: Withdrawing Profits", route: "/profits-and-withdraw/withdrawing-profits" },
+        { name: "Step 4: Reinvesting Profits", route: "/profits-and-withdraw/reinvesting-profits" },
+        { name: "Tips for Effective Fund Management", route: "/profits-and-withdraw/effective-fund-management" },
+        { name: "Common Questions About Withdrawals", route: "/profits-and-withdraw/withdrawal-questions" },
+      ],
+    },
+    {
+      name: "High-Potential Businesses",
+      subcategories: [
+        { name: "Introduction to Identifying High-Potential Businesses", route: "/high-potential-businesses/introduction" },
+        { name: "Step 1: Understand What Makes a Business High-Potential", route: "/high-potential-businesses/understanding-high-potential" },
+        { name: "Step 2: Use Infu’s Tools to Identify Opportunities", route: "/high-potential-businesses/tools-to-identify" },
+        { name: "Step 3: Analyze Business Metrics", route: "/high-potential-businesses/analyze-metrics" },
+        { name: "Step 4: Evaluate Risk Levels", route: "/high-potential-businesses/evaluate-risks" },
+        { name: "Step 5: Stay Updated on Market Trends", route: "/high-potential-businesses/market-trends" },
+        { name: "Step 6: Diversify Your Investments", route: "/high-potential-businesses/diversify-investments" },
+        { name: "Case Studies: Success Stories on Infu", route: "/high-potential-businesses/success-stories" },
+        { name: "Tips for Spotting High-Potential Businesses", route: "/high-potential-businesses/tips-for-spotting" },
+        { name: "Conclusion: Start Exploring Opportunities on Infu", route: "/high-potential-businesses/start-exploring" },
+      ],
+    },
+    {
+      name: "Fractional Real Estate",
+      subcategories: [
+        { name: "Introduction to Fractional Real Estate Investment", route: "/fractional-real-estate/introduction" },
+        { name: "What is Fractional Real Estate Investment?", route: "/fractional-real-estate/what-is-investment" },
+        { name: "Benefits of Infu’s Fractional Real Estate", route: "/fractional-real-estate/benefits" },
+        { name: "How to Invest in Real Estate on Infu", route: "/fractional-real-estate/how-to-invest" },
+        { name: "How You Earn Passive Income", route: "/fractional-real-estate/passive-income" },
+        { name: "Real Estate Investment Strategies on Infu", route: "/fractional-real-estate/strategies" },
+        { name: "Case Study: Fractional Ownership Success", route: "/fractional-real-estate/success-case-study" },
+        { name: "Frequently Asked Questions", route: "/fractional-real-estate/faqs" },
+        { name: "Conclusion: Build Your Passive Income Portfolio with Infu", route: "/fractional-real-estate/build-portfolio" },
+      ],
+    },
+    {
+      name: "Tools to Make Smart Investment Decisions",
+      subcategories: [
+        { name: "Introduction to Risk-Return Visual Tools", route: "/investment-tools/introduction" },
+        { name: "What Are Risk-Return Visual Tools?", route: "/investment-tools/what-are-tools" },
+        { name: "Key Features of Infu’s Visualization Tools", route: "/investment-tools/key-features" },
+        { name: "How to Use Risk-Return Tools Effectively", route: "/investment-tools/use-tools" },
+        { name: "Example: Analyzing a High-Potential Pool", route: "/investment-tools/analyzing-pool" },
+        { name: "Benefits of Using Visual Tools", route: "/investment-tools/benefits" },
+        { name: "Tips for Maximizing Returns with Infu’s Tools", route: "/investment-tools/maximizing-returns" },
+        { name: "Conclusion: Smarter Investment Decisions with Infu’s Visual Tools", route: "/investment-tools/smarter-decisions" },
+      ],
+    },
+    {
+      name: "AI Tools for Smarter Investments",
+     
+      subcategories: [
+        { name: "Introduction to Infu’s AI Tools", route: "/ai-tools/introduction" },
+        { name: "How Infu’s AI Tools Work", route: "/ai-tools/how-tools-work" },
+        { name: "Key Features of Infu’s AI Tools", route: "/ai-tools/key-features" },
+        { name: "Steps to Use Infu’s AI Tools Effectively", route: "/ai-tools/use-tools-effectively" },
+        { name: "Case Study: How AI Transforms Investing", route: "/ai-tools/ai-case-study" },
+        { name: "Tips for Maximizing AI Tools", route: "/ai-tools/tips-maximizing" },
+        { name: "Benefits of Using Infu’s AI Tools", route: "/ai-tools/benefits" },
+        { name: "Conclusion: Transform Your Investment Journey with Infu’s AI", route: "/ai-tools/transform-journey" },
+      ],
+    },
+  ];
+  

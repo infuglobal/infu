@@ -24,22 +24,22 @@ export const metadata: Metadata = {
     "financial growth",
     "investors",
     "businesses",
-    "Infinity Funds",
+    "Infinity Fund",
     "crowdfunding"
   ],
   viewport: "width=device-width, initial-scale=1",
   robots: "index, follow",
   openGraph: {
-    title: "Infinity Funds - Invest, Grow, and Learn",
-    description: "Infinity Funds is a revolutionary platform connecting investors and businesses for mutual growth. Explore investment opportunities and grow your financial future.",
-    url: "https://www.infinityfunds.com",
-    siteName: "Infinity Funds",
+    title: "Infinity Fund - Invest, Grow, and Learn",
+    description: "Infinity Fund is a revolutionary platform connecting investors and businesses for mutual growth. Explore investment opportunities and grow your financial future.",
+    url: "https://www.infinityfundglobal.com",
+    siteName: "Infinity Fund",
     images: [
       {
-        url: "/logo-image.jpg",
+        url: "/infu-logo.jpg",
         width: 1200,
         height: 630,
-        alt: "Infinity Funds - Invest, Grow, and Learn",
+        alt: "Infinity Fund - Invest, Grow, and Learn",
       },
     ],
     type: "website",
@@ -65,8 +65,8 @@ export default function RootLayout({
           rel="stylesheet"
         />
         <title>Infinity Funds - Invest, Grow, and Learn</title>
-        <meta name="description" content="Infinity Funds is a revolutionary platform connecting investors and businesses for mutual growth. Explore investment opportunities and grow your financial future." />
-        <meta name="keywords" content="investment platform, business funding, financial growth, investors, businesses, Infinity Funds, crowdfunding" />
+        <meta name="description" content="Infinity Fund is a revolutionary platform connecting investors and businesses for mutual growth. Explore investment opportunities and grow your financial future." />
+        <meta name="keywords" content="investment platform, business funding, financial growth, investors, businesses, Infinity Fund, crowdfunding" />
         <meta name="author" content="Infinity Funds Team" />
       </head>
       <body

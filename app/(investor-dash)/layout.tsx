@@ -1,4 +1,4 @@
-import InvestorsNavbar from "@/components/InvestorNavbar";
+import InvestorsNavbar from "@/app/(investor-dash)/components/InvestorNavbar";
 
 export default function RootLayout({
     children,

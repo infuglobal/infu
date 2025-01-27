@@ -38,7 +38,7 @@ const SignUpPage = () => {
             onClick={() => handleRoleSelection("Business")}
             className="bg-blue-600 text-white py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out transform hover:scale-105"
           >
-            Start a Business
+            Grow your Business
           </button>
         </div>
       

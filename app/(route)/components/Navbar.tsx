@@ -25,17 +25,17 @@ const Navbar = () => {
           {/* Logo */}
           <div className="flex items-center flex-shrink-0">
             <Image
-              src="/infu-logo.jpg"
+              src="/infu-logo.png"
               alt="Infinity Fund Logo"
-              width={40}
-              height={40}
-              className="mr-2 rounded-e-full"
+              width={60}
+              height={60}
+              className="mr-0 "
             />
             <Link
               href="/"
               className="text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text"
             >
-              Infinity Fund
+              INFINITY FUND
             </Link>
           </div>
 
@@ -69,7 +69,14 @@ const Navbar = () => {
             >
               Features
             </a>
+            <Link
+                href="/learning-resources"
+                target="_blank"
 
+                className="block text-gray-700 hover:text-purple-600 font-medium transition duration-300 cursor-pointer"
+              >
+                Resources
+              </Link>
             {/* Login/Sign-Up or Dashboard Button */}
             <SignedIn>
               {/* If the user is signed in */}
@@ -127,6 +134,7 @@ const Navbar = () => {
               >
                 Home
               </Link>
+              
               <a
                 href="#about"
                 onClick={(e) => (handleScroll(e, "about"), setIsMobileMenuOpen(false))}
@@ -148,6 +156,13 @@ const Navbar = () => {
               >
                 Features
               </a>
+              <Link
+                href="/learning-resources"
+               target="_blank"
+                className="block text-gray-700 hover:text-purple-600 font-medium transition duration-300 cursor-pointer"
+              >
+                Resources
+              </Link>
               <SignedIn>
                 <Link
                   href={user?.publicMetadata?.role === "Investor" ? "/investor-dashboard" : "/business-dashboard"}

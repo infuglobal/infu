@@ -1,4 +1,4 @@
-import BusinessNavbar from "@/components/BusinessNavbar";
+import BusinessNavbar from "@/app/(business-dash)/components/BusinessNavbar";
 
 export default function RootLayout({
     children,

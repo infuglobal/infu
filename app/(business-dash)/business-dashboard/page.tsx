@@ -1,27 +1,38 @@
-'use client'
+'use client';
+
 import { Line } from 'react-chartjs-2';
-import { ChartOptions } from 'chart.js'; 
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
+import { ChartOptions } from 'chart.js';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
 
 // Register necessary chart elements
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const BusinessDashboard = () => {
-  // Mock data for the line chart
   const data = {
     labels: ['January', 'February', 'March', 'April'],
     datasets: [
       {
         label: 'Funding Progress',
         data: [0, 50, 75, 100],
-        borderColor: '#4caf50',
+        borderColor: '#6B46C1', // Purple accent
         fill: false,
+        tension: 0.3,
       },
       {
         label: 'Projected Growth',
         data: [0, 40, 70, 90],
-        borderColor: '#ff9800',
+        borderColor: '#F6AD55', // Orange accent
         fill: false,
+        tension: 0.3,
       },
     ],
   };
@@ -31,7 +42,7 @@ const BusinessDashboard = () => {
     plugins: {
       title: {
         display: true,
-        text: 'Funding Progress vs. Projected Growth',
+        text: 'Funding Progress vs Projected Growth',
         font: { weight: 'bold', size: 18 },
       },
       tooltip: {
@@ -42,92 +53,97 @@ const BusinessDashboard = () => {
   };
 
   return (
-    <div className="flex h-screen bg-gray-100">
-    
+    <div className="flex h-screen">
       {/* Sidebar */}
-      <div className="w-64 bg-gray-700 text-white p-6">
-        <h2 className="text-2xl font-semibold mb-6">Infinity Fund</h2>
-        <ul className="space-y-4">
-          <li>
-            <a href="#" className="text-white hover:text-purple-300">Dashboard</a>
-          </li>
-          <li>
-            <a href="#" className="text-white hover:text-purple-300">Funding Requests</a>
-          </li>
-          <li>
-            <a href="#" className="text-white hover:text-purple-300">AI Insights</a>
-          </li>
-          <li>
-            <a href="#" className="text-white hover:text-purple-300">Funding Status</a>
-          </li>
-          <li>
-            <a href="#" className="text-white hover:text-purple-300">Feedback</a>
-          </li>
-        </ul>
-      </div>
+      <aside className="w-64 bg-gray-50 border-r border-gray-200">
+        <div className="p-6">
+          <h2 className="text-lg font-semibold text-gray-900">Infinity Fund</h2>
+        </div>
+        <nav className="px-4">
+          <ul className="space-y-4">
+            {['Dashboard', 'Funding Requests', 'AI Insights', 'Funding Status', 'Feedback'].map((item, index) => (
+              <li key={index}>
+                <a
+                  href="#"
+                  className="block text-sm font-medium text-gray-700 hover:text-purple-500"
+                >
+                  {item}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </aside>
 
       {/* Main Content */}
-      <div className="flex-1 p-8 overflow-y-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-          <div className="bg-white rounded-lg shadow-lg p-6">
-            <h3 className="text-xl font-semibold mb-4">Funding Requests</h3>
-            <p className="text-gray-600 mb-4">
-              Submit your business idea, funding amount, and PAN/registration details to get started.
-            </p>
-            <button className="bg-purple-600 text-white py-2 px-6 rounded-lg hover:bg-purple-700 transition duration-300">
-              Submit Request
-            </button>
-          </div>
+      <main className="flex-1 overflow-y-auto bg-white">
+        <div className="max-w-5xl mx-auto px-6 py-10">
+          {/* Top Section */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Funding Requests</h3>
+              <p className="text-sm text-gray-600 mb-4">
+                Submit your business idea, funding amount, and PAN/registration details to get started.
+              </p>
+              <button className="bg-purple-600 text-white py-2 px-6 rounded-lg hover:bg-purple-700 transition duration-300">
+                Submit Request
+              </button>
+            </div>
 
-          <div className="bg-white rounded-lg shadow-lg p-6">
-            <h3 className="text-xl font-semibold mb-4">AI Insights</h3>
-            <p className="text-gray-600 mb-4">
-              Based on your sales reports and customer feedback, here are some growth strategies:
-            </p>
-            <ul className="list-disc ml-6 space-y-2">
-              <li>Expand your marketing efforts in the first quarter.</li>
-              <li>Focus on customer retention through loyalty programs.</li>
-              <li>Invest in product development for enhanced customer satisfaction.</li>
-            </ul>
-          </div>
-        </div>
-
-        <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
-          <h3 className="text-xl font-semibold mb-4">Funding Progress vs Projected Growth</h3>
-          <Line data={data} options={options} />
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-          <div className="bg-white rounded-lg shadow-lg p-6">
-            <h3 className="text-xl font-semibold mb-4">Funding Status</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div className="bg-green-100 p-4 rounded-lg">
-                <h4 className="text-lg font-medium text-green-600">Total Contributions</h4>
-                <p className="text-2xl font-semibold text-green-800">Rs 50,000</p>
-              </div>
-              <div className="bg-orange-100 p-4 rounded-lg">
-                <h4 className="text-lg font-medium text-orange-600">Fund Disbursed</h4>
-                <p className="text-2xl font-semibold text-orange-800">Rs 30,000</p>
-              </div>
+            <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">AI Insights</h3>
+              <p className="text-sm text-gray-600 mb-4">
+                Based on your sales reports and customer feedback, here are some growth strategies:
+              </p>
+              <ul className="list-disc pl-6 space-y-2 text-sm text-gray-600">
+                <li>Expand your marketing efforts in the first quarter.</li>
+                <li>Focus on customer retention through loyalty programs.</li>
+                <li>Invest in product development for enhanced customer satisfaction.</li>
+              </ul>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-lg p-6">
-            <h3 className="text-xl font-semibold mb-4">Feedback Section</h3>
-            <p className="text-gray-600 mb-4">
-              Receive insights or recommendations from investors to improve your business strategy.
-            </p>
-            <textarea
-              placeholder="Write your feedback request here..."
-              rows={4}
-              className="w-full p-4 bg-white border border-gray-300 rounded-lg shadow-sm mb-4"
-            ></textarea>
-            <button className="bg-purple-600 text-white py-2 px-6 rounded-lg hover:bg-purple-700 transition duration-300">
-              Send Feedback Request
-            </button>
+          {/* Chart Section */}
+          <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition mb-8">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">
+              Funding Progress vs Projected Growth
+            </h3>
+            <Line data={data} options={options} />
+          </div>
+
+          {/* Bottom Section */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Funding Status</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="bg-green-50 border border-green-100 rounded-lg p-4">
+                  <h4 className="text-sm font-medium text-green-600">Total Contributions</h4>
+                  <p className="text-xl font-bold text-green-800">Rs 50,000</p>
+                </div>
+                <div className="bg-orange-50 border border-orange-100 rounded-lg p-4">
+                  <h4 className="text-sm font-medium text-orange-600">Fund Disbursed</h4>
+                  <p className="text-xl font-bold text-orange-800">Rs 30,000</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Feedback Section</h3>
+              <p className="text-sm text-gray-600 mb-4">
+                Receive insights or recommendations from investors to improve your business strategy.
+              </p>
+              <textarea
+                placeholder="Write your feedback request here..."
+                rows={4}
+                className="w-full p-3 border border-gray-300 rounded-lg shadow-sm text-sm text-gray-700 focus:outline-none focus:ring focus:ring-purple-200"
+              ></textarea>
+              <button className="bg-purple-600 text-white py-2 px-6 mt-4 rounded-lg hover:bg-purple-700 transition duration-300">
+                Send Feedback Request
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 };
