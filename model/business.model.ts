@@ -1,30 +1,18 @@
 import mongoose from "mongoose";
 
-const businessSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+const BusinessSchema = new mongoose.Schema({
+  userId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'User' },
   businessName: { type: String, required: true },
-  description: { type: String, required: true },
-  fundingGoal: { type: Number, required: true },
-  currentFunding: { type: Number, default: 0 },
-  fundingStatus: {
-    type: String,
-    enum: ['Pending', 'Funded', 'Closed'],
-    default: 'Pending',
-  },
-  aiInsights: [
-    {
-      date: { type: Date, default: Date.now },
-      insight: { type: String, required: true },
-    }
-  ],
-  businessDocuments: [
-    {
-      type: String, // URL or file path for documents like business registration, PAN, etc.
-      required: true,
-    }
-  ],
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now },
+ 
+  businessCategory: { type: String, required: true },
+  productsOrServices: { type: [String], required: true },
+  registrationDate: { type: Date, default: Date.now },
+  
+  // Linking to GST Data Schema
+  gstData: { type: mongoose.Schema.Types.ObjectId, ref: 'GstData', default: null },
+  
+  panNumber: { type: String, default: null },
+  
 });
 
-module.exports = mongoose.model('Business', businessSchema);
+module.exports = mongoose.model('Business', BusinessSchema);

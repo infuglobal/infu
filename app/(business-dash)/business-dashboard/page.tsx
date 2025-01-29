@@ -1,7 +1,6 @@
 'use client';
 
-import { Line } from 'react-chartjs-2';
-import { ChartOptions } from 'chart.js';
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -12,71 +11,20 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import Link from 'next/link';
 
 // Register necessary chart elements
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const BusinessDashboard = () => {
-  const data = {
-    labels: ['January', 'February', 'March', 'April'],
-    datasets: [
-      {
-        label: 'Funding Progress',
-        data: [0, 50, 75, 100],
-        borderColor: '#6B46C1', // Purple accent
-        fill: false,
-        tension: 0.3,
-      },
-      {
-        label: 'Projected Growth',
-        data: [0, 40, 70, 90],
-        borderColor: '#F6AD55', // Orange accent
-        fill: false,
-        tension: 0.3,
-      },
-    ],
-  };
-
-  const options: ChartOptions<'line'> = {
-    responsive: true,
-    plugins: {
-      title: {
-        display: true,
-        text: 'Funding Progress vs Projected Growth',
-        font: { weight: 'bold', size: 18 },
-      },
-      tooltip: {
-        mode: 'index',
-        intersect: false,
-      },
-    },
-  };
+  
 
   return (
-    <div className="flex h-screen">
-      {/* Sidebar */}
-      <aside className="w-64 bg-gray-50 border-r border-gray-200">
-        <div className="p-6">
-          <h2 className="text-lg font-semibold text-gray-900">Infinity Fund</h2>
-        </div>
-        <nav className="px-4">
-          <ul className="space-y-4">
-            {['Dashboard', 'Funding Requests', 'AI Insights', 'Funding Status', 'Feedback'].map((item, index) => (
-              <li key={index}>
-                <a
-                  href="#"
-                  className="block text-sm font-medium text-gray-700 hover:text-purple-500"
-                >
-                  {item}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </aside>
+    <div className=" h-screen pb-10 overflow-y-auto">
+      
 
       {/* Main Content */}
-      <main className="flex-1 overflow-y-auto bg-white">
+      <main className="flex-1  bg-white ">
         <div className="max-w-5xl mx-auto px-6 py-10">
           {/* Top Section */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
@@ -85,9 +33,9 @@ const BusinessDashboard = () => {
               <p className="text-sm text-gray-600 mb-4">
                 Submit your business idea, funding amount, and PAN/registration details to get started.
               </p>
-              <button className="bg-purple-600 text-white py-2 px-6 rounded-lg hover:bg-purple-700 transition duration-300">
+              <Link href="/business-dashboard/register-business" className="bg-purple-600 text-white py-2 px-6 rounded-lg hover:bg-purple-700 transition duration-300">
                 Submit Request
-              </button>
+              </Link>
             </div>
 
             <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition">
@@ -103,13 +51,7 @@ const BusinessDashboard = () => {
             </div>
           </div>
 
-          {/* Chart Section */}
-          <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition mb-8">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">
-              Funding Progress vs Projected Growth
-            </h3>
-            <Line data={data} options={options} />
-          </div>
+       
 
           {/* Bottom Section */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">

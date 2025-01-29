@@ -57,7 +57,7 @@ export default function RootLayout({
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#6B46C1" />
-        <link rel="icon" href="/logo.jpg" type="image/avif" sizes="any" />
+        <link rel="icon" href="/infu-logo.png" type="image/avif" sizes="any" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link
