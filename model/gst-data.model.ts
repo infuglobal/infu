@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 
 const GstDataSchema = new mongoose.Schema({
-  gstNumber: { type: String, required: true, unique: true },
-  legalName: { type: String, required: true },
+  gstNumber: { type: String,  unique: true },
+  legalName: { type: String },
   centerJurisdiction: { type: String },
   stateJurisdiction: { type: String },
   dateOfRegistration: { type: Date },
@@ -20,10 +20,10 @@ const GstDataSchema = new mongoose.Schema({
   hsnInfo: { type: Object },
   filingFrequency: { type: [String] },
   reference: { type: String },
-  addressDetails: { type: Object },  // Added field for address details
-  einvoiceStatus: { type: Boolean },  // Added field for e-invoice status
-  panNumber: { type: String },        // Added field for PAN number
-  filingStatus: { type: [String] },   // Added field for filing status
+  addressDetails: { type: Object },
+  einvoiceStatus: { type: Boolean },
+  panNumber: { type: String },
+  filingStatus: { type: [String] },
 });
 
 export default mongoose.model('GstData', GstDataSchema);

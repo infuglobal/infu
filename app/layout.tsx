@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Infinity Funds - Invest, Grow, and Learn",
+  title: "Infinity Fund - Invest, Grow, and Learn",
   description: "Infinity Funds is a revolutionary platform connecting investors and businesses for mutual growth. Explore investment opportunities and grow your financial future.",
   keywords: [
     "investment platform",
@@ -77,7 +77,7 @@ export default function RootLayout({
 
      <ClerkProvider>
      {children}
-
+     
      </ClerkProvider>
     
 

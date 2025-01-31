@@ -1,32 +1,18 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { SignedIn,  UserButton } from "@clerk/nextjs";
+import { SignedIn, UserButton } from "@clerk/nextjs";
 
 const BusinessNavbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
-  // Define the links for desktop and mobile navigation
-  const links = [
-    { href: "#home", label: "Home" },
-    { href: "#my-projects", label: "My Projects" },
-    { href: "#funding", label: "Funding" },
-    { href: "#analytics", label: "Analytics" },
-   
-  ];
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
-  // Smooth scrolling function
-  const handleScroll = (
-    e: React.SyntheticEvent | MouseEvent,
-    targetId: string
-  ) => {
-    e.preventDefault();
-    const targetElement = document.getElementById(targetId);
-    if (targetElement) {
-      targetElement.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+  if (!isMounted) return null; // Prevent SSR hydration mismatch
 
   return (
     <nav className="w-full bg-white shadow-md z-50">
@@ -35,27 +21,23 @@ const BusinessNavbar = () => {
           {/* Logo */}
           <div className="flex items-center flex-shrink-0">
             <Image
-                         src="/infu-logo.png"
-                         alt="Infinity Fund Logo"
-                         width={60}
-                         height={60}
-                         className="mr-0 "
-                       />
-            <div
-              
-              className="text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text"
-            >
+              src="/infu-logo.png"
+              alt="Infinity Fund Logo"
+              width={60}
+              height={60}
+              className="mr-0"
+            />
+            <div className="text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text">
               Business Dashboard
-              </div>
+            </div>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            {links.map(({ href, label }) => (
+            {["Home", "My Projects", "Funding", "Analytics"].map((label, index) => (
               <a
-                key={href}
-                href={href}
-                onClick={(e) => handleScroll(e, href.substring(1))}
+                key={index}
+                href={`#${label.toLowerCase().replace(" ", "-")}`}
                 className="text-gray-700 hover:text-purple-600 font-medium transition duration-300 cursor-pointer"
               >
                 {label}
@@ -86,7 +68,7 @@ const BusinessNavbar = () => {
                   strokeLinejoin="round"
                   strokeWidth="2"
                   d="M4 6h16M4 12h16m-7 6h7"
-                ></path>
+                />
               </svg>
             </button>
           </div>
@@ -96,14 +78,11 @@ const BusinessNavbar = () => {
         {isMobileMenuOpen && (
           <div className="md:hidden">
             <div className="space-y-2 px-4 py-3 text-center">
-              {links.map(({ href, label }) => (
+              {["Home", "My Projects", "Funding", "Analytics"].map((label, index) => (
                 <a
-                  key={href}
-                  href={href}
-                  onClick={(e) => (
-                    handleScroll(e, href.substring(1)),
-                    setIsMobileMenuOpen(false)
-                  )}
+                  key={index}
+                  href={`#${label.toLowerCase().replace(" ", "-")}`}
+                  onClick={() => setIsMobileMenuOpen(false)}
                   className="block text-gray-700 hover:text-purple-600 font-medium transition duration-300 cursor-pointer"
                 >
                   {label}

@@ -5,9 +5,9 @@ const ComplianceVerificationSchema = new mongoose.Schema({
     documentType: { 
       type: String, 
       enum: ['GST', 'PAN', 'Other'], 
-      required: true 
+      
     },
-    documentFilePath: { type: String, required: true },
+    documentFilePath: { type: String},
     verificationStatus: { type: Boolean, default: false },
     lastVerifiedDate: { type: Date, default: Date.now }
   });

@@ -1,18 +1,14 @@
 import mongoose from "mongoose";
 
 const BusinessSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'User' },
-  businessName: { type: String, required: true },
- 
-  businessCategory: { type: String, required: true },
-  productsOrServices: { type: [String], required: true },
+  userId: { type: String},
+  businessName: { type: String},
+  businessCategory: { type: String},
+  description: { type: [String] },
   registrationDate: { type: Date, default: Date.now },
-  
-  // Linking to GST Data Schema
+  isGstVerified: { type: Boolean},
   gstData: { type: mongoose.Schema.Types.ObjectId, ref: 'GstData', default: null },
-  
-  panNumber: { type: String, default: null },
-  
+  panNumber: { type: String },
 });
 
-module.exports = mongoose.model('Business', BusinessSchema);
+export default mongoose.model('Business', BusinessSchema);
