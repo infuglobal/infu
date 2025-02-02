@@ -9,6 +9,8 @@ const BusinessSchema = new mongoose.Schema({
   isGstVerified: { type: Boolean},
   gstData: { type: mongoose.Schema.Types.ObjectId, ref: 'GstData', default: null },
   panNumber: { type: String },
+  investments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'InvestmentDetails' }],
 });
 
-export default mongoose.model('Business', BusinessSchema);
+const Business = mongoose.models.Business || mongoose.model("Business", BusinessSchema);
+export default Business ;

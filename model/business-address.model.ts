@@ -8,4 +8,6 @@ const LocationSchema = new mongoose.Schema({
   pinCode: { type: String, required: true },
 });
 
-export default mongoose.model('BusinessAddress', LocationSchema);
+const BusinessAddress = mongoose.models.BusinessLocation || mongoose.model("BusinessLocation", LocationSchema);
+
+export default BusinessAddress;

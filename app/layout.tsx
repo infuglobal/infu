@@ -5,6 +5,7 @@ import {
   ClerkProvider,
   
 } from '@clerk/nextjs' 
+import { Toaster } from "sonner";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -77,7 +78,7 @@ export default function RootLayout({
 
      <ClerkProvider>
      {children}
-     
+     <Toaster position="top-center" />
      </ClerkProvider>
     
 

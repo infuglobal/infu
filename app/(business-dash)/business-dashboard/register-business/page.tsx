@@ -2,6 +2,7 @@
 
 import { registerBusiness } from "@/lib/serveraction";
 import Link from "next/link";
+import  Router  from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "sonner";
 
@@ -128,6 +129,8 @@ const RegisterBusiness: React.FC = () => {
       }
     );
     setIsSubmitting(false);
+    
+    Router.redirect("/business-dashboard");
   };
   return (
     <div className="h-screen w-full pb-10 overflow-y-auto">

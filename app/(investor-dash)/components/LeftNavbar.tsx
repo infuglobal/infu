@@ -4,6 +4,7 @@ import Link from "next/link";
 const LeftNavbar = () => {
   const navigationItems = [
     { name: "Dashboard", route: "/investor-dashboard" },
+    { name: "Explore", route: "/investor-dashboard/explore" },
     { name: "Your Portfolio", route: "/investor-dashboard/portfolio" },
     { name: "AI Insights", route: "/investor-dashboard/ai-insights" },
     { name: "Investments", route: "/investor-dashboard/investments" },

@@ -97,4 +97,6 @@ const investorSchema = new mongoose.Schema({
   },
 });
 
-export default mongoose.models.Investor || mongoose.model("Investor", investorSchema);
+const Investor = mongoose.models.Investor || mongoose.model("Investor", investorSchema);
+
+export default Investor;

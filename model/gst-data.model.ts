@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const GstDataSchema = new mongoose.Schema({
-  gstNumber: { type: String,  unique: true },
+  gstNumber: { type: String, unique: true },
   legalName: { type: String },
   centerJurisdiction: { type: String },
   stateJurisdiction: { type: String },
@@ -26,4 +26,7 @@ const GstDataSchema = new mongoose.Schema({
   filingStatus: { type: [String] },
 });
 
-export default mongoose.model('GstData', GstDataSchema);
+// Check if the model already exists before defining it
+const GstData = mongoose.models.GstData || mongoose.model("GstData", GstDataSchema);
+
+export default GstData;

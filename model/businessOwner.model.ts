@@ -7,4 +7,5 @@ const OwnerContactSchema = new mongoose.Schema({
   emailAddress: { type: String, default: null },
 });
 
-export default mongoose.model('businessOwner', OwnerContactSchema);
+const BusinessOwner = mongoose.models.BusinessOwner || mongoose.model("BusinessOwner", OwnerContactSchema);
+export default BusinessOwner ;

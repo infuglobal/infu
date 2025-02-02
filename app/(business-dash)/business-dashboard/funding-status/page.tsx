@@ -27,7 +27,7 @@ const page = () => {
               href="/business-dashboard/funding-status/create-pool"
                 className=" px-4 py-2 bg-purple-600 text-white font-semibold rounded-md hover:bg-purple-700 transition"
               >
-                Register Your Business
+                Create Pool Now
               </Link>
             </div>
           
