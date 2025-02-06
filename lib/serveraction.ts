@@ -90,7 +90,7 @@ export const createInvestor = async (formData:InvestorData) => {
 
 import { revalidatePath } from "next/cache";
 
-import { currentUser } from "@clerk/nextjs/server";
+import {currentUser } from "@clerk/nextjs/server";
 import  { FilterQuery, Types } from "mongoose";
 import GstData from "@/model/gst-data.model";
 import Business from "@/model/business.model";
@@ -456,3 +456,49 @@ export async function fetchPoolDetails(poolId: string): Promise<PoolDetails | nu
     return null;
   }
 }
+
+
+export const fetchAllInvestors = async () => {
+  try {
+    await connectDB(); // Ensure the database is connected
+    const investors = await Investor.find({}).lean(); // Fetch all investors
+    return JSON.parse(JSON.stringify(investors)); // Convert to plain JavaScript objects
+  } catch (error) {
+    console.error("Error fetching investors:", error);
+    return [];
+  }
+};
+
+
+
+
+
+// Fetch all businesses with their related data
+export const getAllBusinesses = async () => {
+  try {
+    await connectDB();
+
+    // Fetch all businesses
+    const businesses = await Business.find({})
+      .populate('gstData')
+      .exec();
+
+    // Fetch additional details for each business
+    const businessesWithDetails = await Promise.all(
+      businesses.map(async (business) => {
+        const address = await BusinessAddress.findOne({ businessId: business._id }).exec();
+        const owner = await BusinessOwner.findOne({ businessId: business._id }).exec();
+        return {
+          ...business.toObject(),
+          address,
+          owner,
+        };
+      })
+    );
+
+    return businessesWithDetails;
+  } catch (error) {
+    console.error('Error fetching businesses:', error);
+    return [];
+  }
+};
