@@ -1,11 +1,24 @@
-'use client';
+"use client";
 
 import { useState, useEffect } from "react";
 import { fetchPoolDetails } from "@/lib/serveraction";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
-import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts'; // For charts
-import { FaShieldAlt, FaChartLine, FaHandshake, FaBuilding } from "react-icons/fa"; // Icons for trust elements
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts"; // For charts
+import {
+  FaShieldAlt,
+  FaChartLine,
+  FaHandshake,
+  FaBuilding,
+} from "react-icons/fa"; // Icons for trust elements
 
 // Define the response type
 interface PoolDetails {
@@ -32,7 +45,13 @@ interface PoolDetails {
 }
 
 // ExpandableText Component
-const ExpandableText = ({ text, maxLength }: { text: string; maxLength: number }) => {
+const ExpandableText = ({
+  text,
+  maxLength,
+}: {
+  text: string;
+  maxLength: number;
+}) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const toggleExpand = () => {
@@ -43,9 +62,7 @@ const ExpandableText = ({ text, maxLength }: { text: string; maxLength: number }
 
   return (
     <div>
-      <p className="text-lg text-gray-700 font-medium">
-        {displayText}
-      </p>
+      <p className="text-lg text-gray-700 font-medium">{displayText}</p>
       <button
         onClick={toggleExpand}
         className="text-purple-600 font-semibold mt-2 hover:underline focus:outline-none"
@@ -63,8 +80,18 @@ export default function PoolDetailsPage() {
   const [poolDetails, setPoolDetails] = useState<PoolDetails | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [selectedUnit, setSelectedUnit] = useState<number>(100); // Default unit
+  const [quantity, setQuantity] = useState<number>(1); // Default quantity
 
-  useEffect(() => {
+  // Available investment units
+  const units = [100, 1000, 5000, 10000, 100000];
+
+  // Increase quantity
+  const incrementQuantity = () => setQuantity((prev) => prev + 1);
+
+  // Decrease quantity (minimum 1)
+  const decrementQuantity = () =>
+    setQuantity((prev) => (prev > 1 ? prev - 1 : 1));  useEffect(() => {
     if (!id) return;
 
     const fetchDetails = async () => {
@@ -115,7 +142,8 @@ export default function PoolDetailsPage() {
             </span>
           </h1>
           <p className="text-lg">
-            A high-growth opportunity with proven returns and a secure investment model.
+            A high-growth opportunity with proven returns and a secure
+            investment model.
           </p>
         </div>
 
@@ -128,12 +156,16 @@ export default function PoolDetailsPage() {
             <div className="text-center">
               <FaChartLine className="text-4xl text-purple-600 mx-auto mb-2" />
               <h3 className="text-xl font-semibold">Proven Track Record</h3>
-              <p className="text-gray-600">Consistent returns over the past 5 years.</p>
+              <p className="text-gray-600">
+                Consistent returns over the past 5 years.
+              </p>
             </div>
             <div className="text-center">
               <FaShieldAlt className="text-4xl text-purple-600 mx-auto mb-2" />
               <h3 className="text-xl font-semibold">Secure Investments</h3>
-              <p className="text-gray-600">GST and PAN verified for transparency.</p>
+              <p className="text-gray-600">
+                GST and PAN verified for transparency.
+              </p>
             </div>
             <div className="text-center">
               <FaHandshake className="text-4xl text-purple-600 mx-auto mb-2" />
@@ -147,15 +179,13 @@ export default function PoolDetailsPage() {
         <div className="grid grid-cols-1 gap-8">
           {/* Left Column: Pool Details */}
           <div className="lg:col-span-2 bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
-            <h2 className="text-2xl font-bold text-black mb-6">Pool Details</h2>
-
             {/* Pool Thumbnail */}
             <div className="mb-8">
               <Image
                 src={poolDetails.thumbnail}
                 alt={poolDetails.businessId.businessName}
                 width={800}
-                height={450}
+                height={800}
                 className="rounded-lg object-cover w-full h-64"
                 priority
               />
@@ -164,12 +194,34 @@ export default function PoolDetailsPage() {
             {/* Pool Information */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
-                { label: "Amount Required", value: `₹${poolDetails.amount.toLocaleString()}`, icon: "💰" },
+                {
+                  label: "Amount Required",
+                  value: `₹${poolDetails.amount.toLocaleString()}`,
+                  icon: "💰",
+                },
                 { label: "Category", value: poolDetails.category, icon: "🏷️" },
-                { label: "Profitability", value: poolDetails.profitability, icon: "📈" },
-                { label: "Revenue Model", value: poolDetails.revenueModel, icon: "💼", isLongText: true },
-                { label: "Execution Plan", value: poolDetails.executionPlan, icon: "📅", isLongText: true },
-                { label: "Lock-In Period", value: poolDetails.lockInPeriod, icon: "🔒" },
+                {
+                  label: "Profitability",
+                  value: ` ${poolDetails.profitability} %`,
+                  icon: "📈",
+                },
+                {
+                  label: "Revenue Model",
+                  value: poolDetails.revenueModel,
+                  icon: "💼",
+                  isLongText: true,
+                },
+                {
+                  label: "Execution Plan",
+                  value: poolDetails.executionPlan,
+                  icon: "📅",
+                  isLongText: true,
+                },
+                {
+                  label: "Lock-In Period",
+                  value: poolDetails.lockInPeriod,
+                  icon: "🔒",
+                },
               ].map((item, index) => (
                 <div
                   key={index}
@@ -211,71 +263,155 @@ export default function PoolDetailsPage() {
                 </ResponsiveContainer>
               </div>
             )}
-
-            {/* Hashtags */}
-            <div className="mt-8">
-              <h3 className="text-xl font-semibold text-purple-700">
-                Hashtags
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {poolDetails.hashtags.map((tag, index) => (
-                  <span
-                    key={index}
-                    className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm"
-                  >
-                    #{tag}
-                  </span>
-                ))}
-              </div>
-            </div>
           </div>
 
-        {/* Right Column: Business Details */}
-<div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
-  <h2 className="text-2xl font-bold text-black mb-6 flex items-center gap-2">
-    <FaBuilding className="text-purple-600" /> Business Details
-  </h2>
-  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-    {[
-      { label: "Business Name", value: poolDetails.businessId.businessName, icon: "🏢" },
-      { label: "Business Category", value: poolDetails.businessId.businessCategory, icon: "📂" },
-      { label: "Description", value: poolDetails.businessId.description.join(", "), icon: "📝", isLongText: true },
-      { label: "Registration Date", value: new Date(poolDetails.businessId.registrationDate).toLocaleDateString(), icon: "📅" },
-      { label: "GST Verified", value: poolDetails.businessId.isGstVerified ? <span className="text-green-600">Yes</span> : <span className="text-red-600">No</span>, icon: "✅" },
-      { label: "PAN Number", value: poolDetails.businessId.panNumber, icon: "🔢" },
-    ].map((item, index) => (
-      <div
-        key={index}
-        className="bg-gray-50 border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow duration-300"
-      >
-        <div className="flex items-center gap-3 mb-3">
-          <span className="text-2xl">{item.icon}</span>
-          <h3 className="text-xl font-semibold text-purple-700">
-            {item.label}
-          </h3>
+          {/* Right Column: Business Details */}
+          <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
+            <h2 className="text-2xl font-bold text-black mb-6 flex items-center gap-2">
+              <FaBuilding className="text-purple-600" /> Business Details
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {[
+                {
+                  label: "Business Name",
+                  value: poolDetails.businessId.businessName,
+                  icon: "🏢",
+                },
+                {
+                  label: "Business Category",
+                  value: poolDetails.businessId.businessCategory,
+                  icon: "📂",
+                },
+                {
+                  label: "Description",
+                  value: poolDetails.businessId.description.join(", "),
+                  icon: "📝",
+                  isLongText: true,
+                },
+                {
+                  label: "Registration Date",
+                  value: new Date(
+                    poolDetails.businessId.registrationDate
+                  ).toLocaleDateString(),
+                  icon: "📅",
+                },
+              ].map((item, index) => (
+                <div
+                  key={index}
+                  className="bg-gray-50 border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow duration-300"
+                >
+                  <div className="flex items-center gap-3 mb-3">
+                    <span className="text-2xl">{item.icon}</span>
+                    <h3 className="text-xl font-semibold text-purple-700">
+                      {item.label}
+                    </h3>
+                  </div>
+
+                  {/* Conditionally render dropdown for long text */}
+                  {item.isLongText ? (
+                    <ExpandableText text={item.value} maxLength={100} />
+                  ) : (
+                    <p className="text-lg text-gray-700 font-medium">
+                      {item.value}
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
-        {/* Conditionally render dropdown for long text */}
-        {item.isLongText ? (
-          <ExpandableText text={item.value} maxLength={100} />
-        ) : (
-          <p className="text-lg text-gray-700 font-medium">
-            {item.value}
-          </p>
-        )}
-      </div>
-    ))}
-  </div>
-  </div>
-  </div>
-  
+        <div className="mt-12 bg-white border border-gray-200 rounded-xl p-8 shadow-md">
+      {/* Title */}
+      <h2 className="text-2xl font-bold text-black mb-6">Make an Investment</h2>
 
-        {/* Call-to-Action Section */}
-        <div className="mt-12 text-center">
-          <button className="bg-purple-600 text-white px-12 py-4 rounded-lg text-xl font-semibold hover:bg-purple-700 transition duration-300 shadow-lg transform hover:scale-105">
-            Invest Now
+      <div className="space-y-6">
+        {/* Unit Selection */}
+        <div>
+          <h3 className="text-xl font-semibold text-purple-700 mb-4">
+            Select Units to Invest
+          </h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {units.map((unit, index) => (
+              <button
+                key={index}
+                onClick={() => {
+                  setSelectedUnit(unit);
+                  setQuantity(1); // Reset quantity when unit changes
+                }}
+                className={`px-6 py-3 rounded-lg text-lg font-semibold transition duration-300 ${
+                  selectedUnit === unit
+                    ? "bg-purple-600 text-white scale-105 shadow-md"
+                    : "bg-purple-100 text-purple-700 hover:bg-purple-200"
+                }`}
+              >
+                {unit === 100000 ? "1L" : `₹${unit.toLocaleString()}`}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Quantity Selector */}
+        <div className="flex items-center gap-6 bg-gray-50 border border-gray-200 rounded-lg p-6">
+          <h3 className="text-xl font-semibold text-purple-700">
+            Select Quantity
+          </h3>
+          <div className="flex items-center space-x-4">
+            <button
+              onClick={decrementQuantity}
+              className="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg text-lg font-bold hover:bg-gray-400 transition duration-300"
+            >
+              −
+            </button>
+            <span className="text-xl font-bold text-black">{quantity}</span>
+            <button
+              onClick={incrementQuantity}
+              className="bg-purple-600 text-white px-4 py-2 rounded-lg text-lg font-bold hover:bg-purple-700 transition duration-300"
+            >
+              +
+            </button>
+          </div>
+        </div>
+
+        {/* Investment Summary */}
+        <div className="bg-gray-50 border border-gray-200 rounded-lg p-6">
+          <h3 className="text-xl font-semibold text-purple-700 mb-4">
+            Investment Summary
+          </h3>
+          <div className="space-y-3 text-lg text-gray-700">
+            <p>
+              Selected Unit:{" "}
+              <span className="font-bold">
+                {selectedUnit === 100000 ? "1L" : `₹${selectedUnit.toLocaleString()}`}
+              </span>
+            </p>
+            <p>
+              Number of Units: <span className="font-bold">{quantity}</span>
+            </p>
+            <p>
+              Total Cost:{" "}
+              <span className="font-bold text-purple-600">
+                ₹{(selectedUnit * quantity).toLocaleString()}
+              </span>
+            </p>
+          </div>
+        </div>
+
+        {/* Confirm Investment Button */}
+        <div className="text-center">
+          <button
+            disabled={!selectedUnit}
+            className={`px-12 py-4 rounded-lg text-xl font-semibold transition duration-300 shadow-lg ${
+              selectedUnit
+                ? "bg-purple-600 hover:bg-purple-700 transform hover:scale-105 text-white"
+                : "bg-gray-400 cursor-not-allowed text-white"
+            }`}
+          >
+            Confirm Investment
           </button>
         </div>
+      </div>
+    </div>
       </div>
     </div>
   );
