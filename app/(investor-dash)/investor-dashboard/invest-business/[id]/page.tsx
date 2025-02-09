@@ -19,6 +19,7 @@ import {
   FaHandshake,
   FaBuilding,
 } from "react-icons/fa"; // Icons for trust elements
+import Loading from "@/app/component/Loading";
 
 // Define the response type
 interface PoolDetails {
@@ -116,9 +117,7 @@ export default function PoolDetailsPage() {
 
   if (loading) {
     return (
-      <div className="h-screen flex items-center justify-center text-xl">
-        Loading...
-      </div>
+     <Loading />
     );
   }
 
