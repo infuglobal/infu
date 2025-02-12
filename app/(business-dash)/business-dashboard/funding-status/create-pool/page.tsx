@@ -20,6 +20,10 @@ const CreatePool: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const router = useRouter();
 
+
+
+
+
   const handleThumbnailChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {

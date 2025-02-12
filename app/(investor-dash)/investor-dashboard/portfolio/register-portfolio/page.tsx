@@ -29,8 +29,7 @@ const RegisterPortfolio: React.FC = () => {
     bankName: "",
   });
 
-
-
+  
   const handleKycStatusChange = (field: string, value: string) => {
     setKycStatus((prev) => ({ ...prev, [field]: value }));
   };
@@ -44,6 +43,7 @@ const RegisterPortfolio: React.FC = () => {
 
     // Prepare the form data
     const formData = {
+      
       fullName,
       dob,
       address,

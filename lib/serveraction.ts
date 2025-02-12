@@ -67,13 +67,19 @@ interface InvestorData {
   };
 }
 
-export const createInvestor = async (formData:InvestorData) => {
+export const createInvestor = async (formData: InvestorData) => {
   try {
     // Connect to the database
     await connectDB();
+    const user = await currentUser();
+    const userId = user?.id;
+
+    if (!userId) {
+      return { success: false, message: "User not authenticated." };
+    }
 
     // Create a new investor document
-    const newInvestor = new Investor(formData);
+    const newInvestor = new Investor({ userId, ...formData });
 
     // Save the investor to the database
     await newInvestor.save();
@@ -87,7 +93,6 @@ export const createInvestor = async (formData:InvestorData) => {
 
 
 
-
 import { revalidatePath } from "next/cache";
 
 import {currentUser } from "@clerk/nextjs/server";
@@ -98,6 +103,7 @@ import BusinessAddress from "@/model/business-address.model";
 import BusinessOwner from "@/model/businessOwner.model";
 import Pool from "@/model/pool.model";
 import Investor from "@/model/investor.model";
+import Feedback from "@/model/feedback.model";
 
 
 
@@ -458,6 +464,54 @@ export async function fetchPoolDetails(poolId: string): Promise<PoolDetails | nu
 }
 
 
+interface PoolDetail {
+  id: string;
+  userId: string;
+  amount: number;
+  category: string;
+  thumbnail: string;
+  profitability: string;
+  revenueModel: string;
+  executionPlan: string;
+  lockInPeriod: string;
+  hashtags: string[];
+  historicalPerformance?: { month: string; returns: number }[]; // Added for chart data
+}
+
+export async function fetchPoolDetailsByUserId(
+  userId: string
+): Promise<PoolDetail | null> {
+  try {
+    await connectDB();
+
+    // Find the pool associated with the user and populate business details
+    const pool = await Pool.findOne({ userId });
+
+    if (!pool) {
+      return null; // No pool found
+    }
+
+    // Return pool details
+    return {
+      id: pool._id.toString(),
+      userId: pool.userId,
+      amount: pool.amount,
+      category: pool.category,
+      thumbnail: pool.thumbnail,
+      profitability: pool.profitability,
+      revenueModel: pool.revenueModel,
+      executionPlan: pool.executionPlan,
+      lockInPeriod: pool.lockInPeriod,
+      hashtags: pool.hashtags,
+      historicalPerformance: pool.historicalPerformance,
+    };
+  } catch (error) {
+    console.error("Error fetching pool details:", error);
+    throw new Error("Failed to fetch pool details.");
+  }
+}
+
+
 export const fetchAllInvestors = async () => {
   try {
     await connectDB(); // Ensure the database is connected
@@ -502,3 +556,98 @@ export const getAllBusinesses = async () => {
     return [];
   }
 };
+
+
+export async function checkBusinessRegistration(userId: string) {
+  try {
+    await connectDB();
+
+    // Fetch the business details
+    const business = await Business.findOne({ userId });
+    if (!business) return null;
+
+    // Fetch the address and owner details in parallel
+    const [address, owner] = await Promise.all([
+      BusinessAddress.findOne({ businessId: business._id }),
+      BusinessOwner.findOne({ businessId: business._id }),
+    ]);
+
+    // Return the combined data
+    return {
+      business: JSON.parse(JSON.stringify(business)),
+      address: address ? JSON.parse(JSON.stringify(address)) : null,
+      owner: owner ? JSON.parse(JSON.stringify(owner)) : null,
+    };
+  } catch (error) {
+    console.error("Error checking business registration:", error);
+    return null;
+  }
+}
+
+
+
+interface FeedbackFormData {
+  userId: string;
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}
+
+interface SubmitFeedbackResponse {
+  success: boolean;
+  message: string;
+}
+
+export async function submitFeedback(
+  formData: FeedbackFormData
+): Promise<SubmitFeedbackResponse> {
+  try {
+    await connectDB();
+
+    const { userId, name, email, subject, message } = formData;
+
+    // Validate required fields
+    if (!userId || !name || !email || !subject || !message) {
+      throw new Error("All fields are required.");
+    }
+
+    // Save feedback to the database
+    const newFeedback = new Feedback({
+      userId,
+      name,
+      email,
+      subject,
+      message,
+    });
+
+    await newFeedback.save();
+
+    // Revalidate the feedback page (optional)
+    revalidatePath("/feedback");
+
+    return { success: true, message: "Feedback submitted successfully!" };
+  } catch (error) {
+    console.error("Error submitting feedback:", error);
+    return { success: false, message: `Failed to submit feedback: ${error}` };
+  }
+}
+
+
+
+
+export async function checkInvestorRegistration(userId: string) {
+  try {
+    await connectDB();
+
+    // Fetch investor data based on userId
+    const investor = await Investor.findOne({ userId });
+    if (!investor) return null;
+
+    // Return the investor data as a plain object
+    return JSON.parse(JSON.stringify(investor));
+  } catch (error) {
+    console.error("Error fetching investor data:", error);
+    return null;
+  }
+}

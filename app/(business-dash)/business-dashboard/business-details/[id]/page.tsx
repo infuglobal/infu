@@ -74,25 +74,13 @@ const ExpandableText = ({
 };
 
 export default function PoolDetailsPage() {
-
   const params = useParams();
   const id = params.id as string;
   const router = useRouter();
   const [poolDetails, setPoolDetails] = useState<PoolDetails | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [selectedUnit, setSelectedUnit] = useState<number>(100); // Default unit
-  const [quantity, setQuantity] = useState<number>(1); // Default quantity
-
-  // Available investment units
-  const units = [100, 1000, 5000, 10000, 100000];
-
-  // Increase quantity
-  const incrementQuantity = () => setQuantity((prev) => prev + 1);
-
-  // Decrease quantity (minimum 1)
-  const decrementQuantity = () =>
-    setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
+  
   useEffect(() => {
     if (!id) return;
 
@@ -318,105 +306,8 @@ export default function PoolDetailsPage() {
             </div>
           </div>
         </div>
-        
-        <div className="mt-12 bg-white border border-gray-200 rounded-xl p-8 shadow-md">
-          {/* Title */}
-          <h2 className="text-2xl font-bold text-black mb-6">
-            Make an Investment
-          </h2>
 
-    <div className="space-y-6">
-            {/* Unit Selection */}
-            <div>
-              <h3 className="text-xl font-semibold text-purple-700 mb-4">
-                Select Units to Invest
-              </h3>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {units.map((unit, index) => (
-                  <button
-                    key={index}
-                    onClick={() => {
-                      setSelectedUnit(unit);
-                      setQuantity(1); // Reset quantity when unit changes
-                    }}
-                    className={`px-6 py-3 rounded-lg text-lg font-semibold transition duration-300 ${
-                      selectedUnit === unit
-                        ? "bg-purple-600 text-white scale-105 shadow-md"
-                        : "bg-purple-100 text-purple-700 hover:bg-purple-200"
-                    }`}
-                  >
-                    {unit === 100000 ? "1L" : `₹${unit.toLocaleString()}`}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Quantity Selector */}
-            <div className="flex items-center gap-6 bg-gray-50 border border-gray-200 rounded-lg p-6">
-              <h3 className="text-xl font-semibold text-purple-700">
-                Select Quantity
-              </h3>
-              <div className="flex items-center space-x-4">
-                <button
-                  onClick={decrementQuantity}
-                  className="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg text-lg font-bold hover:bg-gray-400 transition duration-300"
-                >
-                  −
-                </button>
-                <span className="text-xl font-bold text-black">{quantity}</span>
-                <button
-                  onClick={incrementQuantity}
-                  className="bg-purple-600 text-white px-4 py-2 rounded-lg text-lg font-bold hover:bg-purple-700 transition duration-300"
-                >
-                  +
-                </button>
-              </div>
-            </div>
-
-            {/* Investment Summary */}
-            <div className="bg-gray-50 border border-gray-200 rounded-lg p-6">
-              <h3 className="text-xl font-semibold text-purple-700 mb-4">
-                Investment Summary
-              </h3>
-              <div className="space-y-3 text-lg text-gray-700">
-                <p>
-                  Selected Unit:{" "}
-                  <span className="font-bold">
-                    {selectedUnit === 100000
-                      ? "1L"
-                      : `₹${selectedUnit.toLocaleString()}`}
-                  </span>
-                </p>
-                <p>
-                  Number of Units: <span className="font-bold">{quantity}</span>
-                </p>
-                <p>
-                  Total Cost:{" "}
-                  <span className="font-bold text-purple-600">
-                    ₹{(selectedUnit * quantity).toLocaleString()}
-                  </span>
-                </p>
-              </div>
-            </div>
-
-            {/* Confirm Investment Button */}
-            <div className="text-center">
-              <button
-                disabled={!selectedUnit}
-                className={`px-12 py-4 rounded-lg text-xl font-semibold transition duration-300 shadow-lg ${
-                  selectedUnit
-                    ? "bg-purple-600 hover:bg-purple-700 transform hover:scale-105 text-white"
-                    : "bg-gray-400 cursor-not-allowed text-white"
-                }`}
-              >
-                Confirm Investment
-              </button>
-            </div>
-          </div>
-
-          
-        </div>
- 
+      
       </div>
     </div>
   );
