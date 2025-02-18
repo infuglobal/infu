@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const Hero = () => {
   return (
@@ -27,15 +28,15 @@ const Hero = () => {
 
         {/* Call-to-Action Buttons */}
         <div className="flex flex-col sm:flex-row justify-center gap-4">
-          <button className="bg-white text-purple-700 font-semibold px-6 py-3 rounded-full shadow-lg hover:bg-gray-100 hover:shadow-xl transition-transform duration-300 transform hover:scale-105">
+          <Link href='/sign-up' className="bg-white text-purple-700 font-semibold px-6 py-3 rounded-full shadow-lg hover:bg-gray-100 hover:shadow-xl transition-transform duration-300 transform hover:scale-105">
             Become an Investor
-          </button>
-          <button className="bg-white text-pink-600 font-semibold px-6 py-3 rounded-full shadow-lg hover:bg-gray-100 hover:shadow-xl transition-transform duration-300 transform hover:scale-105">
+          </Link>
+          <Link href='/sign-in' className="bg-white text-pink-600 font-semibold px-6 py-3 rounded-full shadow-lg hover:bg-gray-100 hover:shadow-xl transition-transform duration-300 transform hover:scale-105">
             Grow Your Business
-          </button>
-          <button className="bg-white text-purple-700 font-semibold px-6 py-3 rounded-full shadow-lg hover:bg-gray-100 hover:shadow-xl transition-transform duration-300 transform hover:scale-105">
+          </Link>
+          <Link href='learning-resources' className="bg-white text-purple-700 font-semibold px-6 py-3 rounded-full shadow-lg hover:bg-gray-100 hover:shadow-xl transition-transform duration-300 transform hover:scale-105">
             Learn About Investments
-          </button>
+          </Link>
         </div>
       </div>
     </section>

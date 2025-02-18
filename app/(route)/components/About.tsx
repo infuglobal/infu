@@ -1,26 +1,39 @@
+'use client'
+
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 const About = () => {
   return (
-    <section id="about" className="bg-gradient-to-b from-purple-50 to-white py-16 my-10">
-      <div className="max-w-7xl m-8 px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-10">
-        {/* Left Section: Image */}
-        <div className="relative w-full md:w-1/2 h-80 md:h-[400px]">
+    <section id="about" className="relative bg-gradient-to-br from-purple-50 to-white py-20 my-20 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 flex flex-col md:flex-row items-center gap-16">
+        {/* Left Section: Image with Animation */}
+        <motion.div 
+          className="relative w-full md:w-1/2 h-80 md:h-[450px] rounded-full overflow-hidden shadow-lg"
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+        >
           <Image
-            src="/i3.jpg" // Replace with your image path
-            alt="About Infinity Funds"
+            src="/i3.jpg" 
+            alt="About Infinity Fund"
             layout="fill"
             objectFit="cover"
             objectPosition="center"
-            className="rounded-lg "
+            className="rounded-full scale-105 hover:scale-110 transition-transform duration-500 ease-in-out"
           />
-        </div>
+        </motion.div>
 
-        {/* Right Section: Content */}
-        <div className="w-full md:w-1/2 text-center md:text-left">
-          <h2 className="text-4xl font-extrabold text-purple-800 mb-6">
+        {/* Right Section: Content with Animation */}
+        <motion.div 
+          className="w-full md:w-1/2 text-center md:text-left"
+          initial={{ opacity: 0, x: 50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <h2 className="text-5xl font-extrabold text-purple-800 mb-6 drop-shadow-lg">
             About Infinity Fund
           </h2>
           <p className="text-gray-700 text-lg mb-6 leading-relaxed">
@@ -34,10 +47,15 @@ const About = () => {
             to new heights, or deepen your knowledge, Infinity Fund is the 
             trusted platform to achieve your goals.
           </p>
-          <Link href="/about-infu" className="bg-purple-600 text-white px-6 py-3 rounded-full font-medium shadow-lg hover:bg-purple-700 transition duration-300">
-            Learn More
-          </Link>
-        </div>
+          <motion.div
+            whileHover={{ scale: 1.1 }}
+            transition={{ duration: 0.3 }}
+          >
+            <Link href="/about-infu" className="inline-block bg-purple-600 text-white px-6 py-3 rounded-full font-medium shadow-lg hover:bg-purple-700 transition duration-300">
+              Learn More
+            </Link>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

@@ -21,7 +21,7 @@ const Navbar = () => {
   return (
     <nav className="w-full bg-white shadow-md fixed top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-12">
           {/* Logo */}
           <div className="flex items-center flex-shrink-0">
             <Image
@@ -91,7 +91,7 @@ const Navbar = () => {
               {/* If the user is not signed in */}
               <Link
                 href="/sign-up"
-                className="px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-500 text-white font-semibold rounded-full shadow-md hover:shadow-lg hover:from-purple-700 hover:to-pink-600 transition duration-300"
+                className="px-6 py-1 bg-gradient-to-r from-purple-600 to-pink-500 text-white font-semibold rounded-full shadow-md hover:shadow-lg hover:from-purple-700 hover:to-pink-600 transition duration-300"
               >
                 Login / Sign-Up
               </Link>
