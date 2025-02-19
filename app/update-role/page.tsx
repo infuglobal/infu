@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 const UpdateRole = () => {
   const { user, isLoaded } = useUser();
   const router = useRouter();
+
   useEffect(() => {
     if (!isLoaded || !user) return;
 
@@ -23,7 +24,13 @@ const UpdateRole = () => {
 
         if (response.ok) {
           localStorage.removeItem("selectedRole");
-          router.push("/"); // ✅ Redirect after successful update
+
+          // ✅ Redirect to the correct dashboard based on the role
+          if (role === "Investor") {
+            router.push("/investor-dashboard");
+          } else {
+            router.push("/business-dashboard");
+          }
         } else {
           console.error("Failed to update role");
         }
