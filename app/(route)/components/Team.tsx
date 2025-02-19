@@ -12,11 +12,14 @@ const Team = () => {
       image: "/founder.jpg",
       message:
         "Whether you are an investor looking for real returns, a business in need of strategic funding, or an individual eager to learn smart investing, INFU is your gateway to limitless possibilities.",
-      socials: {
-        linkedin: "https://linkedin.com",
-        twitter: "https://twitter.com",
-        github: "https://github.com",
-      },
+    },
+    {
+      id: 2,
+      name: "Christina Megha Jamuda",
+      role: "Managing director, INFU",
+      image: "/christina.jpg",
+      message:
+        "At Infu, we believe that wealth-building should be easy, secure, and accessible to everyone. Whether you’re starting with ₹1 or $1, or investing big, our AI-powered platform ensures maximum returns with complete transparency. No barriers, no limits, just smart investing!",
     },
   ];
 
@@ -77,7 +80,6 @@ const Team = () => {
               <p className="text-gray-700 leading-relaxed text-lg">
                 {member.message}
               </p>
-
             </div>
           </motion.div>
         ))}
