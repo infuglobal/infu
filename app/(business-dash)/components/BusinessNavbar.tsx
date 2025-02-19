@@ -89,7 +89,15 @@ const BusinessNavbar = () => {
                 </a>
               ))}
               <SignedIn>
-                <UserButton />
+                <UserButton
+                appearance={{
+            
+                  layout: {
+                    unsafe_disableDevelopmentModeWarnings: true,
+                  
+                  }
+                }}
+                />
               </SignedIn>
             </div>
           </div>

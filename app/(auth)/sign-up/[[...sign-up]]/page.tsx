@@ -1,15 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { SignUp } from "@clerk/nextjs";
 import Link from "next/link";
 
 const SignUpPage = () => {
   const [role, setRole] = useState<"Investor" | "Business" | null>(null);
 
+  // Load the role from localStorage if the user refreshes
+  useEffect(() => {
+    const savedRole = localStorage.getItem("selectedRole") as "Investor" | "Business" | null;
+    if (savedRole) {
+      setRole(savedRole);
+    }
+  }, []);
+
   const handleRoleSelection = (selectedRole: "Investor" | "Business") => {
     setRole(selectedRole);
-    localStorage.setItem("selectedRole", selectedRole); // ✅ Save role temporarily
+    localStorage.setItem("selectedRole", selectedRole);
   };
 
   return (
@@ -53,6 +61,9 @@ const SignUpPage = () => {
       ) : (
         <div className="w-full h-screen flex justify-center">
           <SignUp
+            afterSignUpUrl={
+              role === "Investor" ? "/investor-dashboard" : "/business-dashboard"
+            } // ✅ Redirect to the correct dashboard
             appearance={{
               elements: {
                 card: "w-full h-full py-12 bg-white border-none shadow-none flex flex-col",
@@ -67,7 +78,6 @@ const SignUpPage = () => {
                 unsafe_disableDevelopmentModeWarnings: true,
               },
             }}
-            afterSignUpUrl="/update-role" // ✅ Redirect to update role
           />
         </div>
       )}

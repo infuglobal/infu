@@ -62,7 +62,15 @@ const InvestorNavbar = () => {
             ))}
 
             <SignedIn>
-                <UserButton />
+                <UserButton 
+                 appearance={{
+            
+                  layout: {
+                    unsafe_disableDevelopmentModeWarnings: true,
+                  
+                  }
+                }}
+                />
             </SignedIn>
           </div>
 
@@ -109,7 +117,15 @@ const InvestorNavbar = () => {
                 </a>
               ))}
               <SignedIn>
-                <UserButton />
+                <UserButton 
+                appearance={{
+            
+                  layout: {
+                    unsafe_disableDevelopmentModeWarnings: true,
+                  
+                  }
+                }}
+                />
               </SignedIn>
             </div>
           </div>

@@ -92,7 +92,6 @@ const Navbar = () => {
               {/* If the user is not signed in */}
               <Link
                 href="/sign-up"
-                target="_blank"
                 className="px-6 py-1 bg-gradient-to-r from-purple-600 to-pink-500 text-white font-semibold rounded-full shadow-md hover:shadow-lg hover:from-purple-700 hover:to-pink-600 transition duration-300"
               >
                 Login / Sign-Up
