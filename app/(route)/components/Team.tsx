@@ -2,7 +2,6 @@
 import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { FaLinkedin, FaTwitter, FaGithub } from "react-icons/fa";
 
 const Team = () => {
   const teamMembers = [
