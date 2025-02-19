@@ -19,7 +19,6 @@ const Team = () => {
         github: "https://github.com",
       },
     },
-    
   ];
 
   return (
@@ -59,14 +58,13 @@ const Team = () => {
           >
             {/* Profile Image */}
             <div className="relative w-60 h-60 md:w-80 md:h-80 flex-shrink-0 rounded-full overflow-hidden border-4 border-purple-600 shadow-xl hover:scale-105 transition-transform duration-500">
-            <Image
-  src={member.image}
-  alt={member.name}
-  fill
-  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-  className="object-cover"
-/>
-
+              <Image
+                src={member.image}
+                alt={member.name}
+                fill
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                className="object-cover"
+              />
             </div>
 
             {/* Content */}
@@ -81,29 +79,6 @@ const Team = () => {
                 {member.message}
               </p>
 
-              {/* Social Media Icons */}
-              <div className="flex justify-center md:justify-start space-x-6 mt-6">
-                {Object.entries(member.socials).map(([platform, url]) => {
-                  const Icon =
-                    platform === "linkedin"
-                      ? FaLinkedin
-                      : platform === "twitter"
-                      ? FaTwitter
-                      : FaGithub;
-                  return (
-                    <motion.a
-                      key={platform}
-                      href={url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      whileHover={{ scale: 1.3, rotate: 10 }}
-                      className="text-purple-600 hover:text-purple-800 transition-all duration-300"
-                    >
-                      <Icon size={32} />
-                    </motion.a>
-                  );
-                })}
-              </div>
             </div>
           </motion.div>
         ))}
