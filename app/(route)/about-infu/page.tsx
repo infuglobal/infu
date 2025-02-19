@@ -120,9 +120,7 @@ const AboutPage = () => {
         <p className="text-lg sm:text-xl text-gray-600 mb-8">
           Infu helps you become the investor you&apos;ve always wanted to be. By letting AI take care of the business, your money will grow steadily, unlocking new opportunities for long-term wealth creation.
         </p>
-        <button className="px-8 py-4 bg-purple-600 text-white rounded-full font-medium hover:bg-purple-700 transition-colors transform hover:scale-105">
-          Start Growing Your Wealth Today
-        </button>
+    
       </div>
     </div>
   );

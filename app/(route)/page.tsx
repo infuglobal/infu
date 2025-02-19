@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
+import Team from "./components/Team";
 
 const About = dynamic(() => import("./components/About"));
 const Features = dynamic(() => import("./components/Features"));
@@ -20,6 +21,7 @@ const Home = () => {
         {/* Dynamically imported components */}
         <Howitworks />
         <About />
+        <Team />
         <Features />
         <Testimonials />
         <Footer />
