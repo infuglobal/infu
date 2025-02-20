@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { FaTwitter, FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
+import { FaTwitter, FaFacebook, FaInstagram, FaLinkedin, FaWhatsapp } from "react-icons/fa";
 
 const Footer = () => {
   return (
@@ -23,25 +23,21 @@ const Footer = () => {
             <h3 className="font-semibold text-xl mb-4 text-purple-700">Quick Links</h3>
             <ul className="space-y-3 text-gray-600">
               <li>
-                <Link href="/" className="hover:text-purple-900 transition duration-300">
+                <Link href="#home" className="hover:text-purple-900 transition duration-300">
                   Home
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-purple-900 transition duration-300">
+                <Link href="#about" className="hover:text-purple-900 transition duration-300">
                   About
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-purple-900 transition duration-300">
-                  Features
+                <Link href="#how-it-works" className="hover:text-purple-900 transition duration-300">
+                  How it works
                 </Link>
               </li>
-              <li>
-                <Link href="#" className="hover:text-purple-900 transition duration-300">
-                  Contact
-                </Link>
-              </li>
+             
               <li>
                 <Link href="/faqs" className="hover:text-purple-900 transition duration-300">
                   FAQs
@@ -52,37 +48,50 @@ const Footer = () => {
 
           {/* Social Media */}
           <div className="flex flex-col items-center md:items-start">
-            <h3 className="font-semibold text-xl mb-4 text-purple-700">Follow Us</h3>
-            <p className="text-gray-600 mb-4">
-              Stay connected through our social media platforms for updates and insights.
-            </p>
-            <div className="flex justify-center md:justify-start space-x-6">
-              <Link target="blank" href="https://x.com/Infinity_Fund24?t=G2RlwYRA7Nu70xgqZCrozw&s=08" passHref>
-                <FaTwitter
-                  size={28}
-                  className="text-gray-600 hover:text-purple-800 transition duration-300 transform hover:scale-110"
-                />
-              </Link>
-              <Link target="blank" href="https://www.facebook.com/profile.php?id=61572575597745" passHref>
-                <FaFacebook
-                  size={28}
-                  className="text-gray-600 hover:text-purple-800 transition duration-300 transform hover:scale-110"
-                />
-              </Link>
-              <Link target="blank" href="https://www.instagram.com/in.fu.co?utm_source=qr&igsh=bTd2YmQzeTdpdzlr" passHref>
-                <FaInstagram
-                  size={28}
-                  className="text-gray-600 hover:text-purple-800 transition duration-300 transform hover:scale-110"
-                />
-              </Link>
-              <Link target="blank" href="https://www.linkedin.com/company/106347988/admin/dashboard/" passHref>
-                <FaLinkedin
-                  size={28}
-                  className="text-gray-600 hover:text-purple-800 transition duration-300 transform hover:scale-110"
-                />
-              </Link>
-            </div>
-          </div>
+  <h3 className="font-semibold text-xl mb-4 text-purple-700">Follow Us</h3>
+  <p className="text-gray-600 mb-4">
+    Stay connected through our social media platforms for updates and insights.
+  </p>
+  <div className="flex justify-center md:justify-start space-x-6">
+    <Link target="blank" href="https://x.com/Infinity_Fund24?t=G2RlwYRA7Nu70xgqZCrozw&s=08" passHref>
+      <FaTwitter
+        size={28}
+        className="text-gray-600 hover:text-purple-800 transition duration-300 transform hover:scale-110"
+      />
+    </Link>
+    <Link target="blank" href="https://www.facebook.com/profile.php?id=61572575597745" passHref>
+      <FaFacebook
+        size={28}
+        className="text-gray-600 hover:text-purple-800 transition duration-300 transform hover:scale-110"
+      />
+    </Link>
+    <Link target="blank" href="https://www.instagram.com/in.fu.co?utm_source=qr&igsh=bTd2YmQzeTdpdzlr" passHref>
+      <FaInstagram
+        size={28}
+        className="text-gray-600 hover:text-purple-800 transition duration-300 transform hover:scale-110"
+      />
+    </Link>
+    <Link target="blank" href="https://www.linkedin.com/company/106347988/admin/dashboard/" passHref>
+      <FaLinkedin
+        size={28}
+        className="text-gray-600 hover:text-purple-800 transition duration-300 transform hover:scale-110"
+      />
+    </Link>
+    <Link target="blank" href="https://wa.me/919155436850" passHref>
+      <FaWhatsapp
+        size={28}
+        className="text-gray-600 hover:text-purple-800 transition duration-300 transform hover:scale-110"
+      />
+    </Link>
+  </div>
+  <p className="text-gray-600 mt-4">
+    Email us at:{" "}
+    <div  className="text-purple-700 hover:underline">
+      team@globalinfinityfund.com
+    </div>
+  </p>
+</div>
+
         </div>
 
         {/* Footer Bottom */}

@@ -24,9 +24,8 @@ const LearnerNavbar = () => {
   }
 
   const links = [
-    { href: '#overview', label: 'Overview' },
-    { href: '#modules', label: 'Modules' },
-    { href: '#resources', label: 'Resources' },
+    { href: '/sign-up', label: 'Start Investing' },
+    { href: '/sign-up', label: 'Grow your Business' },
   ]
 
   const handleScroll = (e: React.SyntheticEvent | MouseEvent, targetId: string) => {
@@ -82,14 +81,14 @@ const LearnerNavbar = () => {
             {/* Desktop Navigation */}
             <div className="hidden sm:flex items-center space-x-8">
               {links.map(({ href, label }) => (
-                <a
-                  key={href}
+                <Link
+                  key={label}
                   href={href}
                   onClick={(e) => handleScroll(e, href.substring(1))}
                   className="text-gray-700 hover:text-purple-600 font-medium transition duration-300 cursor-pointer"
                 >
                   {label}
-                </a>
+                </Link>
               ))}
 
               <Link
@@ -127,11 +126,11 @@ const LearnerNavbar = () => {
 
           {/* Mobile Navigation */}
           {isMobileMenuOpen && (
-            <div className="sm:hidden">
+            <div className="sm:hidden flex flex-col items-center justify-center">
               <div className="space-y-2 px-4 py-3 text-center">
                 {links.map(({ href, label }) => (
-                  <a
-                    key={href}
+                  <Link
+                    key={label}
                     href={href}
                     onClick={(e) => {
                       handleScroll(e, href.substring(1))
@@ -140,15 +139,19 @@ const LearnerNavbar = () => {
                     className="block text-gray-700 hover:text-purple-600 font-medium transition duration-300 cursor-pointer"
                   >
                     {label}
-                  </a>
+                  </Link>
                 ))}
-                <Link
+                
+              </div>
+              <div>
+              <Link
                   href="/"
-                  className="px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-500 text-white font-semibold rounded-full shadow-md hover:shadow-lg hover:from-purple-700 hover:to-pink-600 transition duration-300"
+                  className=" px-6 py-1 bg-gradient-to-r from-purple-600 to-pink-500 text-white font-semibold rounded-full shadow-md hover:shadow-lg hover:from-purple-700 hover:to-pink-600 transition duration-300"
                 >
                   Home
                 </Link>
-              </div>
+                </div>
+             
             </div>
           )}
         </div>

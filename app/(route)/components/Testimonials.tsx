@@ -13,7 +13,7 @@ const Testimonials = () => {
       name: "Sarah T.",
       role: "CEO of Spark Influencer Agency",
       feedback:
-        "We reduced our refund disputes by 80% after integrating Infu’s Tazapay escrow system—our clients love the transparency.",
+        "We reduced our refund disputes by 80% after integrating Infu’s escrow system—our clients love the transparency.",
     },
     {
       name: "Raj K.",
