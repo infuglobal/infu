@@ -21,6 +21,14 @@ const Team = () => {
       message:
         "At Infu, we believe that wealth-building should be easy, secure, and accessible to everyone. Whether you’re starting with ₹1 or $1, or investing big, our AI-powered platform ensures maximum returns with complete transparency. No barriers, no limits, just smart investing!",
     },
+    {
+      id: 3,
+      name: "Kaushik Das",
+      role: "HR Head, INFU",
+      image: "/kaushik-das.jpg",
+      message:
+"At Infinity Fund, we’re all about connecting the right people—innovators with big ideas, investors looking for the next big opportunity, and learners eager to grow their financial knowledge. Our platform makes it easy to explore investment opportunities, secure funding, and gain insights into smart financial growth. Whether you want to expand your portfolio, take your business to the next level, or simply sharpen your financial skills, Infinity Fund is here to help you make it happen." 
+   },
   ];
 
   return (
