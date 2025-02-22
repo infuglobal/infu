@@ -1,15 +1,23 @@
 "use client";
 
-import {useState } from "react";
+import { useState, useEffect } from "react";
 import { SignUp } from "@clerk/nextjs";
 import Link from "next/link";
 
 const SignUpPage = () => {
   const [role, setRole] = useState<"Investor" | "Business" | null>(null);
 
+  useEffect(() => {
+    // Retrieve the selected role from localStorage when the component mounts
+    const savedRole = localStorage.getItem("infurole") as "Investor" | "Business" | null;
+    if (savedRole) {
+      setRole(savedRole);
+    }
+  }, []);
+
   const handleRoleSelection = (selectedRole: "Investor" | "Business") => {
     setRole(selectedRole);
-    localStorage.setItem("selectedRole", selectedRole); // ✅ Save role temporarily
+    localStorage.setItem("infurole", selectedRole); // Save role to localStorage with key "infurole"
   };
 
   return (
@@ -53,7 +61,6 @@ const SignUpPage = () => {
       ) : (
         <div className="w-full h-screen flex justify-center">
           <SignUp
-         
             appearance={{
               elements: {
                 card: "w-full h-full py-12 bg-white border-none shadow-none flex flex-col",
@@ -68,7 +75,7 @@ const SignUpPage = () => {
                 unsafe_disableDevelopmentModeWarnings: true,
               },
             }}
-            afterSignUpUrl="/update-role" // ✅ Redirect to update role
+            afterSignUpUrl="/update-role" // Redirect to update role
           />
         </div>
       )}

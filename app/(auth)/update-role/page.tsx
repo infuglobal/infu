@@ -10,22 +10,31 @@ const UpdateRole = () => {
 
   useEffect(() => {
     if (!isLoaded || !user) return;
-
+  
     const updateRole = async () => {
-      const role = localStorage.getItem("selectedRole");
+      const existingRole = user.publicMetadata.role;
+      if (existingRole) {
+        if (existingRole === "Investor") {
+          router.push("/investor-dashboard");
+        } else {
+          router.push("/business-dashboard");
+        }
+        return;
+      }
+  
+      const role = localStorage.getItem("infurole") as "Investor" | "Business" | null;
       if (!role) return;
-
+  
       try {
         const response = await fetch("/api/update-role", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ role }),
         });
-
+  
         if (response.ok) {
-          localStorage.removeItem("selectedRole");
-
-          // ✅ Redirect to the correct dashboard based on the role
+          localStorage.removeItem("infurole"); // Clear the role from localStorage
+  
           if (role === "Investor") {
             router.push("/investor-dashboard");
           } else {
@@ -38,7 +47,7 @@ const UpdateRole = () => {
         console.error("Error updating role:", error);
       }
     };
-
+  
     updateRole();
   }, [isLoaded, user, router]);
 
