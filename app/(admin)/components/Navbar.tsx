@@ -19,7 +19,7 @@ const AdminNavbar = () => {
 
   const adminLinks = [
     { href: '/admin', label: 'Dashboard' },
-    { href: '/admin/users', label: 'Users' },
+    { href: '/admin/feedbacks', label: 'Feedbacks' },
     { href: '/admin/businesses', label: 'Businesses' },
     { href: '/admin/investors', label: 'Investors' },
   ];
@@ -28,7 +28,7 @@ const AdminNavbar = () => {
     <div>
       <nav className="w-full bg-white shadow-md z-30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-between h-12">
             {/* Left Mobile Menu Button */}
             <div className="flex items-center">
               <button

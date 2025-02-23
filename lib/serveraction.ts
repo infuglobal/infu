@@ -1,9 +1,7 @@
 "use server";
-
 import connectDB from "@/lib/db";
 
 import { v2 as cloudinary } from "cloudinary";
-
 // Configure Cloudinary
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -19,17 +17,34 @@ const uploadImageToCloudinary = async (file: File): Promise<string> => {
     const base64File = buffer.toString("base64");
 
     // Upload to Cloudinary with transformations
-    const result = await cloudinary.uploader.upload(`data:${file.type};base64,${base64File}`, {
-      folder: "thumbnails", // Organize thumbnails in a folder
-      transformation: [
-        { width: 1280, height: 720, crop: "fill", gravity: "auto" }, // Incoming transformation
-        { quality: "auto:good", format: "webp" }, // Optimize format and quality
-      ],
-      eager: [
-        { width: 640, height: 360, crop: "fill", gravity: "auto", quality: "auto:good", format: "webp" }, // Eager transformation 1
-        { width: 320, height: 180, crop: "fill", gravity: "auto", quality: "auto:good", format: "webp" }, // Eager transformation 2
-      ],
-    });
+    const result = await cloudinary.uploader.upload(
+      `data:${file.type};base64,${base64File}`,
+      {
+        folder: "thumbnails", // Organize thumbnails in a folder
+        transformation: [
+          { width: 1280, height: 720, crop: "fill", gravity: "auto" }, // Incoming transformation
+          { quality: "auto:good", format: "webp" }, // Optimize format and quality
+        ],
+        eager: [
+          {
+            width: 640,
+            height: 360,
+            crop: "fill",
+            gravity: "auto",
+            quality: "auto:good",
+            format: "webp",
+          }, // Eager transformation 1
+          {
+            width: 320,
+            height: 180,
+            crop: "fill",
+            gravity: "auto",
+            quality: "auto:good",
+            format: "webp",
+          }, // Eager transformation 2
+        ],
+      }
+    );
 
     // Return the secure URL of the uploaded image
     return result.secure_url;
@@ -91,12 +106,10 @@ export const createInvestor = async (formData: InvestorData) => {
   }
 };
 
-
-
 import { revalidatePath } from "next/cache";
 
-import {currentUser } from "@clerk/nextjs/server";
-import  { FilterQuery, Types } from "mongoose";
+import { currentUser } from "@clerk/nextjs/server";
+import { FilterQuery, Types } from "mongoose";
 import GstData from "@/model/gst-data.model";
 import Business from "@/model/business.model";
 import BusinessAddress from "@/model/business-address.model";
@@ -104,8 +117,6 @@ import BusinessOwner from "@/model/businessOwner.model";
 import Pool from "@/model/pool.model";
 import Investor from "@/model/investor.model";
 import Feedback from "@/model/feedback.model";
-
-
 
 export const registerBusiness = async (formData: FormData) => {
   try {
@@ -134,19 +145,31 @@ export const registerBusiness = async (formData: FormData) => {
         legalName: formData.get("legalName") as string,
         centerJurisdiction: formData.get("centerJurisdiction") as string,
         stateJurisdiction: formData.get("stateJurisdiction") as string,
-        dateOfRegistration: new Date(formData.get("dateOfRegistration") as string),
-        constitutionOfBusiness: formData.get("constitutionOfBusiness") as string,
+        dateOfRegistration: new Date(
+          formData.get("dateOfRegistration") as string
+        ),
+        constitutionOfBusiness: formData.get(
+          "constitutionOfBusiness"
+        ) as string,
         taxpayerType: formData.get("taxpayerType") as string,
         gstinStatus: formData.get("gstinStatus") as string,
         dateOfCancellation: formData.get("dateOfCancellation")
           ? new Date(formData.get("dateOfCancellation") as string)
           : null,
         fieldVisitConducted: formData.get("fieldVisitConducted") as string,
-        natureBusActivities: JSON.parse(formData.get("natureBusActivities") as string),
-        coreBusinessActivityCode: formData.get("coreBusinessActivityCode") as string,
-        coreBusinessActivityDescription: formData.get("coreBusinessActivityDescription") as string,
+        natureBusActivities: JSON.parse(
+          formData.get("natureBusActivities") as string
+        ),
+        coreBusinessActivityCode: formData.get(
+          "coreBusinessActivityCode"
+        ) as string,
+        coreBusinessActivityDescription: formData.get(
+          "coreBusinessActivityDescription"
+        ) as string,
         aadhaarValidation: formData.get("aadhaarValidation") as string,
-        aadhaarValidationDate: new Date(formData.get("aadhaarValidationDate") as string),
+        aadhaarValidationDate: new Date(
+          formData.get("aadhaarValidationDate") as string
+        ),
         address: formData.get("address") as string,
         hsnInfo: JSON.parse(formData.get("hsnInfo") as string),
         filingFrequency: JSON.parse(formData.get("filingFrequency") as string),
@@ -196,15 +219,15 @@ export const registerBusiness = async (formData: FormData) => {
     return { success: true, message: "Business registered successfully!" };
   } catch (error) {
     console.error("Error registering business:", error);
-    return { success: false, message: "Failed to register business. Please try again." };
+    return {
+      success: false,
+      message: "Failed to register business. Please try again.",
+    };
   }
 };
 
-
-
-
 // Fetch business ID by user ID
-export const fetchBusinessIdByUserId = async (userId:string) => {
+export const fetchBusinessIdByUserId = async (userId: string) => {
   try {
     await connectDB();
     const business = await Business.findOne({ userId });
@@ -219,11 +242,6 @@ export const fetchBusinessIdByUserId = async (userId:string) => {
     throw error;
   }
 };
-
-
-
-
-
 
 interface PoolData {
   userId: string;
@@ -243,7 +261,9 @@ interface CreatePoolResponse {
   message: string;
 }
 
-export const createPool = async (formData: FormData): Promise<CreatePoolResponse> => {
+export const createPool = async (
+  formData: FormData
+): Promise<CreatePoolResponse> => {
   try {
     await connectDB();
     const user = await currentUser();
@@ -253,11 +273,11 @@ export const createPool = async (formData: FormData): Promise<CreatePoolResponse
     }
     const userId = user.id;
 
-  // Check if the user already has a pool
-  const existingPool = await Pool.findOne({ userId }).exec();
-  if (existingPool) {
-    return { success: false, message: "You can only create one pool." };
-  }
+    // Check if the user already has a pool
+    const existingPool = await Pool.findOne({ userId }).exec();
+    if (existingPool) {
+      return { success: false, message: "You can only create one pool." };
+    }
     const businessId = await fetchBusinessIdByUserId(userId);
 
     // Handle thumbnail upload
@@ -293,11 +313,9 @@ export const createPool = async (formData: FormData): Promise<CreatePoolResponse
     return { success: true, message: "Pool created successfully!" };
   } catch (error) {
     console.error("Error creating pool:", error);
-    return { success: false, message:` ${error} || "Failed to create pool.`};
+    return { success: false, message: ` ${error} || "Failed to create pool.` };
   }
 };
-
-
 
 // Define the formatted pool type for the frontend
 interface FormattedPool {
@@ -307,9 +325,6 @@ interface FormattedPool {
   image: string;
   funding: string;
 }
-
-
-
 
 // Fetch unique categories from the Pool schema
 export async function fetchCategories(): Promise<string[]> {
@@ -324,7 +339,6 @@ export async function fetchCategories(): Promise<string[]> {
     return ["All"]; // Return default category in case of error
   }
 }
-
 
 interface PoolDocument extends Document {
   userId: string;
@@ -390,12 +404,6 @@ export async function fetchPools(
   }
 }
 
-
-
-
-
-
-
 // Define the response type
 interface PoolDetails {
   id: string;
@@ -420,14 +428,14 @@ interface PoolDetails {
 }
 
 // Fetch pool and business details by poolId
-export async function fetchPoolDetails(poolId: string): Promise<PoolDetails | null> {
+export async function fetchPoolDetails(
+  poolId: string
+): Promise<PoolDetails | null> {
   try {
     await connectDB();
 
     // Fetch the pool and populate the businessId field
-    const pool = await Pool.findById(poolId)
-      .populate("businessId")
-      .exec();
+    const pool = await Pool.findById(poolId).populate("businessId").exec();
 
     if (!pool) {
       return null; // Return null if pool is not found
@@ -462,7 +470,6 @@ export async function fetchPoolDetails(poolId: string): Promise<PoolDetails | nu
     return null;
   }
 }
-
 
 interface PoolDetail {
   id: string;
@@ -511,7 +518,6 @@ export async function fetchPoolDetailsByUserId(
   }
 }
 
-
 export const fetchAllInvestors = async () => {
   try {
     await connectDB(); // Ensure the database is connected
@@ -523,25 +529,23 @@ export const fetchAllInvestors = async () => {
   }
 };
 
-
-
-
-
 // Fetch all businesses with their related data
 export const getAllBusinesses = async () => {
   try {
     await connectDB();
 
     // Fetch all businesses
-    const businesses = await Business.find({})
-      .populate('gstData')
-      .exec();
+    const businesses = await Business.find({}).populate("gstData").exec();
 
     // Fetch additional details for each business
     const businessesWithDetails = await Promise.all(
       businesses.map(async (business) => {
-        const address = await BusinessAddress.findOne({ businessId: business._id }).exec();
-        const owner = await BusinessOwner.findOne({ businessId: business._id }).exec();
+        const address = await BusinessAddress.findOne({
+          businessId: business._id,
+        }).exec();
+        const owner = await BusinessOwner.findOne({
+          businessId: business._id,
+        }).exec();
         return {
           ...business.toObject(),
           address,
@@ -552,11 +556,10 @@ export const getAllBusinesses = async () => {
 
     return businessesWithDetails;
   } catch (error) {
-    console.error('Error fetching businesses:', error);
+    console.error("Error fetching businesses:", error);
     return [];
   }
 };
-
 
 export async function checkBusinessRegistration(userId: string) {
   try {
@@ -583,8 +586,6 @@ export async function checkBusinessRegistration(userId: string) {
     return null;
   }
 }
-
-
 
 interface FeedbackFormData {
   userId: string;
@@ -633,9 +634,6 @@ export async function submitFeedback(
   }
 }
 
-
-
-
 export async function checkInvestorRegistration(userId: string) {
   try {
     await connectDB();
@@ -649,5 +647,23 @@ export async function checkInvestorRegistration(userId: string) {
   } catch (error) {
     console.error("Error fetching investor data:", error);
     return null;
+  }
+}
+
+
+
+// Function to fetch all feedbacks
+export async function fetchFeedbacks() {
+  try {
+    await connectDB(); // Connect to the database
+
+    // Fetch all feedbacks from the database
+    const feedbacks = await Feedback.find({}).sort({ createdAt: -1 }); // Sort by createdAt in descending order
+
+    // Return the feedbacks as a plain JavaScript object
+    return JSON.parse(JSON.stringify(feedbacks));
+  } catch (error) {
+    console.error("Error fetching feedbacks:", error);
+    throw new Error("Failed to fetch feedbacks");
   }
 }

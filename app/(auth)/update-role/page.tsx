@@ -21,20 +21,20 @@ const UpdateRole = () => {
         }
         return;
       }
-  
+    
       const role = localStorage.getItem("infurole") as "Investor" | "Business" | null;
       if (!role) return;
-  
+    
       try {
         const response = await fetch("/api/update-role", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ role }),
         });
-  
+    
         if (response.ok) {
           localStorage.removeItem("infurole"); // Clear the role from localStorage
-  
+    
           if (role === "Investor") {
             router.push("/investor-dashboard");
           } else {
