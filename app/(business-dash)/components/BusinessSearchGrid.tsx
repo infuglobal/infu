@@ -36,11 +36,11 @@ export default function BusinessSearchGrid({ businesses, categories }: BusinessS
   return (
     <div>
       {/* 🔍 Search Input */}
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-black">
+      <div className="flex flex-col md:flex-row  mx-2 justify-between items-center mb-6">
+      <h1 className="text-3xl sm:text-3xl font-bold text-black text-center sm:text-left mb-4 sm:mb-0">
           Explore <span className="text-purple-600">Businesses</span>
         </h1>
-        <div className="flex items-center gap-2 bg-white p-2 rounded-lg shadow-sm border w-96">
+        <div className="flex items-center gap-2 bg-white p-2 rounded-lg shadow-sm border w-full sm:w-96">
           <Search className="text-gray-500" size={20} />
           <input
             type="text"

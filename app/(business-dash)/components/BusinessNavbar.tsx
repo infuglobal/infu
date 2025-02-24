@@ -7,7 +7,13 @@ import { SignedIn, UserButton } from "@clerk/nextjs";
 const BusinessNavbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
-
+  const MobileLinks = [
+    { label: "Dashboard", href: "/business-dashboard" },
+    { label: "Your Business", href: "/business-dashboard/profile" },
+    { label: "AI Insights", href: "/business-dashboard/ai-insights" },
+    { label: "Funding Status", href: "/business-dashboard/funding-status" },
+    { label: "Feedback", href: "/business-dashboard/feedback" },
+  ];
   useEffect(() => {
     setIsMounted(true);
   }, []);
@@ -34,10 +40,10 @@ const BusinessNavbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            {["Home", "My Projects", "Funding", "Analytics"].map((label, index) => (
+            {["Home"].map((label, index) => (
               <a
                 key={index}
-                href={`#${label.toLowerCase().replace(" ", "-")}`}
+                href={"/"}
                 className="text-gray-700 hover:text-purple-600 font-medium transition duration-300 cursor-pointer"
               >
                 {label}
@@ -78,11 +84,13 @@ const BusinessNavbar = () => {
         {isMobileMenuOpen && (
           <div className="md:hidden">
             <div className="space-y-2 px-4 py-3 text-center">
-              {["Home", "My Projects", "Funding", "Analytics"].map((label, index) => (
+              {MobileLinks.map(({ href, label }) => (
                 <a
-                  key={index}
-                  href={`#${label.toLowerCase().replace(" ", "-")}`}
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  key={href}
+                  href={href}
+                  onClick={() => (
+                    setIsMobileMenuOpen(false)
+                  )}
                   className="block text-gray-700 hover:text-purple-600 font-medium transition duration-300 cursor-pointer"
                 >
                   {label}

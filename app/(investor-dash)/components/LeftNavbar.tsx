@@ -9,7 +9,7 @@ const LeftNavbar = () => {
   ];
 
   return (
-    <div className="w-64 bg-gray-50 border-r border-gray-200 h-screen ">
+    <div className="hidden md:block w-64 bg-gray-50 border-r border-gray-200 h-screen ">
       <div className="p-6">
         <h2 className="text-lg font-semibold text-gray-900">Infinity Fund</h2>
       </div>

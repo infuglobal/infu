@@ -18,7 +18,10 @@ interface BusinessSearchGridProps {
   categories: string[];
 }
 
-export default function BusinessSearchGrid({ businesses, categories }: BusinessSearchGridProps) {
+export default function BusinessSearchGrid({
+  businesses,
+  categories,
+}: BusinessSearchGridProps) {
   // ✅ Manage search and category state locally
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -28,7 +31,8 @@ export default function BusinessSearchGrid({ businesses, categories }: BusinessS
 
   // ✅ Filter businesses dynamically without modifying the URL
   const filteredBusinesses = businesses.filter((b) => {
-    const matchesCategory = selectedCategory === "All" || b.category === selectedCategory;
+    const matchesCategory =
+      selectedCategory === "All" || b.category === selectedCategory;
     const matchesSearch = b.name.toLowerCase().includes(search.toLowerCase());
     return matchesCategory && matchesSearch;
   });
@@ -36,11 +40,11 @@ export default function BusinessSearchGrid({ businesses, categories }: BusinessS
   return (
     <div>
       {/* 🔍 Search Input */}
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-black">
+      <div className="flex flex-col md:flex-row  mx-2 justify-between items-center mb-6">
+        <h1 className="text-3xl sm:text-3xl font-bold text-black text-center sm:text-left mb-4 sm:mb-0">
           Explore <span className="text-purple-600">Businesses</span>
         </h1>
-        <div className="flex items-center gap-2 bg-white p-2 rounded-lg shadow-sm border w-96">
+        <div className="flex items-center gap-2 bg-white p-2 rounded-lg shadow-sm border w-full sm:w-96">
           <Search className="text-gray-500" size={20} />
           <input
             type="text"
@@ -59,7 +63,9 @@ export default function BusinessSearchGrid({ businesses, categories }: BusinessS
             key={category} // ✅ Ensure unique keys
             onClick={() => setSelectedCategory(category)}
             className={`px-4 py-2 rounded-lg transition ${
-              selectedCategory === category ? "bg-purple-600 text-white" : "bg-gray-200 text-black"
+              selectedCategory === category
+                ? "bg-purple-600 text-white"
+                : "bg-gray-200 text-black"
             }`}
           >
             {category}
@@ -71,7 +77,11 @@ export default function BusinessSearchGrid({ businesses, categories }: BusinessS
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
         {filteredBusinesses.length > 0 ? (
           filteredBusinesses.map((business) => (
-            <Link key={business.id} href={`/investor-dashboard/invest-business/${business.id}`} passHref>
+            <Link
+              key={business.id}
+              href={`/investor-dashboard/invest-business/${business.id}`}
+              passHref
+            >
               <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300 cursor-pointer">
                 <Image
                   src={business.image}
@@ -82,9 +92,13 @@ export default function BusinessSearchGrid({ businesses, categories }: BusinessS
                   className="w-full h-40 object-cover"
                 />
                 <div className="p-4">
-                  <h2 className="text-lg font-semibold text-black">{business.name}</h2>
+                  <h2 className="text-lg font-semibold text-black">
+                    {business.name}
+                  </h2>
                   <p className="text-sm text-gray-600">{business.category}</p>
-                  <p className="text-purple-600 font-semibold mt-2">{business.funding}</p>
+                  <p className="text-purple-600 font-semibold mt-2">
+                    {business.funding}
+                  </p>
                 </div>
               </div>
             </Link>

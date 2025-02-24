@@ -98,7 +98,7 @@ const Footer = () => {
         <div className="mt-16 border-t border-gray-400 pt-6 text-center">
           <p className="text-gray-600 text-sm">
             © {new Date().getFullYear()} Infinity Fund. All Rights Reserved. |{" "}
-            <Link href="/terms-conditions" passHref>
+            <Link href="/privacy-policies" passHref>
               <span className="hover:text-purple-800 cursor-pointer transition duration-300">
                 Privacy Policy
               </span>

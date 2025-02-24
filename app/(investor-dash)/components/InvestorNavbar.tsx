@@ -9,10 +9,14 @@ const InvestorNavbar = () => {
 
   // Define the links for desktop and mobile navigation
   const links = [
-    { href: "#home", label: "Home" },
-    { href: "#my-investments", label: "My Investments" },
-    { href: "#analytics", label: "Analytics" },
-    { href: "#resources", label: "Resources" },
+    { href: "/home", label: "Home" },
+   
+  ];
+  const MobileLinks = [
+    { href: "/", label: "Home" },
+    { href: "/investor-dashboard ", label: "Dashboard" },
+    { href: "/investor-dashboard/portfolio ", label: "Your Portfolio" },
+    { href: "/investor-dashboard/feedback ", label: "Feedback" },
   ];
 
   // Smooth scrolling function
@@ -30,7 +34,7 @@ const InvestorNavbar = () => {
   return (
     <nav className="w-full bg-white shadow-md z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-12">
           {/* Logo */}
           <div className="flex items-center flex-shrink-0">
            <Image
@@ -103,7 +107,7 @@ const InvestorNavbar = () => {
         {isMobileMenuOpen && (
           <div className="md:hidden">
             <div className="space-y-2 px-4 py-3 text-center">
-              {links.map(({ href, label }) => (
+              {MobileLinks.map(({ href, label }) => (
                 <a
                   key={href}
                   href={href}
