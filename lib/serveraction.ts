@@ -1,6 +1,11 @@
 "use server";
 import connectDB from "@/lib/db";
 
+
+// you can find all serveractions here
+
+
+// For uploading image to cloudinary
 import { v2 as cloudinary } from "cloudinary";
 // Configure Cloudinary
 cloudinary.config({
@@ -54,6 +59,11 @@ const uploadImageToCloudinary = async (file: File): Promise<string> => {
   }
 };
 
+
+
+
+
+// 2 For registering investors portfolios
 interface InvestorData {
   fullName: string;
   dob: string;
@@ -63,13 +73,11 @@ interface InvestorData {
   state: string;
   email: string;
   phoneNumber: string;
-  investmentAmount: number;
   riskPreference: string;
   investmentTypes: string[]; // Assuming this is an array of investment categories
   kycStatus: {
     pan: string;
     aadhaar: string;
-    passport: string;
   };
   accreditedInvestor: boolean;
   userRole: string;
@@ -119,12 +127,7 @@ import Investor from "@/model/investor.model";
 import Feedback from "@/model/feedback.model";
 
 
-
-
-
-
-
-
+// 3 For registering businesses
 export const registerBusiness = async (formData: FormData) => {
   try {
     // Connect to the database
@@ -143,7 +146,12 @@ export const registerBusiness = async (formData: FormData) => {
     }
 
     // Validate required fields
-    const requiredFields = ["businessName", "businessCategory", "description", "panNumber"];
+    const requiredFields = [
+      "businessName",
+      "businessCategory",
+      "description",
+      "panNumber",
+    ];
     for (const field of requiredFields) {
       if (!formData.get(field)) {
         return { success: false, message: `${field} is required.` };
@@ -171,27 +179,45 @@ export const registerBusiness = async (formData: FormData) => {
         legalName: formData.get("legalName") as string,
         centerJurisdiction: formData.get("centerJurisdiction") as string,
         stateJurisdiction: formData.get("stateJurisdiction") as string,
-        dateOfRegistration: new Date(formData.get("dateOfRegistration") as string),
-        constitutionOfBusiness: formData.get("constitutionOfBusiness") as string,
+        dateOfRegistration: new Date(
+          formData.get("dateOfRegistration") as string
+        ),
+        constitutionOfBusiness: formData.get(
+          "constitutionOfBusiness"
+        ) as string,
         taxpayerType: formData.get("taxpayerType") as string,
         gstinStatus: formData.get("gstinStatus") as string,
         dateOfCancellation: formData.get("dateOfCancellation")
           ? new Date(formData.get("dateOfCancellation") as string)
           : null,
         fieldVisitConducted: formData.get("fieldVisitConducted") as string,
-        natureBusActivities: JSON.parse(formData.get("natureBusActivities") as string || "[]"),
-        coreBusinessActivityCode: formData.get("coreBusinessActivityCode") as string,
-        coreBusinessActivityDescription: formData.get("coreBusinessActivityDescription") as string,
+        natureBusActivities: JSON.parse(
+          (formData.get("natureBusActivities") as string) || "[]"
+        ),
+        coreBusinessActivityCode: formData.get(
+          "coreBusinessActivityCode"
+        ) as string,
+        coreBusinessActivityDescription: formData.get(
+          "coreBusinessActivityDescription"
+        ) as string,
         aadhaarValidation: formData.get("aadhaarValidation") as string,
-        aadhaarValidationDate: new Date(formData.get("aadhaarValidationDate") as string),
+        aadhaarValidationDate: new Date(
+          formData.get("aadhaarValidationDate") as string
+        ),
         address: formData.get("address") as string,
-        hsnInfo: JSON.parse(formData.get("hsnInfo") as string || "{}"),
-        filingFrequency: JSON.parse(formData.get("filingFrequency") as string || "[]"),
+        hsnInfo: JSON.parse((formData.get("hsnInfo") as string) || "{}"),
+        filingFrequency: JSON.parse(
+          (formData.get("filingFrequency") as string) || "[]"
+        ),
         reference: formData.get("reference") as string,
-        addressDetails: JSON.parse(formData.get("addressDetails") as string || "{}"),
+        addressDetails: JSON.parse(
+          (formData.get("addressDetails") as string) || "{}"
+        ),
         einvoiceStatus: formData.get("einvoiceStatus") === "true",
         panNumber: formData.get("panNumber") as string,
-        filingStatus: JSON.parse(formData.get("filingStatus") as string || "[]"),
+        filingStatus: JSON.parse(
+          (formData.get("filingStatus") as string) || "[]"
+        ),
       };
 
       // Save GST Data
@@ -240,7 +266,8 @@ export const registerBusiness = async (formData: FormData) => {
     };
   }
 };
-// Fetch business ID by user ID
+
+// 4 Fetch business ID by user ID
 export const fetchBusinessIdByUserId = async (userId: string) => {
   try {
     await connectDB();
@@ -257,6 +284,8 @@ export const fetchBusinessIdByUserId = async (userId: string) => {
   }
 };
 
+
+// For creating investment Pools
 interface PoolData {
   userId: string;
   businessId: Types.ObjectId;
@@ -331,6 +360,7 @@ export const createPool = async (
   }
 };
 
+
 // Define the formatted pool type for the frontend
 interface FormattedPool {
   id: string;
@@ -339,6 +369,7 @@ interface FormattedPool {
   image: string;
   funding: string;
 }
+
 
 // Fetch unique categories from the Pool schema
 export async function fetchCategories(): Promise<string[]> {
@@ -663,8 +694,6 @@ export async function checkInvestorRegistration(userId: string) {
     return null;
   }
 }
-
-
 
 // Function to fetch all feedbacks
 export async function fetchFeedbacks() {

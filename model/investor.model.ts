@@ -35,10 +35,6 @@ const investorSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  investmentAmount: {
-    type: Number,
-    required: true,
-  },
   riskPreference: {
     type: String,
     enum: ["Low", "Medium", "High"],
@@ -56,10 +52,8 @@ const investorSchema = new mongoose.Schema({
     aadhaar: {
       type: String,
       required: true,
-    },
-    passport: {
-      type: String,
-    },
+    }
+  
   },
   accreditedInvestor: {
     type: Boolean,

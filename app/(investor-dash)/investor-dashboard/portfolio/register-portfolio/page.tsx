@@ -1,7 +1,9 @@
 "use client";
 
 import { createInvestor } from "@/lib/serveraction";
+import Link from "next/link";
 import React, { useState } from "react";
+import { toast } from "sonner";
 
 const RegisterPortfolio: React.FC = () => {
   const [fullName, setFullName] = useState("");
@@ -17,7 +19,6 @@ const RegisterPortfolio: React.FC = () => {
   const [kycStatus, setKycStatus] = useState({
     pan: "",
     aadhaar: "",
-    passport: "",
   });
   const [accreditedInvestor, setAccreditedInvestor] = useState<boolean>(false);
   const [userRole, setUserRole] = useState("Retail Investor");
@@ -28,8 +29,10 @@ const RegisterPortfolio: React.FC = () => {
     ifscCode: "",
     bankName: "",
   });
+  const [termsAccepted, setTermsAccepted] = useState(false); // Terms and Conditions
+  const [panVerified, setPanVerified] = useState(false); // PAN Verification
+  const [panVerificationMessage, setPanVerificationMessage] = useState(""); // PAN Verification Message
 
-  
   const handleKycStatusChange = (field: string, value: string) => {
     setKycStatus((prev) => ({ ...prev, [field]: value }));
   };
@@ -38,12 +41,54 @@ const RegisterPortfolio: React.FC = () => {
     setBankAccountDetails((prev) => ({ ...prev, [field]: value }));
   };
 
+  // PAN Verification
+  const handleVerifyPAN = async () => {
+    try {
+      setPanVerificationMessage("Verifying...");
+      const response = await fetch("/api/verify-pan", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ pan: kycStatus.pan }),
+      });
+      const data = await response.json();
+
+      if (!response.ok)
+        throw new Error(data.message || "Failed to verify PAN.");
+      if (data.verified) {
+        setPanVerified(true);
+        setPanVerificationMessage(
+          `✅ PAN Verified Successfully\n🔹 Name: ${data.panDetails.registeredName}\n`
+        );
+      } else {
+        setPanVerified(false);
+        setPanVerificationMessage(
+          `❌ PAN Verification Failed: ${data.message || "Invalid PAN"}`
+        );
+      }
+    } catch (err) {
+      setPanVerificationMessage(
+        `❌ Error: ${err || "Unexpected error occurred"}`
+      );
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Check if terms and conditions are accepted
+    if (!termsAccepted) {
+      toast.error("You must accept the terms and conditions to proceed.");
+      return;
+    }
+
+    // Check if PAN is verified
+    if (!panVerified) {
+      toast.error("Please verify your PAN before submitting.");
+      return;
+    }
+
     // Prepare the form data
     const formData = {
-      
       fullName,
       dob,
       address,
@@ -52,7 +97,6 @@ const RegisterPortfolio: React.FC = () => {
       state,
       email,
       phoneNumber,
-      investmentAmount: 24,
       riskPreference,
       investmentTypes,
       kycStatus,
@@ -63,31 +107,36 @@ const RegisterPortfolio: React.FC = () => {
       bankAccountDetails,
     };
 
-    // Call the server action
-    const result = await createInvestor(formData);
-
-    if (result.success) {
-      alert(result.message);
-      // Reset the form
-      setFullName("");
-      setDob("");
-      setAddress("");
-      setPincode("");
-      setCity("");
-      setState("");
-      setEmail("");
-      setPhoneNumber("");
-      setRiskPreference("Medium");
-      setInvestmentTypes([]);
-      setKycStatus({ pan: "", aadhaar: "", passport: "" });
-      setAccreditedInvestor(false);
-      setUserRole("Retail Investor");
-      setCountry("");
-      setTaxResidency("");
-      setBankAccountDetails({ accountNumber: "", ifscCode: "", bankName: "" });
-    } else {
-      alert(result.message);
-    }
+    // Call the server action with toast notifications
+    toast.promise(createInvestor(formData), {
+      loading: "Registering your portfolio...",
+      success: (data) => {
+        if (data.success) {
+          // Reset the form
+          setFullName("");
+          setDob("");
+          setAddress("");
+          setPincode("");
+          setCity("");
+          setState("");
+          setEmail("");
+          setPhoneNumber("");
+          setRiskPreference("Medium");
+          setInvestmentTypes([]);
+          setKycStatus({ pan: "", aadhaar: "" });
+          setAccreditedInvestor(false);
+          setUserRole("Retail Investor");
+          setCountry("");
+          setTaxResidency("");
+          setBankAccountDetails({ accountNumber: "", ifscCode: "", bankName: "" });
+          setTermsAccepted(false);
+          return "Portfolio registered successfully!";
+        } else {
+          throw new Error(data.message);
+        }
+      },
+      error: (error) => error.message || "Failed to register portfolio.",
+    });
   };
 
   return (
@@ -246,14 +295,32 @@ const RegisterPortfolio: React.FC = () => {
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     PAN Number
                   </label>
-                  <input
-                    required
-                    type="text"
-                    value={kycStatus.pan}
-                    onChange={(e) => handleKycStatusChange("pan", e.target.value)}
-                    placeholder="Enter PAN Number"
-                    className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-purple-200"
-                  />
+                  <div className="flex items-center gap-2">
+                    <input
+                      required
+                      type="text"
+                      value={kycStatus.pan}
+                      onChange={(e) => handleKycStatusChange("pan", e.target.value)}
+                      placeholder="Enter PAN Number"
+                      className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-purple-200"
+                    />
+                    <button
+                      type="button"
+                      onClick={handleVerifyPAN}
+                      className="px-4 py-2 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition"
+                    >
+                      Verify
+                    </button>
+                  </div>
+                  {panVerificationMessage && (
+                    <p
+                      className={`text-sm mt-2 ${
+                        panVerified ? "text-green-600" : "text-red-600"
+                      }`}
+                    >
+                      {panVerificationMessage}
+                    </p>
+                  )}
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -268,18 +335,7 @@ const RegisterPortfolio: React.FC = () => {
                     className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-purple-200"
                   />
                 </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Passport Number
-                  </label>
-                  <input
-                    type="text"
-                    value={kycStatus.passport}
-                    onChange={(e) => handleKycStatusChange("passport", e.target.value)}
-                    placeholder="Enter Passport Number"
-                    className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-purple-200"
-                  />
-                </div>
+                
               </div>
             </section>
 
@@ -316,6 +372,7 @@ const RegisterPortfolio: React.FC = () => {
                 User Role
               </h2>
               <select
+                required
                 value={userRole}
                 onChange={(e) => setUserRole(e.target.value)}
                 className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-purple-200"
@@ -412,6 +469,25 @@ const RegisterPortfolio: React.FC = () => {
                     className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-purple-200"
                   />
                 </div>
+              </div>
+            </section>
+
+            {/* Terms and Conditions */}
+            <section>
+              <div className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  required
+                  checked={termsAccepted}
+                  onChange={(e) => setTermsAccepted(e.target.checked)}
+                />
+                <p className="text-sm text-gray-700">
+                  I have read and accept the{" "}
+                  <Link href="/terms-conditions" className="text-purple-600 hover:underline">
+                    terms and conditions
+                  </Link>
+                  .
+                </p>
               </div>
             </section>
 
