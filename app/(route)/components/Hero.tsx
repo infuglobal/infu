@@ -35,35 +35,34 @@ const Hero = () => {
 
         {/* Call-to-Action Buttons */}
         <div className="flex flex-col sm:flex-row justify-center gap-4">
-  <Link
-    href="/sign-up"
-    className="bg-gradient-to-r from-white/20 to-white/10 backdrop-blur-md text-white font-semibold 
+          <Link
+            href="/sign-up"
+            className="bg-gradient-to-r from-white/20 to-white/10 backdrop-blur-md text-white font-semibold 
                px-6 py-3 rounded-full shadow-xl border border-white/30 
                hover:bg-white/30 hover:shadow-2xl hover:-translate-y-1 
                transition-all duration-300 transform"
-  >
-    Become an <span className="text-purple-300">Investor</span>
-  </Link>
-  <Link
-    href="/sign-in"
-    className="bg-gradient-to-r from-white/20 to-white/10 backdrop-blur-md text-white font-semibold 
+          >
+            Become an <span className="text-purple-300">Investor</span>
+          </Link>
+          <Link
+            href="/sign-in"
+            className="bg-gradient-to-r from-white/20 to-white/10 backdrop-blur-md text-white font-semibold 
                px-6 py-3 rounded-full shadow-xl border border-white/30 
                hover:bg-white/30 hover:shadow-2xl hover:-translate-y-1 
                transition-all duration-300 transform"
-  >
-    Grow Your <span className="text-pink-300">Business</span>
-  </Link>
-  <Link
-    href="learning-resources"
-    className="bg-gradient-to-r from-white/20 to-white/10 backdrop-blur-md text-white font-semibold 
+          >
+            Grow Your <span className="text-pink-300">Business</span>
+          </Link>
+          <Link
+            href="learning-resources"
+            className="bg-gradient-to-r from-white/20 to-white/10 backdrop-blur-md text-white font-semibold 
                px-6 py-3 rounded-full shadow-xl border border-white/30 
                hover:bg-white/30 hover:shadow-2xl hover:-translate-y-1 
                transition-all duration-300 transform"
-  >
-    Learn About <span className="text-purple-300">Investments</span>
-  </Link>
-</div>
-
+          >
+            Learn About <span className="text-purple-300">Investments</span>
+          </Link>
+        </div>
       </div>
     </section>
   );

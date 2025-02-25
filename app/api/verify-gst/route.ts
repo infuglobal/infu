@@ -1,68 +1,81 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { v4 as uuidv4 } from 'uuid'; // For generating unique reference IDs
 
 const verifyGST = async (gst: string) => {
-  const apiKey = process.env.BULKPE_API_KEY; // Make sure you store your API key securely in .env file
+  const apiKey = process.env.BULKPE_API_KEY;
+  if (!apiKey) {
+    throw new Error("Missing BULKPE API Key");
+  }
 
-  const response = await fetch(`https://api.bulkpe.in/gst/verify/${gst}`, {
-    method: 'GET',
+  // Generate a unique reference ID for each request
+  const reference = uuidv4();
+
+  const response = await fetch("https://api.bulkpe.in/client/verifyGstin", {
+    method: "POST",
     headers: {
-      'Authorization': `Bearer ${apiKey}`,
-      'Content-Type': 'application/json',
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
     },
+    body: JSON.stringify({
+      gstin: gst, // GST number
+      reference: reference, // Unique reference ID
+    }),
   });
 
   if (!response.ok) {
-    throw new Error('Failed to fetch data from Bulkpe');
+    const errorData = await response.json();
+    throw new Error(errorData.message || `Failed to fetch data from Bulkpe. Status: ${response.status}`);
   }
 
-  return response.json(); // Assuming Bulkpe API returns JSON
+  return response.json();
 };
 
-// Named export handler for Next.js API route
 export async function POST(req: NextRequest) {
   try {
     const { gst } = await req.json();
 
     if (!gst) {
-      return NextResponse.json({ message: 'GST number is required' }, { status: 400 });
+      return NextResponse.json({ verified: false, message: "GST number is required" }, { status: 400 });
     }
 
     const data = await verifyGST(gst);
 
-    if (data && data.valid) {
-      // Return all GST data as per the schema
+    // Check if the GST is valid based on the API response
+    if (data.status) {
       return NextResponse.json({
         verified: true,
+        message: "GST is valid ✅",
         gstData: {
-          gstNumber: data.gstNumber,
-          legalName: data.legalName,
-          centerJurisdiction: data.centerJurisdiction,
-          stateJurisdiction: data.stateJurisdiction,
-          dateOfRegistration: data.dateOfRegistration,
-          constitutionOfBusiness: data.constitutionOfBusiness,
-          taxpayerType: data.taxpayerType,
-          gstinStatus: data.gstinStatus,
-          dateOfCancellation: data.dateOfCancellation || null,
-          fieldVisitConducted: data.fieldVisitConducted,
-          natureBusActivities: data.natureBusActivities || [],
-          coreBusinessActivityCode: data.coreBusinessActivityCode,
-          coreBusinessActivityDescription: data.coreBusinessActivityDescription,
-          aadhaarValidation: data.aadhaarValidation,
-          aadhaarValidationDate: data.aadhaarValidationDate,
-          address: data.address,
-          hsnInfo: data.hsnInfo || {},
-          filingFrequency: data.filingFrequency || [],
-          reference: data.reference,
-          addressDetails: data.addressDetails || {},
-          einvoiceStatus: data.einvoiceStatus || false,
-          panNumber: data.panNumber,
-          filingStatus: data.filingStatus || [],
+          gstNumber: data.data.gstin, // Ensure the key matches the API response
+          legalName: data.data.legal_name,
+          centerJurisdiction: data.data.center_jurisdiction,
+          stateJurisdiction: data.data.state_jurisdiction,
+          dateOfRegistration: data.data.date_of_registration,
+          constitutionOfBusiness: data.data.constitution_of_business,
+          taxpayerType: data.data.taxpayer_type,
+          gstinStatus: data.data.gstin_status,
+          dateOfCancellation: data.data.date_of_cancellation || null,
+          fieldVisitConducted: data.data.field_visit_conducted,
+          natureBusActivities: data.data.nature_of_business_activities || [],
+          coreBusinessActivityCode: data.data.core_business_activity_code,
+          coreBusinessActivityDescription: data.data.core_business_activity_description,
+          aadhaarValidation: data.data.aadhaar_validation,
+          aadhaarValidationDate: data.data.aadhaar_validation_date,
+          address: data.data.address,
+          hsnInfo: data.data.hsn_info || {},
+          filingFrequency: data.data.filing_frequency || [],
+          reference: data.data.reference,
+          addressDetails: data.data.address_details || {},
+          einvoiceStatus: data.data.einvoice_status || false,
+          panNumber: data.data.pan_number,
+          filingStatus: data.data.filing_status || [],
         },
       });
     } else {
-      return NextResponse.json({ verified: false, message: 'Invalid GST number' }, { status: 400 });
+      return NextResponse.json({ verified: false, message: data.message || "Invalid GST number ❌" }, { status: 400 });
     }
   } catch (error) {
-    return NextResponse.json({ message: `Error verifying GST number: ${error}` }, { status: 500 });
+    console.error("Error verifying GST:", error);
+    return NextResponse.json({ verified: false, message: `Error: ${error}` }, { status: 500 });
   }
 }

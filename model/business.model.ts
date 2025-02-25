@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const BusinessSchema = new mongoose.Schema({
   userId: { type: String},
+  userEmail: { type: String, required: true }, 
   businessName: { type: String},
   businessCategory: { type: String},
   description: { type: [String] },

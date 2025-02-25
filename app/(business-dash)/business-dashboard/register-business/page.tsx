@@ -2,7 +2,7 @@
 
 import { registerBusiness } from "@/lib/serveraction";
 import Link from "next/link";
-import  Router  from "next/navigation";
+import { useRouter } from "next/navigation"; // Updated import
 import React, { useState } from "react";
 import { toast } from "sonner";
 
@@ -23,8 +23,8 @@ interface GstData {
   aadhaarValidation: string;
   aadhaarValidationDate: string | Date;
   address: string;
-  hsnInfo: { hsnCode: string; description: string }[]; // Assuming array of HSN codes
-  filingFrequency: ("Monthly" | "Quarterly" | "Annually")[]; // Assuming these are the only valid options
+  hsnInfo: { hsnCode: string; description: string }[];
+  filingFrequency: ("Monthly" | "Quarterly" | "Annually")[];
   reference: string;
   addressDetails: {
     street: string;
@@ -32,13 +32,11 @@ interface GstData {
     state: string;
     country: string;
     postalCode: string;
-  }; // Defining address structure explicitly
+  };
   einvoiceStatus: boolean;
   panNumber: string;
-  filingStatus: { year: number; status: string }[]; // Assuming year-based filing status
+  filingStatus: { year: number; status: string }[];
 }
-
-
 
 const RegisterBusiness: React.FC = () => {
   const [gst, setGst] = useState("");
@@ -59,6 +57,8 @@ const RegisterBusiness: React.FC = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const router = useRouter(); // Initialize useRouter
+
   const handleVerifyGST = async () => {
     try {
       setGstVerificationMessage("Verifying...");
@@ -73,7 +73,6 @@ const RegisterBusiness: React.FC = () => {
         setGstVerified(true);
         setGstVerificationMessage("GST Verified Successfully ✅");
         setGstData(data.gstData);
-        console.log(gstData);
         setName(data.gstData.legalName || "");
         setAddress(data.gstData.address || "");
         setState(data.gstData.stateJurisdiction || "");
@@ -82,7 +81,9 @@ const RegisterBusiness: React.FC = () => {
         setGstVerificationMessage(data.message || "GST Verification Failed ❌");
       }
     } catch (err) {
-      setGstVerificationMessage(`Error verifying GST. Please try again. ${err}`);
+      setGstVerificationMessage(
+        `Error verifying GST. Please try again. ${err}`
+      );
     }
   };
 
@@ -96,51 +97,72 @@ const RegisterBusiness: React.FC = () => {
       });
       const data = await response.json();
 
-      if (!response.ok) throw new Error(data.message || "Failed to verify PAN.");
+      if (!response.ok)
+        throw new Error(data.message || "Failed to verify PAN.");
       if (data.verified) {
         setPanVerified(true);
-        setPanVerificationMessage(`✅ PAN Verified Successfully\n🔹 Name: ${data.panDetails.registeredName}\n🔹 Type: ${data.panDetails.type}`);
+        setPanVerificationMessage(
+          `✅ PAN Verified Successfully\n🔹 Name: ${data.panDetails.registeredName}\n`
+        );
       } else {
         setPanVerified(false);
-        setPanVerificationMessage(`❌ PAN Verification Failed: ${data.message || "Invalid PAN"}`);
+        setPanVerificationMessage(
+          `❌ PAN Verification Failed: ${data.message || "Invalid PAN"}`
+        );
       }
     } catch (err) {
-      setPanVerificationMessage(`❌ Error: ${err || "Unexpected error occurred"}`);
+      setPanVerificationMessage(
+        `❌ Error: ${err || "Unexpected error occurred"}`
+      );
     }
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsSubmitting(true);
+
     const formData = new FormData(event.currentTarget);
-    
-    toast.promise(
-      registerBusiness(formData),
-      {
-        loading: "Registering your business...",
-        success: (data) => {
-          if (data.success) {
-            return "Business registered successfully!";
-          } else {
-            throw new Error(data.message);
-          }
-        },
-        error: (error) => error.message || "Failed to register business.",
-      }
-    );
+
+    // Add GST data to formData if verified
+    if (gstVerified && gstData) {
+      Object.entries(gstData).forEach(([key, value]) => {
+        if (value !== null && value !== undefined) {
+          formData.append(key, JSON.stringify(value));
+        }
+      });
+    }
+
+    toast.promise(registerBusiness(formData), {
+      loading: "Registering your business...",
+      success: (data) => {
+        if (data.success) {
+          // Redirect after showing the success toast
+          setTimeout(() => {
+            router.push("/business-dashboard"); // Use router.push for redirection
+          }, 1000); // Delay redirection to allow toast to display
+          return "Business registered successfully!";
+        } else {
+          throw new Error(data.message);
+        }
+      },
+      error: (error) => error.message || "Failed to register business.",
+    });
+
     setIsSubmitting(false);
-    
-    Router.redirect("/business-dashboard");
   };
+
   return (
     <div className="h-screen w-full pb-10 overflow-y-auto">
       <div className="mx-auto px-6 py-10 flex justify-center">
         <div className="w-[90%] bg-gray-50 border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition">
           {/* Page Header */}
           <header className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-800">Register Your Business</h1>
+            <h1 className="text-3xl font-bold text-gray-800">
+              Register Your Business
+            </h1>
             <p className="text-sm text-gray-600 mt-2">
-              Complete the form below to register your business and apply for funding.
+              Complete the form below to register your business and apply for
+              funding.
             </p>
           </header>
 
@@ -148,10 +170,15 @@ const RegisterBusiness: React.FC = () => {
           <form className="space-y-8" onSubmit={handleSubmit}>
             {/* Business Details Section */}
             <section>
-              <h2 className="text-lg font-semibold text-purple-700 mb-4">Business Details</h2>
+              <h2 className="text-lg font-semibold text-purple-700 mb-4">
+                Business Details
+              </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="business-name" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label
+                    htmlFor="business-name"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
                     Business Legal Name
                   </label>
                   <input
@@ -166,20 +193,42 @@ const RegisterBusiness: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label htmlFor="business-category" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label
+                    htmlFor="business-category"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
                     Business Category
                   </label>
-                  <input
+                  <select
                     required
-                    type="text"
                     id="business-category"
                     name="businessCategory"
-                    placeholder="Enter your business category"
+                    defaultValue="" // Use defaultValue instead of selected
                     className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-purple-200"
-                  />
+                  >
+                    <option value="" disabled>
+                      Select your business category
+                    </option>
+                    <option value="Retail">Retail</option>
+                    <option value="Wholesale">Wholesale</option>
+                    <option value="Manufacturing">Manufacturing</option>
+                    <option value="Service">Service</option>
+                    <option value="Technology">Technology</option>
+                    <option value="Healthcare">Healthcare</option>
+                    <option value="Education">Education</option>
+                    <option value="Hospitality">Hospitality</option>
+                    <option value="Finance">Finance</option>
+                    <option value="Real Estate">Real Estate</option>
+                    <option value="Transportation">Transportation</option>
+                    <option value="Agriculture">Agriculture</option>
+                    <option value="Other">Other</option>
+                  </select>
                 </div>
                 <div>
-                  <label htmlFor="business-description" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label
+                    htmlFor="business-description"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
                     Complete description of your business
                   </label>
                   <textarea
@@ -194,7 +243,10 @@ const RegisterBusiness: React.FC = () => {
                 </div>
                 <div className="flex-col space-y-3">
                   <div>
-                    <label htmlFor="gst" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label
+                      htmlFor="gst"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
                       GST Number (Optional)
                     </label>
                     <div className="relative flex items-center">
@@ -216,13 +268,20 @@ const RegisterBusiness: React.FC = () => {
                       </button>
                     </div>
                     {gstVerificationMessage && (
-                      <p className={`text-sm mt-2 ${gstVerified ? "text-green-600" : "text-red-600"}`}>
+                      <p
+                        className={`text-sm mt-2 ${
+                          gstVerified ? "text-green-600" : "text-red-600"
+                        }`}
+                      >
                         {gstVerificationMessage}
                       </p>
                     )}
                   </div>
                   <div>
-                    <label htmlFor="pan" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label
+                      htmlFor="pan"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
                       PAN Number
                     </label>
                     <div className="relative flex items-center">
@@ -245,7 +304,11 @@ const RegisterBusiness: React.FC = () => {
                       </button>
                     </div>
                     {panVerificationMessage && (
-                      <p className={`text-sm mt-2 ${panVerified ? "text-green-600" : "text-red-600"}`}>
+                      <p
+                        className={`text-sm mt-2 ${
+                          panVerified ? "text-green-600" : "text-red-600"
+                        }`}
+                      >
                         {panVerificationMessage}
                       </p>
                     )}
@@ -256,10 +319,15 @@ const RegisterBusiness: React.FC = () => {
 
             {/* Business Address Details */}
             <section>
-              <h2 className="text-lg font-semibold text-purple-700 mb-4">Business Address Details</h2>
+              <h2 className="text-lg font-semibold text-purple-700 mb-4">
+                Business Address Details
+              </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label
+                    htmlFor="address"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
                     Complete Address
                   </label>
                   <input
@@ -273,7 +341,10 @@ const RegisterBusiness: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label htmlFor="pincode" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label
+                    htmlFor="pincode"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
                     Pincode
                   </label>
                   <input
@@ -287,7 +358,10 @@ const RegisterBusiness: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label
+                    htmlFor="city"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
                     City
                   </label>
                   <input
@@ -302,7 +376,10 @@ const RegisterBusiness: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label htmlFor="state" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label
+                    htmlFor="state"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
                     State
                   </label>
                   <input
@@ -321,10 +398,15 @@ const RegisterBusiness: React.FC = () => {
 
             {/* Business Owner Details */}
             <section>
-              <h2 className="text-lg font-semibold text-purple-700 mb-4">Business Owner Details</h2>
+              <h2 className="text-lg font-semibold text-purple-700 mb-4">
+                Business Owner Details
+              </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="owner-name" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label
+                    htmlFor="owner-name"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
                     Name
                   </label>
                   <input
@@ -338,7 +420,10 @@ const RegisterBusiness: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
                     Email Address
                   </label>
                   <input
@@ -353,7 +438,10 @@ const RegisterBusiness: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label
+                    htmlFor="phoneNumber"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
                     Phone Number
                   </label>
                   <input

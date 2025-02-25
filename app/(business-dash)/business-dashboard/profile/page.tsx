@@ -10,6 +10,7 @@ import {
   FaUser,
   FaEnvelope,
   FaPhone,
+  FaChartLine,
 } from "react-icons/fa";
 import Loading from "@/app/component/Loading";
 
@@ -102,17 +103,66 @@ const Profile = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen w-full bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-red-600 mb-4">{error}</p>
-          <Link
-            href="/business-dashboard/register-business"
-            className="px-6 py-2 bg-purple-600 text-white rounded-lg text-sm font-semibold hover:bg-purple-700 transition-all duration-300"
-          >
-            Register Your Business
-          </Link>
+      <div className="min-h-screen w-full bg-gray-50 p-4">
+      {/* Header Section */}
+      <div className="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-lg p-8 text-white shadow-lg mb-2 ">
+        <div className="max-w-7xl mx-auto px-6">
+          <h1 className="text-4xl font-bold mb-4 flex items-center gap-2">
+            <FaBuilding className="text-yellow-300 " /> Business
+            Registration
+          </h1>
+          <p className="text-lg text-purple-100">
+            Register your business to start exploring new opportunities and
+            funding options. Take the first step towards growth and success.
+          </p>
         </div>
       </div>
+
+      {/* Main Content */}
+      <div className="container mx-auto px-4 pt-4 pb-12">
+        <div className="max-w-7xl mx-auto">
+          {/* Error Message */}
+          {error && (
+            <div className="mb-2 text-center">
+              <p className="text-red-600 text-lg font-semibold bg-red-50 px-4 py-2 rounded-lg border border-red-200">
+                {error}
+              </p>
+            </div>
+          )}
+
+          {/* Call-to-Action Section */}
+          <div className="bg-gray-50 border border-gray-200 rounded-lg p-8 shadow-sm hover:shadow-md">
+            <h2 className="text-2xl font-bold text-purple-900 mb-6 flex items-center gap-2">
+              <FaChartLine className="text-purple-600 animate-pulse" /> Register
+              Your Business
+            </h2>
+            <p className="text-lg text-gray-700 mb-6">
+              Start your journey by registering your business and unlocking new
+              opportunities for growth. Join a network of successful businesses
+              today.
+            </p>
+            <Link
+              href="/business-dashboard/register-business"
+              className="inline-flex items-center justify-center px-8 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg text-lg font-semibold hover:from-purple-700 hover:to-indigo-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+            >
+              Register Your Business
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5 ml-2"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
     );
   }
 

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { createPool } from "@/lib/serveraction";
 import Image from "next/image";
 import { X } from "lucide-react"; // Import close icon
+import Link from "next/link";
 
 const CreatePool: React.FC = () => {
   const [amount, setAmount] = useState<string>("");
@@ -18,11 +19,8 @@ const CreatePool: React.FC = () => {
   const [thumbnail, setThumbnail] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [termsAccepted, setTermsAccepted] = useState<boolean>(false); // State for terms and conditions
   const router = useRouter();
-
-
-
-
 
   const handleThumbnailChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -54,6 +52,13 @@ const CreatePool: React.FC = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    // Check if terms and conditions are accepted
+    if (!termsAccepted) {
+      toast.error("You must accept the terms and conditions to proceed.");
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -275,6 +280,21 @@ const CreatePool: React.FC = () => {
                 </p>
               </div>
             </section>
+
+            {/* Terms and Conditions Checkbox */}
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                id="terms"
+                checked={termsAccepted}
+                onChange={(e) => setTermsAccepted(e.target.checked)}
+                className="w-4 h-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500"
+                required
+              />
+              <label htmlFor="terms" className="ml-2 text-sm text-gray-700">
+                I accept the <Link href="/terms-conditions" className="text-purple-600 hover:underline">terms and conditions</Link>.
+              </label>
+            </div>
 
             <div className="flex justify-end">
               <button

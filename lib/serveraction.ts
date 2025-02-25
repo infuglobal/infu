@@ -118,20 +118,45 @@ import Pool from "@/model/pool.model";
 import Investor from "@/model/investor.model";
 import Feedback from "@/model/feedback.model";
 
+
+
+
+
+
+
+
 export const registerBusiness = async (formData: FormData) => {
   try {
+    // Connect to the database
     await connectDB();
+
+    // Get the current user
     const user = await currentUser();
     if (!user) {
       return { success: false, message: "User not authenticated." };
     }
 
+    // Extract the email address from the user object
+    const userEmail = user.primaryEmailAddress?.emailAddress; // Extract email from primaryEmailAddress
+    if (!userEmail) {
+      return { success: false, message: "User email not found." };
+    }
+
+    // Validate required fields
+    const requiredFields = ["businessName", "businessCategory", "description", "panNumber"];
+    for (const field of requiredFields) {
+      if (!formData.get(field)) {
+        return { success: false, message: `${field} is required.` };
+      }
+    }
+
     // Business Data
     const businessData = {
-      userId: user?.id,
+      userId: user.id,
+      userEmail, // Use the extracted email address
       businessName: formData.get("businessName") as string,
       businessCategory: formData.get("businessCategory") as string,
-      description: formData.get("description") as string,
+      description: (formData.get("description") as string).split(","), // Convert to array of strings
       isGstVerified: !!formData.get("gstNumber"), // GST is optional
       panNumber: formData.get("panNumber") as string,
     };
@@ -139,47 +164,37 @@ export const registerBusiness = async (formData: FormData) => {
     let gstDataId = null;
     const gstNumber = formData.get("gstNumber") as string;
 
+    // Save GST Data if GST number is provided
     if (gstNumber) {
       const gstData = {
         gstNumber,
         legalName: formData.get("legalName") as string,
         centerJurisdiction: formData.get("centerJurisdiction") as string,
         stateJurisdiction: formData.get("stateJurisdiction") as string,
-        dateOfRegistration: new Date(
-          formData.get("dateOfRegistration") as string
-        ),
-        constitutionOfBusiness: formData.get(
-          "constitutionOfBusiness"
-        ) as string,
+        dateOfRegistration: new Date(formData.get("dateOfRegistration") as string),
+        constitutionOfBusiness: formData.get("constitutionOfBusiness") as string,
         taxpayerType: formData.get("taxpayerType") as string,
         gstinStatus: formData.get("gstinStatus") as string,
         dateOfCancellation: formData.get("dateOfCancellation")
           ? new Date(formData.get("dateOfCancellation") as string)
           : null,
         fieldVisitConducted: formData.get("fieldVisitConducted") as string,
-        natureBusActivities: JSON.parse(
-          formData.get("natureBusActivities") as string
-        ),
-        coreBusinessActivityCode: formData.get(
-          "coreBusinessActivityCode"
-        ) as string,
-        coreBusinessActivityDescription: formData.get(
-          "coreBusinessActivityDescription"
-        ) as string,
+        natureBusActivities: JSON.parse(formData.get("natureBusActivities") as string || "[]"),
+        coreBusinessActivityCode: formData.get("coreBusinessActivityCode") as string,
+        coreBusinessActivityDescription: formData.get("coreBusinessActivityDescription") as string,
         aadhaarValidation: formData.get("aadhaarValidation") as string,
-        aadhaarValidationDate: new Date(
-          formData.get("aadhaarValidationDate") as string
-        ),
+        aadhaarValidationDate: new Date(formData.get("aadhaarValidationDate") as string),
         address: formData.get("address") as string,
-        hsnInfo: JSON.parse(formData.get("hsnInfo") as string),
-        filingFrequency: JSON.parse(formData.get("filingFrequency") as string),
+        hsnInfo: JSON.parse(formData.get("hsnInfo") as string || "{}"),
+        filingFrequency: JSON.parse(formData.get("filingFrequency") as string || "[]"),
         reference: formData.get("reference") as string,
-        addressDetails: JSON.parse(formData.get("addressDetails") as string),
+        addressDetails: JSON.parse(formData.get("addressDetails") as string || "{}"),
         einvoiceStatus: formData.get("einvoiceStatus") === "true",
         panNumber: formData.get("panNumber") as string,
-        filingStatus: JSON.parse(formData.get("filingStatus") as string),
+        filingStatus: JSON.parse(formData.get("filingStatus") as string || "[]"),
       };
 
+      // Save GST Data
       const newGstData = new GstData(gstData);
       await newGstData.save();
       gstDataId = newGstData._id;
@@ -192,7 +207,7 @@ export const registerBusiness = async (formData: FormData) => {
     });
     await newBusiness.save();
 
-    // Business Location
+    // Save Business Location
     const locationData = {
       businessId: newBusiness._id,
       address: formData.get("address") as string,
@@ -203,7 +218,7 @@ export const registerBusiness = async (formData: FormData) => {
     const newLocation = new BusinessAddress(locationData);
     await newLocation.save();
 
-    // Business Owner
+    // Save Business Owner
     const ownerData = {
       businessId: newBusiness._id,
       ownerName: formData.get("ownerName") as string,
@@ -213,7 +228,7 @@ export const registerBusiness = async (formData: FormData) => {
     const newOwner = new BusinessOwner(ownerData);
     await newOwner.save();
 
-    // Revalidate any necessary paths
+    // Revalidate paths if using Next.js caching
     revalidatePath("/");
 
     return { success: true, message: "Business registered successfully!" };
@@ -225,7 +240,6 @@ export const registerBusiness = async (formData: FormData) => {
     };
   }
 };
-
 // Fetch business ID by user ID
 export const fetchBusinessIdByUserId = async (userId: string) => {
   try {

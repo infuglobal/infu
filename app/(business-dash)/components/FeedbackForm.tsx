@@ -3,17 +3,13 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import { useUser } from "@clerk/nextjs";
 import { FaPaperPlane } from "react-icons/fa";
+import { toast } from "sonner"; // Import Sonner
 import { submitFeedback } from "@/lib/serveraction";
 
 interface FeedbackFormData {
   name: string;
   email: string;
   subject: string;
-  message: string;
-}
-
-interface SubmitFeedbackResponse {
-  success: boolean;
   message: string;
 }
 
@@ -26,10 +22,6 @@ const FeedbackForm = () => {
     message: "",
   });
   const [loading, setLoading] = useState<boolean>(false);
-  const [result, setResult] = useState<SubmitFeedbackResponse>({
-    success: false,
-    message: "",
-  });
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -42,23 +34,30 @@ const FeedbackForm = () => {
     e.preventDefault();
     setLoading(true);
 
-    const response = await submitFeedback({
-      userId: user?.id || "",
-      ...formData,
-    });
-
-    setResult(response);
-    setLoading(false);
-
-    // Reset form on success
-    if (response.success) {
-      setFormData({
-        name: user?.fullName || "",
-        email: user?.primaryEmailAddress?.emailAddress || "",
-        subject: "",
-        message: "",
-      });
-    }
+    // Use Sonner's toast.promise to handle loading, success, and error states
+    toast.promise(
+      submitFeedback({
+        userId: user?.id || "",
+        ...formData,
+      }),
+      {
+        loading: "Submitting your feedback...", // Loading message
+        success: (response) => {
+          // Reset form on success
+          setFormData({
+            name: user?.fullName || "",
+            email: user?.primaryEmailAddress?.emailAddress || "",
+            subject: "",
+            message: "",
+          });
+          return response.message; // Success message
+        },
+        error: (error) => error.message || "Failed to submit feedback. Please try again.", // Error message
+        finally: () => {
+          setLoading(false); // Reset loading state
+        },
+      }
+    );
   };
 
   return (
@@ -171,19 +170,6 @@ const FeedbackForm = () => {
             )}
           </button>
         </div>
-
-        {/* Result Message */}
-        {result.message && (
-          <div
-            className={`mt-4 p-4 rounded-lg text-center ${
-              result.success
-                ? "bg-green-100 text-green-700"
-                : "bg-red-100 text-red-700"
-            }`}
-          >
-            {result.message}
-          </div>
-        )}
       </form>
     </div>
   );

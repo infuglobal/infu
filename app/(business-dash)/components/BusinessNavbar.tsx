@@ -10,7 +10,6 @@ const BusinessNavbar = () => {
   const MobileLinks = [
     { label: "Dashboard", href: "/business-dashboard" },
     { label: "Your Business", href: "/business-dashboard/profile" },
-    { label: "AI Insights", href: "/business-dashboard/ai-insights" },
     { label: "Funding Status", href: "/business-dashboard/funding-status" },
     { label: "Feedback", href: "/business-dashboard/feedback" },
   ];
