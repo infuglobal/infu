@@ -8,16 +8,17 @@ import { FaBuilding, FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 export default async function BusinessesPage() {
    const user = await currentUser();
   
-    const ADMIN_EMAIL_1 = process.env.ADMIN_1_EMAIL;
-    const ADMIN_EMAIL_2 = process.env.ADMIN_2_EMAIL;
-  
+   const ADMIN_EMAIL_1 = process.env.ADMIN_1_EMAIL;
+   const ADMIN_EMAIL_2 = process.env.ADMIN_2_EMAIL;
+   const ADMIN_EMAIL_3 = process.env.ADMIN_3_EMAIL;
     // Redirect if the user is not an admin
     if (
       !user ||
       !user.emailAddresses.some(
         (email) =>
           email.emailAddress === ADMIN_EMAIL_1 ||
-          email.emailAddress === ADMIN_EMAIL_2
+        email.emailAddress === ADMIN_EMAIL_2 ||
+        email.emailAddress === ADMIN_EMAIL_3
       )
     ) {
       redirect("/");

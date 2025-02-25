@@ -56,6 +56,7 @@ export default async function AdminDashboard() {
 
   const ADMIN_EMAIL_1 = process.env.ADMIN_1_EMAIL;
   const ADMIN_EMAIL_2 = process.env.ADMIN_2_EMAIL;
+  const ADMIN_EMAIL_3 = process.env.ADMIN_3_EMAIL;
 
   // Redirect if the user is not an admin
   if (
@@ -63,7 +64,8 @@ export default async function AdminDashboard() {
     !user.emailAddresses.some(
       (email) =>
         email.emailAddress === ADMIN_EMAIL_1 ||
-        email.emailAddress === ADMIN_EMAIL_2
+        email.emailAddress === ADMIN_EMAIL_2 ||
+        email.emailAddress === ADMIN_EMAIL_3
     )
   ) {
     redirect("/");

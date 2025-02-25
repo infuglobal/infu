@@ -16,13 +16,11 @@ interface Investor {
   state: string;
   email: string;
   phoneNumber: string;
-  investmentAmount: number;
   riskPreference: "Low" | "Medium" | "High";
   investmentTypes: string[];
   kycStatus: {
     pan: string;
     aadhaar: string;
-    passport?: string;
   };
   accreditedInvestor: boolean;
   userRole: "Retail Investor" | "Institutional Investor" | "HNI";
@@ -41,14 +39,16 @@ const InvestorsPage = async () => {
   
     const ADMIN_EMAIL_1 = process.env.ADMIN_1_EMAIL;
     const ADMIN_EMAIL_2 = process.env.ADMIN_2_EMAIL;
-  
+    const ADMIN_EMAIL_3 = process.env.ADMIN_3_EMAIL;
+
     // Redirect if the user is not an admin
     if (
       !user ||
       !user.emailAddresses.some(
         (email) =>
           email.emailAddress === ADMIN_EMAIL_1 ||
-          email.emailAddress === ADMIN_EMAIL_2
+        email.emailAddress === ADMIN_EMAIL_2 ||
+        email.emailAddress === ADMIN_EMAIL_3
       )
     ) {
       redirect("/");
@@ -74,15 +74,15 @@ const InvestorsPage = async () => {
             <h3 className="text-lg font-semibold text-gray-900 mb-4">
               Total Investors
             </h3>
+
             <p className="text-3xl font-bold text-blue-600">{investors.length}</p>
           </div>
           <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">
               Total Investments
             </h3>
-            <p className="text-3xl font-bold text-green-600">
-              ₹{investors.reduce((sum, investor) => sum + investor.investmentAmount, 0).toLocaleString()}
-            </p>
+            <p className="text-3xl font-bold text-green-600">0</p>
+
           </div>
           <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">
@@ -136,9 +136,7 @@ const InvestorsPage = async () => {
                       <h3 className="text-lg font-semibold text-purple-700 mb-2">
                         Investment Amount
                       </h3>
-                      <p className="text-gray-800">
-                        ₹{investor.investmentAmount.toLocaleString()}
-                      </p>
+                      
                     </div>
 
                     {/* Risk Preference */}
