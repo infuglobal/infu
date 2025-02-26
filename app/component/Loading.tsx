@@ -11,7 +11,7 @@ export default function Loading() {
         <h1 className="mt-6 text-2xl font-bold text-white">
           Loading...
         </h1>
-        <p className="mt-2 text-lg text-purple-700">
+        <p className="m-2 text-lg text-purple-700">
           Please wait while we prepare your content.
         </p>
       </div>

@@ -22,7 +22,7 @@ const Features = () => {
         </div>
 
         {/* Features Layout */}
-        <div className="relative flex flex-wrap justify-center items-start gap-10">
+        <div className="px-4 md:px-0 relative flex flex-wrap justify-center items-start gap-10">
           {/* Feature Items */}
           {features.map((feature, index) => (
             <div
