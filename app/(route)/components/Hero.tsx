@@ -16,13 +16,21 @@ const Hero = () => {
           alt="Hero Background"
           fill
           sizes="100vw"
-          className="object-cover object-center opacity-50"
+          className="hidden md:block object-cover object-center opacity-50"
+          priority // Ensures this image is loaded first
+        />
+         <Image
+          src="/hero-mobile.jpg"
+          alt="Hero Background"
+          fill
+          sizes="100vw"
+          className="block md:hidden object-cover object-center opacity-50"
           priority // Ensures this image is loaded first
         />
       </div>
 
       {/* Content */}
-      <div className="relative z-10 text-white px-6 sm:px-8 max-w-4xl">
+      <div className="relative z-10 text-white px-6 sm:px-4 max-w-4xl">
         <TextGenerateEffect
           words1="Invest, Grow, Learn"
           words2="– All in One"
