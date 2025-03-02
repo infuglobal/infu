@@ -87,11 +87,13 @@ body {
   letter-spacing: 0.3px; /* Add slight letter spacing to prevent characters from being too close */
   font-weight: 400; /* Set a regular font weight */
 }
-h1, h2, h3 {
+
+.hero-text {
   font-family: 'Oswald', sans-serif;
   font-weight: 500; /* Adjust weight for headings */
   letter-spacing: 1px; /* Slightly increase spacing for headings */
 }
+
 @layer base {
   :root {
     --background: 0 0% 100%;
