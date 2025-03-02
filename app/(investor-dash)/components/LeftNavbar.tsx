@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "next/link";
 
 const LeftNavbar = () => {
   const navigationItems = [
@@ -24,12 +23,12 @@ const LeftNavbar = () => {
         <ul className="space-y-3">
           {navigationItems.map((item, index) => (
             <li key={index}>
-              <Link
+              <a
                 href={item.route}
                 className="block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-purple-50 hover:text-purple-600 rounded-lg transition-all duration-200"
               >
                 {item.name}
-              </Link>
+              </a>
             </li>
           ))}
         </ul>

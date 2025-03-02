@@ -8,10 +8,7 @@ const InvestorNavbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Define the links for desktop and mobile navigation
-  const links = [
-    { href: "/home", label: "Home" },
-   
-  ];
+  const links = [{ href: "/home", label: "Home" }];
   const MobileLinks = [
     { href: "/", label: "Home" },
     { href: "/investor-dashboard ", label: "Dashboard" },
@@ -37,17 +34,14 @@ const InvestorNavbar = () => {
         <div className="flex items-center justify-between h-12">
           {/* Logo */}
           <div className="flex items-center flex-shrink-0">
-           <Image
-                        src="/infu-logo.png"
-                        alt="Infinity Fund Logo"
-                        width={60}
-                        height={60}
-                        className="mr-0 "
-                      />
-            <div
-              
-              className="text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text"
-            >
+            <Image
+              src="/infu-logo.png"
+              alt="Infinity Fund Logo"
+              width={60}
+              height={60}
+              className="mr-0 "
+            />
+            <div className="text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text">
               Investor Dashboard
             </div>
           </div>
@@ -66,15 +60,13 @@ const InvestorNavbar = () => {
             ))}
 
             <SignedIn>
-                <UserButton 
-                 appearance={{
-            
+              <UserButton
+                appearance={{
                   layout: {
                     unsafe_disableDevelopmentModeWarnings: true,
-                  
-                  }
+                  },
                 }}
-                />
+              />
             </SignedIn>
           </div>
 
@@ -121,14 +113,12 @@ const InvestorNavbar = () => {
                 </a>
               ))}
               <SignedIn>
-                <UserButton 
-                appearance={{
-            
-                  layout: {
-                    unsafe_disableDevelopmentModeWarnings: true,
-                  
-                  }
-                }}
+                <UserButton
+                  appearance={{
+                    layout: {
+                      unsafe_disableDevelopmentModeWarnings: true,
+                    },
+                  }}
                 />
               </SignedIn>
             </div>
