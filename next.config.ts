@@ -1,12 +1,14 @@
 import type { NextConfig } from "next";
 
-const nextConfig = {
+const nextConfig: NextConfig = {
   reactStrictMode: true,
   experimental: {
-    serverActions: true, // Important for Clerk with Next.js 15
+    serverActions: {
+      bodySizeLimit: "50mb", // Increase the body size limit for Server Actions
+    },
   },
   images: {
-    domains: ["res.cloudinary.com","img.clerk.com"],
+    domains: ["res.cloudinary.com", "img.clerk.com"], // Allowed image domains
   },
 };
 

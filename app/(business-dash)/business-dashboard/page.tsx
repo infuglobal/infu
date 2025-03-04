@@ -9,9 +9,9 @@ import {
   FaUser,
   FaEnvelope,
   FaPhone,
-  
 } from "react-icons/fa";
 import Loading from "@/app/component/Loading";
+import VideoUploadModal from "../components/VideoUploadModal";
 
 // Define types
 interface Business {
@@ -19,6 +19,7 @@ interface Business {
   businessCategory: string;
   description?: string[];
   registrationDate: string;
+  businessPitchVideo?: string; // Add this field
 }
 
 interface Address {
@@ -73,6 +74,7 @@ const Profile = () => {
   const [businessData, setBusinessData] = useState<BusinessData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     if (!isLoaded || !user?.id) return;
@@ -103,28 +105,31 @@ const Profile = () => {
   if (error) {
     return (
       <div className="container mx-auto px-4 pt-8 pb-12 overflow-y-auto h-screen">
-      <div className="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-lg p-8 text-white shadow-lg mb-8">
-      <h1 className="text-3xl font-bold mb-2">
+        <div className="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-lg p-8 text-white shadow-lg mb-8">
+          <h1 className="text-3xl font-bold mb-2">
             Register <span className="text-yellow-300">business </span>
           </h1>
           <p className="text-md">
-          Take the first step towards growth! Register your business to unlock exclusive funding opportunities and manage your details seamlessly.          </p>
+            Take the first step towards growth! Register your business to unlock
+            exclusive funding opportunities and manage your details seamlessly.{" "}
+          </p>
         </div>
 
         {/* Main Content */}
         <div className="text-center">
           <p className="text-gray-700">
-          It looks like you haven&apos;t registered your business yet.
+            It looks like you haven&apos;t registered your business yet.
           </p>
           <p className="text-gray-700">
-          Register now to access tailored funding options and streamline your business operations.
+            Register now to access tailored funding options and streamline your
+            business operations.
           </p>
           <div className="mt-4">
             <a
               href="/business-dashboard/register-business"
               className="px-4 py-2 bg-purple-600 text-white font-semibold rounded-md hover:bg-purple-700 transition"
             >
-               Register Your Business Today
+              Register Your Business Today
             </a>
           </div>
         </div>
@@ -136,10 +141,45 @@ const Profile = () => {
     <div className="container mx-auto px-4 pt-8 pb-12 overflow-y-auto h-screen">
       <div className="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-lg p-8 text-white shadow-lg mb-8">
         <h1 className="text-3xl font-bold mb-2">
-          Your <span className="text-yellow-300">Business </span>
+          Your <span className="text-yellow-300">Business</span>
         </h1>
-        <p className="text-md">Empowering Your Growth with Infinity Fund</p>
+        <p className="text-md mt-4">Empowering Your Growth with Infinity Fund</p>
       </div>
+
+      {/* Video Section */}
+      {businessData?.business.businessPitchVideo ? (
+        <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-300 mb-8">
+          <h2 className="text-2xl font-bold text-black mb-6 flex items-center gap-2">
+            Your Pitch Video
+          </h2>
+          <div className="w-full aspect-video rounded-lg overflow-hidden">
+            <video
+              src={businessData.business.businessPitchVideo}
+              controls
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </div>
+      ) : (
+        <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-300 mb-8">
+          <h2 className="text-2xl font-bold text-black mb-6 flex items-center gap-2">
+            Upload Your Pitch Video
+          </h2>
+          <p className="text-gray-700 mb-6">
+            A well-crafted pitch video can significantly increase your chances of
+            securing investments. Upload your video to showcase your business.
+          </p>
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="px-6 py-2 bg-purple-600 text-white rounded-lg text-sm font-semibold hover:bg-purple-700 transition-all duration-300"
+          >
+            Upload Video
+          </button>
+        </div>
+      )}
+
+      {/* Video Upload Modal */}
+      <VideoUploadModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 
       {/* Business Details */}
       <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
@@ -237,14 +277,16 @@ const Profile = () => {
               </p>
             </div>
             {businessData.owner.emailAddress && (
-              <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow duration-300">
-                <h3 className="text-lg font-semibold text-purple-700 flex items-center gap-2">
-                  <FaEnvelope /> Email
-                </h3>
-                <p className="text-md text-gray-700">
-                  {businessData.owner.emailAddress}
-                </p>
-              </div>
+             <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow duration-300 w-full max-w-xs sm:max-w-sm md:max-w-md">
+             <div className="text-lg font-semibold text-purple-700 flex items-center gap-2 flex-wrap">
+               <FaEnvelope className="flex-shrink-0" /> 
+               <span className="break-words">Email</span>
+             </div>
+             <p className="text-md text-gray-700 break-words overflow-hidden">
+               {businessData.owner.emailAddress}
+             </p>
+           </div>
+           
             )}
           </div>
         </div>

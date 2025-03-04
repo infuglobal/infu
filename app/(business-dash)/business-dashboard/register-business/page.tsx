@@ -154,7 +154,7 @@ const RegisterBusiness: React.FC = () => {
   return (
     <div className="h-screen w-full pb-10 overflow-y-auto">
       <div className="mx-auto px-6 py-10 flex justify-center">
-        <div className="w-[90%] bg-gray-50 border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition">
+        <div className=" bg-gray-50 border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition">
           {/* Page Header */}
           <header className="text-center mb-8">
             <h1 className="text-3xl font-bold text-gray-800">
@@ -241,7 +241,8 @@ const RegisterBusiness: React.FC = () => {
                     className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-purple-200"
                   />
                 </div>
-                <div className="flex-col space-y-3">
+                <div className="flex flex-col space-y-4 w-full">
+                  {/* GST Number Section */}
                   <div>
                     <label
                       htmlFor="gst"
@@ -249,7 +250,7 @@ const RegisterBusiness: React.FC = () => {
                     >
                       GST Number (Optional)
                     </label>
-                    <div className="relative flex items-center">
+                    <div className="relative flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
                       <input
                         type="text"
                         id="gst"
@@ -257,12 +258,12 @@ const RegisterBusiness: React.FC = () => {
                         placeholder="Enter GST number"
                         value={gst}
                         onChange={(e) => setGst(e.target.value)}
-                        className="flex-grow p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-purple-200"
+                        className="flex-grow p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-purple-200 w-full sm:w-auto"
                       />
                       <button
                         type="button"
                         onClick={handleVerifyGST}
-                        className="ml-3 px-4 py-2 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition"
+                        className="px-4 py-2 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition w-full sm:w-auto"
                       >
                         Verify
                       </button>
@@ -277,6 +278,8 @@ const RegisterBusiness: React.FC = () => {
                       </p>
                     )}
                   </div>
+
+                  {/* PAN Number Section */}
                   <div>
                     <label
                       htmlFor="pan"
@@ -284,21 +287,21 @@ const RegisterBusiness: React.FC = () => {
                     >
                       PAN Number
                     </label>
-                    <div className="relative flex items-center">
+                    <div className="relative flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
                       <input
                         required
                         type="text"
                         id="pan"
                         name="panNumber"
-                        placeholder="Enter Pan number"
+                        placeholder="Enter PAN number"
                         value={pan}
                         onChange={(e) => setPan(e.target.value)}
-                        className="flex-grow p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-purple-200"
+                        className="flex-grow p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-purple-200 w-full sm:w-auto"
                       />
                       <button
                         type="button"
                         onClick={handleVerifyPAN}
-                        className="ml-3 px-4 py-2 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition"
+                        className="px-4 py-2 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition w-full sm:w-auto"
                       >
                         Verify
                       </button>

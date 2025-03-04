@@ -142,7 +142,7 @@ const RegisterPortfolio: React.FC = () => {
   return (
     <div className="h-screen w-full pb-10 overflow-y-auto">
       <div className="mx-auto px-6 py-10 flex justify-center">
-        <div className="w-[90%] bg-gray-50 border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition">
+        <div className="w-full bg-gray-50 border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition">
           {/* Page Header */}
           <header className="text-center mb-8">
             <h1 className="text-3xl font-bold text-gray-800">

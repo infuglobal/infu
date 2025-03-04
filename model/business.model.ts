@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const BusinessSchema = new mongoose.Schema({
-  userId: { type: String},
+  userId: { type: String,  index: true},
   userEmail: { type: String, required: true }, 
   businessName: { type: String},
   businessCategory: { type: String},
@@ -11,6 +11,10 @@ const BusinessSchema = new mongoose.Schema({
   gstData: { type: mongoose.Schema.Types.ObjectId, ref: 'GstData', default: null },
   panNumber: { type: String },
   investments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'InvestmentDetails' }],
+  businessPitchVideo: { type: String },
+ 
+
+
 });
 
 const Business = mongoose.models.Business || mongoose.model("Business", BusinessSchema);

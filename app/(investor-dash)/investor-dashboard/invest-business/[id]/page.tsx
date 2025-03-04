@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { fetchPoolDetails } from "@/lib/serveraction";
-import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import {
   LineChart,
@@ -20,6 +19,7 @@ import {
   FaBuilding,
 } from "react-icons/fa"; // Icons for trust elements
 import Loading from "@/app/component/Loading";
+import VideoPlayer from "@/app/(investor-dash)/components/VideoPlayer";
 
 // Define the response type
 interface PoolDetails {
@@ -33,6 +33,7 @@ interface PoolDetails {
     registrationDate: Date;
     isGstVerified: boolean;
     panNumber: string;
+    businessPitchVideo: string;
   };
   amount: number;
   category: string;
@@ -74,7 +75,6 @@ const ExpandableText = ({
 };
 
 export default function PoolDetailsPage() {
-
   const params = useParams();
   const id = params.id as string;
   const router = useRouter();
@@ -178,15 +178,16 @@ export default function PoolDetailsPage() {
           {/* Left Column: Pool Details */}
           <div className="lg:col-span-2 bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
             {/* Pool Thumbnail */}
-            <div className="mb-8">
-              <Image
-                src={poolDetails.thumbnail}
-                alt={poolDetails.businessId.businessName}
-                width={800}
-                height={800}
-                className="rounded-lg object-cover w-full h-64"
-                priority
-              />
+            <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-300 mb-8">
+              <h2 className="text-2xl font-bold text-black mb-6 flex items-center gap-2">
+                Your Pitch Video
+              </h2>
+              <div className="w-full aspect-video rounded-lg overflow-hidden">
+                <VideoPlayer
+                  videoSrc={poolDetails.businessId.businessPitchVideo}
+                  thumbnail={poolDetails.thumbnail}
+                />
+              </div>
             </div>
 
             {/* Pool Information */}
@@ -318,14 +319,14 @@ export default function PoolDetailsPage() {
             </div>
           </div>
         </div>
-        
+
         <div className="mt-12 bg-white border border-gray-200 rounded-xl p-8 shadow-md">
           {/* Title */}
           <h2 className="text-2xl font-bold text-black mb-6">
             Make an Investment
           </h2>
 
-    <div className="space-y-6">
+          <div className="space-y-6">
             {/* Unit Selection */}
             <div>
               <h3 className="text-xl font-semibold text-purple-700 mb-4">
@@ -413,10 +414,7 @@ export default function PoolDetailsPage() {
               </button>
             </div>
           </div>
-
-          
         </div>
- 
       </div>
     </div>
   );

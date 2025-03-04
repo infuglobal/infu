@@ -59,7 +59,7 @@ const Footer = () => {
         className="text-gray-600 hover:text-purple-800 transition duration-300 transform hover:scale-110"
       />
     </Link>
-    <Link target="blank" href="https://www.facebook.com/profile.php?id=61572575597745" passHref>
+    <Link target="blank" href="https://www.facebook.com/profile.php?id=61573169439164" passHref>
       <FaFacebook
         size={28}
         className="text-gray-600 hover:text-purple-800 transition duration-300 transform hover:scale-110"

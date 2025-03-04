@@ -5,7 +5,7 @@ import connectDB from "@/lib/db";
 // you can find all serveractions here
 
 
-// For uploading image to cloudinary
+// For uploading image and videos to cloudinary
 import { v2 as cloudinary } from "cloudinary";
 // Configure Cloudinary
 cloudinary.config({
@@ -60,6 +60,89 @@ const uploadImageToCloudinary = async (file: File): Promise<string> => {
 };
 
 
+
+
+
+
+import { UploadApiResponse } from "cloudinary"; // For type safety
+
+
+export const uploadBusinessPitchVideo = async (formData: FormData) => {
+  try {
+    // Connect to the database
+    await connectDB();
+
+    // Get the current user
+    const user = await currentUser();
+    if (!user) {
+      throw new Error("User not authenticated");
+    }
+
+    // Extract form data
+    const userId = user.id; // Extract userId from the user object
+    const videoFile = formData.get("video") as File;
+
+    // Validate required fields
+    if (!userId || !videoFile) {
+      throw new Error("Missing required fields");
+    }
+
+    // Convert the video file to a buffer
+    const videoBuffer = await videoFile.arrayBuffer();
+    const videoArray = Buffer.from(videoBuffer);
+
+    // Upload video to Cloudinary
+    const cloudinaryResponse = await new Promise<UploadApiResponse>((resolve, reject) => {
+      cloudinary.uploader
+        .upload_stream(
+          {
+            resource_type: "video",
+            folder: "business_pitch_videos", // Optional: Organize videos in a folder
+          },
+          (error, result) => {
+            if (error) {
+              reject(error);
+            } else if (result) {
+              resolve(result); // Ensure result is defined before resolving
+            } else {
+              reject(new Error("Cloudinary upload failed: No result returned"));
+            }
+          }
+        )
+        .end(videoArray);
+    });
+
+    // Extract Cloudinary video URL
+    const videoUrl = cloudinaryResponse.secure_url;
+
+    // Update the business document with pitch video details
+    const updatedBusiness = await Business.findOneAndUpdate(
+      { userId }, // Find the business by userId
+      {
+        businessPitchVideo: videoUrl,
+      },
+      { new: true } // Return the updated document
+    ).lean(); // Convert the Mongoose document to a plain object
+
+    if (!updatedBusiness) {
+      throw new Error("Business not found for the given user");
+    }
+
+    // Revalidate the path (if using Next.js caching)
+    revalidatePath("/business-dashboard"); // Adjust the path as needed
+
+    return {
+      success: true,
+      message: "Pitch video uploaded successfully",
+    };
+  } catch (error) {
+    console.error("Error uploading pitch video:", error);
+    return {
+      success: false,
+      message: error instanceof Error ? error.message : "Failed to upload pitch video",
+    };
+  }
+};
 
 
 
@@ -461,6 +544,8 @@ interface PoolDetails {
     registrationDate: Date;
     isGstVerified: boolean;
     panNumber: string;
+    businessPitchVideo: string;
+
   };
   amount: number;
   category: string;
@@ -498,6 +583,8 @@ export async function fetchPoolDetails(
         registrationDate: pool.businessId.registrationDate,
         isGstVerified: pool.businessId.isGstVerified,
         panNumber: pool.businessId.panNumber,
+        businessPitchVideo: pool.businessId.businessPitchVideo,
+
       },
       amount: pool.amount,
       category: pool.category,
