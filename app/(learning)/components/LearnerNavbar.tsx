@@ -63,6 +63,8 @@ const LearnerNavbar = () => {
                   ></path>
                 </svg>
               </button>
+              <Link href='/'>
+
               <Image
                 src="/infu-logo.png"
                 alt="Infinity Fund Logo"
@@ -70,6 +72,7 @@ const LearnerNavbar = () => {
                 height={60}
                 className="mr-0"
               />
+              </Link>
               <Link
                 href="/learning-resources"
                 className="text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text"

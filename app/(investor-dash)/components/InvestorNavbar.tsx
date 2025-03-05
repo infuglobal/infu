@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { SignedIn, UserButton } from "@clerk/nextjs";
+import Link from "next/link";
 
 const InvestorNavbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -29,11 +30,13 @@ const InvestorNavbar = () => {
   };
 
   return (
-    <nav className="w-full bg-white shadow-md z-50">
+    <nav className="w-full bg-white border-b border-gray-200 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-12">
           {/* Logo */}
           <div className="flex items-center flex-shrink-0">
+          <Link href='/'>
+
             <Image
               src="/infu-logo.png"
               alt="Infinity Fund Logo"
@@ -41,6 +44,7 @@ const InvestorNavbar = () => {
               height={60}
               className="mr-0 "
             />
+            </Link>
             <div className="text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text">
               Investor Dashboard
             </div>

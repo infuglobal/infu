@@ -58,12 +58,12 @@ const ExpandableText = ({
   const displayText = isExpanded ? text : `${text.slice(0, maxLength)}...`;
   return (
     <div>
-      <p className="text-lg text-gray-700 font-medium">{displayText}</p>
+      <p className="text-md text-gray-700 font-medium">{displayText}</p>
       <button
         onClick={toggleExpand}
         className="text-purple-600 font-semibold mt-2 hover:underline focus:outline-none"
       >
-        {isExpanded ? "Show Less" : "Show More"}
+        {isExpanded ? "Show Less" : "Show more"}
       </button>
     </div>
   );
@@ -220,7 +220,7 @@ const Profile = () => {
             >
               <div className="flex items-center gap-3 mb-3">
                 <span className="text-2xl">{item.icon}</span>
-                <h3 className="text-xl font-semibold text-purple-700">
+                <h3 className="text-md font-semibold text-purple-700">
                   {item.label}
                 </h3>
               </div>
@@ -261,7 +261,7 @@ const Profile = () => {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow duration-300">
-              <h3 className="text-lg font-semibold text-purple-700 flex items-center gap-2">
+              <h3 className="text-md font-semibold text-purple-700 flex items-center gap-2">
                 <FaUser /> Name
               </h3>
               <p className="text-md text-gray-700">
@@ -269,7 +269,7 @@ const Profile = () => {
               </p>
             </div>
             <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow duration-300">
-              <h3 className="text-lg font-semibold text-purple-700 flex items-center gap-2">
+              <h3 className="text-md font-semibold text-purple-700 flex items-center gap-2">
                 <FaPhone /> Phone
               </h3>
               <p className="text-md text-gray-700">
@@ -278,7 +278,7 @@ const Profile = () => {
             </div>
             {businessData.owner.emailAddress && (
              <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow duration-300 w-full max-w-xs sm:max-w-sm md:max-w-md">
-             <div className="text-lg font-semibold text-purple-700 flex items-center gap-2 flex-wrap">
+             <div className="text-md font-semibold text-purple-700 flex items-center gap-2 flex-wrap">
                <FaEnvelope className="flex-shrink-0" /> 
                <span className="break-words">Email</span>
              </div>

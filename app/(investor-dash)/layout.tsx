@@ -11,7 +11,9 @@ export default function RootLayout({
       <InvestorNavbar />
       <div className="flex">
         <LeftNavbar />
-        {children}
+        <main className="flex-1 overflow-y-auto">
+          {children}
+        </main>
         </div>
     </div>
   );

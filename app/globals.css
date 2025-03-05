@@ -4,7 +4,7 @@
 
 /* Customize the scrollbar width */
 ::-webkit-scrollbar {
-  width: 12px; /* Width of the scrollbar */
+  width: 10px; /* Width of the scrollbar */
 }
 
 /* Customize the scrollbar thumb (the draggable part) */
@@ -90,8 +90,9 @@ body {
 
 .hero-text {
   font-family: 'Oswald', sans-serif;
-  font-weight: 500; /* Adjust weight for headings */
+  font-weight: 900; /* Adjust weight for headings */
   letter-spacing: 1px; /* Slightly increase spacing for headings */
+  line-height: 1.2; 
 }
 
 @layer base {

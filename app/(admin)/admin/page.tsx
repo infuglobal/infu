@@ -73,27 +73,26 @@ export default async function AdminDashboard() {
 
   const users: User[] = await getAllUsers();
 
-  // Mock data for businesses and investors (replace with actual data fetching logic)
-  const totalBusinesses = 1;
-  const totalInvestors = 1;
+  const totalBusinesses = users.filter((user) => user.publicMetadata.role === "Business").length;
+  const totalInvestors = users.filter((user) => user.publicMetadata.role === "Investor").length;
 
   return (
-    <div className="container mx-auto px-4 pt-8 pb-12 overflow-y-auto h-screen">
+    <div className="container mx-auto px-4 pt-8 pb-12 h-full overflow-y-hidden">
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
-        <div className="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-lg p-8 text-white shadow-lg mb-8">
-          <h1 className="text-4xl font-bold mb-4 flex items-center gap-2">
+        <div className="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-lg p-6 sm:p-8 text-white shadow-lg mb-8">
+          <h1 className="text-3xl sm:text-4xl font-bold mb-4 flex items-center gap-2">
             <FaUser className="text-yellow-300" /> Admin Dashboard
           </h1>
-          <p className="text-lg">
+          <p className="text-base sm:text-lg">
             Manage and view all users, businesses, and investors in the system.
           </p>
         </div>
 
         {/* Top Section - Dashboard Boxes */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           {/* Total Users Box */}
-          <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
+          <div className="bg-white border border-gray-200 rounded-lg p-4 sm:p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">
               Total Users
             </h3>
@@ -102,7 +101,7 @@ export default async function AdminDashboard() {
 
           {/* Total Businesses Box */}
           <Link href="/admin/businesses">
-            <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-300 cursor-pointer">
+            <div className="bg-white border border-gray-200 rounded-lg p-4 sm:p-6 shadow-sm hover:shadow-md transition-shadow duration-300 cursor-pointer">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">
                 Total Businesses
               </h3>
@@ -114,7 +113,7 @@ export default async function AdminDashboard() {
 
           {/* Total Investors Box */}
           <Link href="/admin/investors">
-            <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-300 cursor-pointer">
+            <div className="bg-white border border-gray-200 rounded-lg p-4 sm:p-6 shadow-sm hover:shadow-md transition-shadow duration-300 cursor-pointer">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">
                 Total Investors
               </h3>
@@ -126,13 +125,13 @@ export default async function AdminDashboard() {
         </div>
 
         {/* Bottom Section - Users Table */}
-        <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
+        <div className="bg-white border border-gray-200 rounded-lg p-4 sm:p-6 shadow-sm hover:shadow-md transition-shadow duration-300 overflow-x-auto">
           <h2 className="text-2xl font-bold text-purple-900 mb-6 flex items-center gap-2">
             <FaUser className="text-purple-600" /> All Users
           </h2>
-          <table className="w-full text-left border-collapse">
+          <table className="w-full text-left border-collapse min-w-[800px]">
             <thead>
-              <tr className="bg-gray-200 text-black">
+              <tr className="bg-gray-100 text-black">
                 <th className="py-3 px-4">Profile</th>
                 <th className="py-3 px-4">Name</th>
                 <th className="py-3 px-4">Email</th>
@@ -141,8 +140,6 @@ export default async function AdminDashboard() {
                 <th className="py-3 px-4">Created At</th>
                 <th className="py-3 px-4">Updated At</th>
                 <th className="py-3 px-4">Last Active</th>
-                <th className="py-3 px-4">Status</th>
-                <th className="py-3 px-4">2FA</th>
               </tr>
             </thead>
             <tbody>
@@ -177,16 +174,6 @@ export default async function AdminDashboard() {
                     {user.lastActiveAt
                       ? new Date(user.lastActiveAt).toLocaleDateString()
                       : "Never"}
-                  </td>
-                  <td className="py-3 px-4">
-                    {user.banned
-                      ? "Banned"
-                      : user.locked
-                      ? "Locked"
-                      : "Active"}
-                  </td>
-                  <td className="py-3 px-4">
-                    {user.twoFactorEnabled ? "Enabled" : "Disabled"}
                   </td>
                 </tr>
               ))}
