@@ -12,7 +12,7 @@ export default async function ExploreInvestors({
   ]);
 
   return (
-    <div className="px-6 py-4 w-full h-screen overflow-y-auto">
+    <div className="px-6 py-4 w-full h-full overflow-y-auto">
       <BusinessSearchGrid businesses={businesses} categories={categories} />
     </div>
   );

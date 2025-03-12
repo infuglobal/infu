@@ -9,7 +9,7 @@ const InvestorNavbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Define the links for desktop and mobile navigation
-  const links = [{ href: "/home", label: "Home" }];
+  const links = [{ href: "/", label: "Home" }];
   const MobileLinks = [
     { href: "/", label: "Home" },
     { href: "/investor-dashboard ", label: "Dashboard" },

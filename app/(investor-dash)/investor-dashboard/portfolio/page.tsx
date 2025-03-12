@@ -5,7 +5,7 @@ import Link from "next/link";
 import { checkInvestorRegistration } from "@/lib/serveraction";
 import { useUser } from "@clerk/nextjs";
 import { FaBuilding, FaUser } from "react-icons/fa";
-import Loading from "@/app/component/Loading";
+import YourPortfolioLoading from "../../components/YourPortfolioLoading";
 
 // Define investor data type
 interface InvestorData {
@@ -49,7 +49,7 @@ const InvestorPortfolio = () => {
   }, [user?.id, isLoaded]);
 
   if (loading) {
-    return <Loading />;
+    return <YourPortfolioLoading />;
   }
 
   if (error) {

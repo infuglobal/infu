@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Search } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import ExploreLoading from "./ExploreLoading";
 
 interface Business {
   id: string;
@@ -22,14 +23,22 @@ export default function BusinessSearchGrid({
   businesses,
   categories,
 }: BusinessSearchGridProps) {
-  // ✅ Manage search and category state locally
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [loading, setLoading] = useState(true); // Loading state
 
-  // ✅ Ensure categories are unique
+  // Simulate loading delay (replace with actual data fetching logic)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000); // Simulate 2 seconds loading time
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Ensure categories are unique
   const uniqueCategories = [...new Set(categories)];
 
-  // ✅ Filter businesses dynamically without modifying the URL
+  // Filter businesses dynamically without modifying the URL
   const filteredBusinesses = businesses.filter((b) => {
     const matchesCategory =
       selectedCategory === "All" || b.category === selectedCategory;
@@ -37,10 +46,17 @@ export default function BusinessSearchGrid({
     return matchesCategory && matchesSearch;
   });
 
+  // Loading Skeleton UI
+  if (loading) {
+    return (
+      <ExploreLoading />
+    );
+  }
+
   return (
     <div>
       {/* 🔍 Search Input */}
-      <div className="flex flex-col md:flex-row  mx-2 justify-between items-center mb-6">
+      <div className="flex flex-col md:flex-row mx-2 justify-between items-center mb-6">
         <h1 className="text-3xl sm:text-3xl font-bold text-black text-center sm:text-left mb-4 sm:mb-0">
           Explore <span className="text-purple-600">Businesses</span>
         </h1>
@@ -60,7 +76,7 @@ export default function BusinessSearchGrid({
       <div className="flex gap-3 mb-6">
         {uniqueCategories.map((category) => (
           <button
-            key={category} // ✅ Ensure unique keys
+            key={category}
             onClick={() => setSelectedCategory(category)}
             className={`px-4 py-2 rounded-lg transition ${
               selectedCategory === category

@@ -1,5 +1,5 @@
-import BusinessNavbar from "./components/BusinessNavbar";
-import LeftNavbar from "./components/LeftNavbar";
+import BusinessNavbar from "../components/BusinessNavbar";
+import LeftNavbar from "../components/LeftNavbar";
 
 
 export default function RootLayout({

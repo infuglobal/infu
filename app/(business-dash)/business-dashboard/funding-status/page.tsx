@@ -10,11 +10,11 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import Loading from "@/app/component/Loading";
 import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { fetchPoolDetailsByUserId } from "@/lib/serveraction";
 import Image from "next/image";
+import FundingStatusLoading from "../../components/FundingStatusLoading";
 
 // Define the response type
 interface PoolDetail {
@@ -74,7 +74,7 @@ export default function FundingStatusPage() {
     fetchDetails();
   }, [user]);
 
-  if (loading) return <Loading />;
+  if (loading) return <FundingStatusLoading />;
 
   return (
     <div className="container mx-auto px-4 pt-8 pb-12 overflow-y-auto h-screen">

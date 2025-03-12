@@ -10,8 +10,8 @@ import {
   FaEnvelope,
   FaPhone,
 } from "react-icons/fa";
-import Loading from "@/app/component/Loading";
 import VideoUploadModal from "../components/VideoUploadModal";
+import Loading from "../components/Loading";
 
 // Define types
 interface Business {

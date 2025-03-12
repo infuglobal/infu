@@ -18,8 +18,8 @@ import {
   FaHandshake,
   FaBuilding,
 } from "react-icons/fa"; // Icons for trust elements
-import Loading from "@/app/component/Loading";
 import VideoPlayer from "@/app/(investor-dash)/components/VideoPlayer";
+import Loading from "@/app/(investor-dash)/components/Loading";
 
 // Define the response type
 interface PoolDetails {
