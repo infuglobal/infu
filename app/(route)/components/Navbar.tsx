@@ -8,9 +8,12 @@ import { SignedIn, SignedOut, useUser } from "@clerk/nextjs";
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { user } = useUser(); // Get the signed-in user details
-  
+
   // Smooth scrolling function
-  const handleScroll = (e: React.SyntheticEvent | MouseEvent, targetId: string) => {
+  const handleScroll = (
+    e: React.SyntheticEvent | MouseEvent,
+    targetId: string
+  ) => {
     e.preventDefault();
     const targetElement = document.getElementById(targetId);
     if (targetElement) {
@@ -33,7 +36,7 @@ const Navbar = () => {
             />
             <Link
               href="/"
-              className="text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text"
+              className="text-2xl font-extrabold bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text font-[Poppins] tracking-wide"
             >
               INFINITY FUND
             </Link>
@@ -70,19 +73,22 @@ const Navbar = () => {
               Features
             </a>
             <Link
-                href="/learning-resources"
-                target="_blank"
-
-                className="block text-gray-700 hover:text-purple-600 font-medium transition duration-300 cursor-pointer"
-              >
-                Resources
-              </Link>
+              href="/learning-resources"
+              target="_blank"
+              className="block text-gray-700 hover:text-purple-600 font-medium transition duration-300 cursor-pointer"
+            >
+              Resources
+            </Link>
             {/* Login/Sign-Up or Dashboard Button */}
             <SignedIn>
               {/* If the user is signed in */}
               <Link
-                              target="_blank"
-                href={user?.publicMetadata?.role === "Investor" ? "/investor-dashboard" : "/business-dashboard"}
+                target="_blank"
+                href={
+                  user?.publicMetadata?.role === "Investor"
+                    ? "/investor-dashboard"
+                    : "/business-dashboard"
+                }
                 className="px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-500 text-white font-semibold rounded-full shadow-md hover:shadow-lg hover:from-purple-700 hover:to-pink-600 transition duration-300"
               >
                 Dashboard
@@ -130,43 +136,55 @@ const Navbar = () => {
             <div className="space-y-2 px-4 py-3 text-center">
               <Link
                 href="/"
-                onClick={(e) => (handleScroll(e, "home"), setIsMobileMenuOpen(false))}
+                onClick={(e) => (
+                  handleScroll(e, "home"), setIsMobileMenuOpen(false)
+                )}
                 className="block text-gray-700 hover:text-purple-600 font-medium transition duration-300 cursor-pointer"
               >
                 Home
               </Link>
-              
+
               <a
                 href="#about"
-                onClick={(e) => (handleScroll(e, "about"), setIsMobileMenuOpen(false))}
+                onClick={(e) => (
+                  handleScroll(e, "about"), setIsMobileMenuOpen(false)
+                )}
                 className="block text-gray-700 hover:text-purple-600 font-medium transition duration-300 cursor-pointer"
               >
                 About Us
               </a>
               <a
                 href="#how-it-works"
-                onClick={(e) => (handleScroll(e, "how-it-works"), setIsMobileMenuOpen(false))}
+                onClick={(e) => (
+                  handleScroll(e, "how-it-works"), setIsMobileMenuOpen(false)
+                )}
                 className="block text-gray-700 hover:text-purple-600 font-medium transition duration-300 cursor-pointer"
               >
                 How It Works
               </a>
               <a
                 href="#features"
-                onClick={(e) => (handleScroll(e, "features"), setIsMobileMenuOpen(false))}
+                onClick={(e) => (
+                  handleScroll(e, "features"), setIsMobileMenuOpen(false)
+                )}
                 className="block text-gray-700 hover:text-purple-600 font-medium transition duration-300 cursor-pointer"
               >
                 Features
               </a>
               <Link
                 href="/learning-resources"
-               target="_blank"
+                target="_blank"
                 className="block text-gray-700 hover:text-purple-600 font-medium transition duration-300 cursor-pointer"
               >
                 Resources
               </Link>
               <SignedIn>
                 <Link
-                  href={user?.publicMetadata?.role === "Investor" ? "/investor-dashboard" : "/business-dashboard"}
+                  href={
+                    user?.publicMetadata?.role === "Investor"
+                      ? "/investor-dashboard"
+                      : "/business-dashboard"
+                  }
                   className="block px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-500 text-white font-semibold rounded-full shadow-md hover:shadow-lg hover:from-purple-700 hover:to-pink-600 transition duration-300 text-center"
                 >
                   Dashboard

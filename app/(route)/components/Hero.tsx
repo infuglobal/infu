@@ -12,7 +12,7 @@ const Hero = () => {
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
-          src="/i6.jpg"
+          src="/i14.jpg"
           alt="Hero Background"
           fill
           sizes="100vw"
@@ -20,7 +20,7 @@ const Hero = () => {
           priority // Ensures this image is loaded first
         />
          <Image
-          src="/hero-mobile.jpg"
+          src="/i14.jpg"
           alt="Hero Background"
           fill
           sizes="100vw"

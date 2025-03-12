@@ -8,15 +8,15 @@ const HowItWorks = () => {
   const cards = [
     {
       title: "For Investors: Access high-growth opportunities with real-time insights",
-      src: "/investor.jpg",
+      src: "/indian-investor.jpg",
     },
     {
       title: "For Businesses: Secure funding and connect with growth-focused investors",
-      src: "/business.jpg",
+      src: "/i8.jpg",
     },
     {
       title: "For Learners: Master smart investing to build wealth and financial growth",
-      src: "/learner.jpg",
+      src: "/indian-learning.jpg",
     },
   ];
   

@@ -20,11 +20,11 @@ const About = () => {
           transition={{ duration: 0.8 }}
         >
           <Image
-            src="/i3.jpg"
+            src="/i13.webp"
             alt="About Infinity Fund"
             fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="rounded-full object-cover object-center scale-105 hover:scale-110 transition-transform duration-500 ease-in-out"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
+            className="rounded-full object-cover object-center scale-100 hover:scale-105 transition-transform duration-500 ease-in-out"
           />
         </motion.div>
 
