@@ -160,7 +160,7 @@ export const HOW_INFU_WORKS = {
     },
     {
       title: "Diverse Investment Options",
-      description: "Explore opportunities across stocks, crypto, real estate, and crowdfunding projects.",
+      description: "Explore opportunities across creative indian sme and msme, real estate, and crowdfunding projects.",
     },
     {
       title: "Fractional Ownership",

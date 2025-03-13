@@ -322,14 +322,14 @@ export default function PoolDetailsPage() {
 
         <div className="mt-12 bg-white border border-gray-200 rounded-xl p-8 shadow-md">
           {/* Title */}
-          <h2 className="text-2xl font-bold text-black mb-6">
+          <h2 className="text-xl font-bold text-black mb-6">
             Make an Investment
           </h2>
 
           <div className="space-y-6">
             {/* Unit Selection */}
             <div>
-              <h3 className="text-lg font-semibold text-purple-700 mb-4">
+              <h3 className="text-md font-semibold text-purple-700 mb-4">
                 Select Units to Invest
               </h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -340,7 +340,7 @@ export default function PoolDetailsPage() {
                       setSelectedUnit(unit);
                       setQuantity(1); // Reset quantity when unit changes
                     }}
-                    className={`px-6 py-3 rounded-lg text-lg font-semibold transition duration-300 ${
+                    className={`px-6 py-3 rounded-lg text-md font-semibold transition duration-300 ${
                       selectedUnit === unit
                         ? "bg-purple-600 text-white scale-105 shadow-md"
                         : "bg-purple-100 text-purple-700 hover:bg-purple-200"
@@ -354,7 +354,7 @@ export default function PoolDetailsPage() {
 
             {/* Quantity Selector */}
             <div className="flex items-center gap-6 bg-gray-50 border border-gray-200 rounded-lg p-6">
-              <h3 className="text-xl font-semibold text-purple-700">
+              <h3 className="text-lg font-semibold text-purple-700">
                 Select Quantity
               </h3>
               <div className="flex items-center space-x-4">
@@ -364,7 +364,7 @@ export default function PoolDetailsPage() {
                 >
                   −
                 </button>
-                <span className="text-xl font-bold text-black">{quantity}</span>
+                <span className="text-lg font-bold text-black">{quantity}</span>
                 <button
                   onClick={incrementQuantity}
                   className="bg-purple-600 text-white px-4 py-2 rounded-lg text-lg font-bold hover:bg-purple-700 transition duration-300"
@@ -376,10 +376,10 @@ export default function PoolDetailsPage() {
 
             {/* Investment Summary */}
             <div className="bg-gray-50 border border-gray-200 rounded-lg p-6">
-              <h3 className="text-xl font-semibold text-purple-700 mb-4">
+              <h3 className="text-lg font-semibold text-purple-700 mb-4">
                 Investment Summary
               </h3>
-              <div className="space-y-3 text-lg text-gray-700">
+              <div className="space-y-3 text-md text-gray-700">
                 <p>
                   Selected Unit:{" "}
                   <span className="font-bold">
@@ -404,7 +404,7 @@ export default function PoolDetailsPage() {
             <div className="text-center">
               <button
                 disabled={!selectedUnit}
-                className={`px-12 py-2 rounded-lg text-xl font-semibold transition duration-300 shadow-lg ${
+                className={`px-12 py-2 rounded-lg text-lg font-semibold transition duration-300 shadow-lg ${
                   selectedUnit
                     ? "bg-purple-600 hover:bg-purple-700 transform hover:scale-105 text-white"
                     : "bg-gray-400 cursor-not-allowed text-white"
