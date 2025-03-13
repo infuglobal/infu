@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { unique } from "next/dist/build/utils";
 
 const investorSchema = new mongoose.Schema({
   userId: { type: String, required: true },
@@ -48,10 +49,13 @@ const investorSchema = new mongoose.Schema({
     pan: {
       type: String,
       required: true,
+      unique:true
     },
     aadhaar: {
       type: String,
       required: true,
+      unique:true
+
     }
   
   },
