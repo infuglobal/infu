@@ -144,47 +144,46 @@ const Profile = () => {
 
   return (
     <div className="container mx-auto px-4 pt-8 pb-12 overflow-y-auto h-screen">
-     <div className="flex flex-col md:flex-row justify-between items-center bg-gradient-to-r from-[#1E1E2E] to-[#312E81] rounded-lg p-6 md:p-8 text-white shadow-lg mb-8 space-y-4 md:space-y-0">
-  <div className="text-center md:text-left">
-    <h1 className="text-3xl font-bold mb-1">
-      {businessData?.business.businessName || "Your Business"}
-    </h1>
-    <p className="text-md mt-2">
-      Empowering Your Growth with Infinity Fund
-    </p>
-  </div>
+      <div className="flex flex-col md:flex-row justify-between items-center bg-gradient-to-r from-[#1E1E2E] to-[#312E81] rounded-lg p-6 md:p-8 text-white shadow-lg mb-8 space-y-4 md:space-y-0">
+        <div className="text-center md:text-left">
+          <h1 className="text-3xl font-bold mb-1">
+            {businessData?.business.businessName || "Your Business"}
+          </h1>
+          <p className="text-md mt-2">
+            Empowering Your Growth with Infinity Fund
+          </p>
+        </div>
 
-  {/* User Profile and Edit Profile Button */}
-  <div className="flex items-center gap-4">
-    {/* Clerk UserButton */}
-    
+        {/* User Profile and Edit Profile Button */}
+        <div className="flex items-center gap-4">
+          {/* Clerk UserButton */}
 
-    {/* Edit Profile Button */}
-    <button
-      className="flex items-center justify-center gap-2 px-5 py-2 h-10 min-w-[120px] bg-white/10 backdrop-blur-sm rounded-full border border-white/20 hover:bg-white/20 transition-all duration-300"
-      onClick={() => setIsEditProfileModalOpen(true)}
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        className="h-5 w-5"
-        viewBox="0 0 20 20"
-        fill="currentColor"
-      >
-        <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
-      </svg>
-      <span className="text-sm font-semibold">Edit Profile</span>
-    </button>
-    <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white">
-      <UserButton
-        appearance={{
-          elements: {
-            avatarBox: "w-full h-full", // Make the avatar larger
-          },
-        }}
-      />
-    </div>
-  </div>
-</div>
+          {/* Edit Profile Button */}
+          <button
+            className="flex items-center justify-center gap-2 px-5 py-2 h-10 min-w-[120px] bg-white/10 backdrop-blur-sm rounded-full border border-white/20 hover:bg-white/20 transition-all duration-300"
+            onClick={() => setIsEditProfileModalOpen(true)}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+            </svg>
+            <span className="text-sm font-semibold">Edit Profile</span>
+          </button>
+          <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white">
+            <UserButton
+              appearance={{
+                elements: {
+                  avatarBox: "w-full h-full", // Make the avatar larger
+                },
+              }}
+            />
+          </div>
+        </div>
+      </div>
       {/* Edit Profile Modal */}
       {businessData && (
         <EditProfileModal
