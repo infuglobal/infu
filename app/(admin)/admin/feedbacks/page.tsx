@@ -1,6 +1,6 @@
 import React from "react";
 import { fetchFeedbacks } from "@/lib/serveraction";
-import { FaCommentDots, FaUser, FaClock } from "react-icons/fa";
+import { FaUser, FaClock } from "react-icons/fa";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
@@ -61,15 +61,17 @@ export default async function FeedbackPage() {
     <div className="container mx-auto px-4 pt-8 pb-12 overflow-y-auto h-screen">
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
-        <div className="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-lg p-6 sm:p-8 text-white shadow-lg mb-8">
-          <h1 className="text-3xl sm:text-4xl font-bold mb-4 flex items-center gap-2">
-            <FaCommentDots className="text-yellow-300" /> User Feedbacks
-          </h1>
-          <p className="text-base sm:text-lg">
-            Insights and suggestions from our users to help us improve.
-          </p>
-        </div>
 
+        <div className="flex flex-col md:flex-row justify-between items-center bg-gradient-to-r from-[#1E1E2E] to-[#312E81] rounded-lg p-6 md:p-8 text-white shadow-lg mb-8 space-y-4 md:space-y-0">
+          <div className="text-center md:text-left">
+            <h1 className="text-3xl font-bold mb-1">
+              User <span className="text-sky-300">Feedbacks</span>
+            </h1>
+            <p className="text-md mt-2">
+              Insights and suggestions from our users to help us improve.
+            </p>
+          </div>
+        </div>
         {/* Feedback Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {feedbacks.map((feedback: Feedback) => (

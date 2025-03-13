@@ -6,7 +6,7 @@ export default function FundingStatusLoading() {
   return (
     <div className="container mx-auto px-4 pt-8 pb-12 overflow-y-auto h-full">
       {/* Header Section Skeleton */}
-      <div className="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-lg p-8 text-white shadow-lg mb-8">
+      <div className="bg-gradient-to-r from-[#1E1E2E] to-[#312E81] rounded-lg p-8 text-white shadow-lg mb-8">
         <Skeleton className="h-8 w-1/3 mb-2" />
         <Skeleton className="h-6 w-1/2" />
       </div>

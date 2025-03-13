@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation"; // Updated import
 import React, { useState } from "react";
 import { toast } from "sonner";
+import { AiFillStar } from "react-icons/ai";
 
 interface GstData {
   gstNumber: string;
@@ -175,12 +176,16 @@ const RegisterBusiness: React.FC = () => {
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
-                  <label
-                    htmlFor="business-name"
-                    className="block text-sm font-medium text-gray-700 mb-1"
-                  >
-                    Business Legal Name
-                  </label>
+                  <div className="flex items-center gap-1">
+                    <label
+                      htmlFor="business-name"
+                      className="text-sm font-medium text-gray-700"
+                    >
+                      Business Legal Name
+                    </label>
+                    <AiFillStar className="text-red-500 text-[10px]" />
+                  </div>
+
                   <input
                     required
                     type="text"
@@ -193,12 +198,16 @@ const RegisterBusiness: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label
-                    htmlFor="business-category"
-                    className="block text-sm font-medium text-gray-700 mb-1"
-                  >
-                    Business Category
-                  </label>
+                  <div className="flex items-center gap-1">
+                    <label
+                      htmlFor="business-category"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
+                      Business Category
+                    </label>
+                    <AiFillStar className="text-red-500 text-[10px]" />
+                  </div>
+
                   <select
                     required
                     id="business-category"
@@ -225,12 +234,16 @@ const RegisterBusiness: React.FC = () => {
                   </select>
                 </div>
                 <div>
-                  <label
-                    htmlFor="business-description"
-                    className="block text-sm font-medium text-gray-700 mb-1"
-                  >
-                    Complete description of your business
-                  </label>
+                  <div className="flex items-center gap-1">
+                    <label
+                      htmlFor="business-description"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
+                      Complete description of your business
+                    </label>
+                    <AiFillStar className="text-red-500 text-[10px]" />
+                  </div>
+
                   <textarea
                     required
                     maxLength={10000}
@@ -250,6 +263,7 @@ const RegisterBusiness: React.FC = () => {
                     >
                       GST Number (Optional)
                     </label>
+
                     <div className="relative flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
                       <input
                         type="text"
@@ -281,12 +295,16 @@ const RegisterBusiness: React.FC = () => {
 
                   {/* PAN Number Section */}
                   <div>
-                    <label
-                      htmlFor="pan"
-                      className="block text-sm font-medium text-gray-700 mb-1"
-                    >
-                      PAN Number
-                    </label>
+                    <div className="flex items-center gap-1">
+                      <label
+                        htmlFor="pan"
+                        className="block text-sm font-medium text-gray-700 mb-1"
+                      >
+                        PAN Number
+                      </label>
+                      <AiFillStar className="text-red-500 text-[10px]" />
+                    </div>
+
                     <div className="relative flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
                       <input
                         required
@@ -327,12 +345,16 @@ const RegisterBusiness: React.FC = () => {
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
-                  <label
-                    htmlFor="address"
-                    className="block text-sm font-medium text-gray-700 mb-1"
-                  >
-                    Complete Address
-                  </label>
+                  <div className="flex items-center gap-1">
+                    <label
+                      htmlFor="address"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
+                      Complete Address
+                    </label>
+                    <AiFillStar className="text-red-500 text-[10px]" />
+                  </div>
+
                   <input
                     required
                     id="address"
@@ -344,12 +366,16 @@ const RegisterBusiness: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label
-                    htmlFor="pincode"
-                    className="block text-sm font-medium text-gray-700 mb-1"
-                  >
-                    Pincode
-                  </label>
+                  <div className="flex items-center gap-1">
+                    <label
+                      htmlFor="pincode"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
+                      Pincode
+                    </label>
+                    <AiFillStar className="text-red-500 text-[10px]" />
+                  </div>
+
                   <input
                     type="number"
                     id="pincode"
@@ -361,12 +387,16 @@ const RegisterBusiness: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label
-                    htmlFor="city"
-                    className="block text-sm font-medium text-gray-700 mb-1"
-                  >
-                    City
-                  </label>
+                  <div className="flex items-center gap-1">
+                    <label
+                      htmlFor="city"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
+                      City
+                    </label>
+                    <AiFillStar className="text-red-500 text-[10px]" />
+                  </div>
+
                   <input
                     required
                     type="text"
@@ -379,12 +409,16 @@ const RegisterBusiness: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label
-                    htmlFor="state"
-                    className="block text-sm font-medium text-gray-700 mb-1"
-                  >
-                    State
-                  </label>
+                  <div className="flex items-center gap-1">
+                    <label
+                      htmlFor="state"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
+                      State
+                    </label>
+                    <AiFillStar className="text-red-500 text-[10px]" />
+                  </div>
+
                   <input
                     required
                     type="text"
@@ -406,12 +440,16 @@ const RegisterBusiness: React.FC = () => {
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
-                  <label
-                    htmlFor="owner-name"
-                    className="block text-sm font-medium text-gray-700 mb-1"
-                  >
-                    Name
-                  </label>
+                  <div className="flex items-center gap-1">
+                    <label
+                      htmlFor="owner-name"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
+                      Name
+                    </label>
+                    <AiFillStar className="text-red-500 text-[10px]" />
+                  </div>
+
                   <input
                     required
                     id="owner-name"
@@ -423,12 +461,16 @@ const RegisterBusiness: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-medium text-gray-700 mb-1"
-                  >
-                    Email Address
-                  </label>
+                  <div className="flex items-center gap-1">
+                    <label
+                      htmlFor="email"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
+                      Email Address
+                    </label>
+                    <AiFillStar className="text-red-500 text-[10px]" />
+                  </div>
+
                   <input
                     required
                     type="email"
@@ -441,12 +483,16 @@ const RegisterBusiness: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label
-                    htmlFor="phoneNumber"
-                    className="block text-sm font-medium text-gray-700 mb-1"
-                  >
-                    Phone Number
-                  </label>
+                  <div className="flex items-center gap-1">
+                    <label
+                      htmlFor="phoneNumber"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
+                      Phone Number
+                    </label>
+                    <AiFillStar className="text-red-500 text-[10px]" />
+                  </div>
+
                   <input
                     required
                     type="number"

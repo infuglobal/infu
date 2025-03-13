@@ -98,7 +98,7 @@ const VideoUploadModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
             <li>Help investors understand your product or service quickly.</li>
           </ul>
           <p className="mt-2">
-            <span className="font-semibold">Tip:</span> Keep your video between 2-3 minutes long and focus on explaining your business model, market opportunity, and team.
+            <span className="font-semibold">Tip:</span> Keep your video between 2-3 minutes long -max 35 mbs- and focus on explaining your business model, market opportunity, and team.
           </p>
         </div>
 

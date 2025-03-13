@@ -1,10 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { checkInvestorRegistration } from "@/lib/serveraction";
 import { useUser } from "@clerk/nextjs";
-import { FaBuilding, FaUser } from "react-icons/fa";
+import {FaUser } from "react-icons/fa";
 import YourPortfolioLoading from "../../components/YourPortfolioLoading";
 
 // Define investor data type
@@ -56,17 +55,20 @@ const InvestorPortfolio = () => {
     return (
       <div className="min-h-screen w-full bg-gray-50 p-4">
         {/* Header Section */}
-        <div className="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-lg p-8 text-white shadow-lg mb-8">
-          <div className="max-w-7xl mx-auto px-6">
-            <h1 className="text-4xl font-bold mb-4 flex items-center gap-2">
-              <FaBuilding className="text-yellow-300" /> Investor Portfolio
-            </h1>
-            <p className="text-lg">
-              Manage and create your investor portfolio to explore new
-              opportunities.
-            </p>
-          </div>
+        <div className="flex flex-col md:flex-row justify-between items-center bg-gradient-to-r from-[#1E1E2E] to-[#312E81] rounded-lg p-6 md:p-8 text-white shadow-lg mb-8 space-y-4 md:space-y-0">
+        <div className="text-center md:text-left">
+          <h1 className="text-3xl font-bold mb-1">
+          Investor <span className="text-sky-300">Portfolio</span>
+          </h1>
+          <p className="text-md mt-2">
+          Manage and create your investor portfolio to explore new
+          opportunities.           </p>
         </div>
+      </div>
+
+     
+
+
 
         <div className="text-center">
             <p className="text-gray-700">
@@ -74,12 +76,12 @@ const InvestorPortfolio = () => {
             </p>
             
             <div className="mt-4">
-              <Link
+              <a
                 href="/investor-dashboard/portfolio/register-portfolio"
                 className="px-4 py-2 bg-purple-600 text-white font-semibold rounded-md hover:bg-purple-700 transition"
               >
                 Create your Portfolio Now
-              </Link>
+              </a>
             </div>
           </div>
 
@@ -90,11 +92,17 @@ const InvestorPortfolio = () => {
 
   return (
     <div className="container mx-auto px-4 pt-8 pb-12 overflow-y-auto h-screen">
-      <div className="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-lg p-8 text-white shadow-md mb-8">
-        <h1 className="text-3xl font-bold mb-2">
-          Your <span className="text-yellow-300">Investor Portfolio</span>
-        </h1>
-        <p className="text-md">Empowering Your Growth with Infinity Fund</p>
+     
+
+
+      <div className="flex flex-col md:flex-row justify-between items-center bg-gradient-to-r from-[#1E1E2E] to-[#312E81] rounded-lg p-6 md:p-8 text-white shadow-lg mb-8 space-y-4 md:space-y-0">
+        <div className="text-center md:text-left">
+          <h1 className="text-3xl font-bold mb-1">
+          Investor <span className="text-sky-300">Portfolio</span>
+          </h1>
+          <p className="text-md mt-2">
+          Empowering Your Growth with Infinity Fund         </p>
+        </div>
       </div>
 
       {/* Investor Details */}
@@ -217,12 +225,12 @@ const InvestorPortfolio = () => {
               opportunities for growth.
             </p>
             <div className="mt-4">
-              <Link
+              <a
                 href="/investor-dashboard/portfolio/register-portfolio"
                 className="px-4 py-2 bg-purple-600 text-white font-semibold rounded-md hover:bg-purple-700 transition"
               >
                 Create Investor Portfolio
-              </Link>
+              </a>
             </div>
           </div>
         )}

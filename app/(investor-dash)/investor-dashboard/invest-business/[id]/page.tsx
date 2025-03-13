@@ -63,7 +63,7 @@ const ExpandableText = ({
   const displayText = isExpanded ? text : `${text.slice(0, maxLength)}...`;
   return (
     <div>
-      <p className="text-lg text-gray-700 font-medium">{displayText}</p>
+      <p className="text-sm text-gray-700 font-medium">{displayText}</p>
       <button
         onClick={toggleExpand}
         className="text-purple-600 font-semibold mt-2 hover:underline focus:outline-none"
@@ -132,17 +132,20 @@ export default function PoolDetailsPage() {
     <div className="container mx-auto px-4 pt-8 pb-12 overflow-y-auto h-screen">
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
-        <div className="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-lg p-8 text-white shadow-lg mb-8">
-          <h1 className="text-4xl font-bold mb-4">
-            Invest in{" "}
-            <span className="text-yellow-300">
-              {poolDetails.businessId.businessName}
-            </span>
-          </h1>
-          <p className="text-lg">
-            A high-growth opportunity with proven returns and a secure
-            investment model.
-          </p>
+
+        <div className="flex flex-col md:flex-row justify-between items-center bg-gradient-to-r from-[#1E1E2E] to-[#312E81] rounded-lg p-6 md:p-8 text-white shadow-lg mb-8 space-y-4 md:space-y-0">
+          <div className="text-center md:text-left">
+            <h1 className="text-3xl font-bold mb-1">
+              Invest in{" "}
+              <span className="text-sky-300">
+                {poolDetails.businessId.businessName}
+              </span>
+            </h1>
+            <p className="text-md mt-2">
+              A high-growth opportunity with proven returns and a secure
+              investment model.{" "}
+            </p>
+          </div>
         </div>
 
         {/* Trust and Safety Section */}
@@ -179,9 +182,6 @@ export default function PoolDetailsPage() {
           <div className="lg:col-span-2 bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
             {/* Pool Thumbnail */}
             <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-300 mb-8">
-              <h2 className="text-2xl font-bold text-black mb-6 flex items-center gap-2">
-                Your Pitch Video
-              </h2>
               <div className="w-full aspect-video rounded-lg overflow-hidden">
                 <VideoPlayer
                   videoSrc={poolDetails.businessId.businessPitchVideo}
@@ -227,8 +227,8 @@ export default function PoolDetailsPage() {
                   className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-300"
                 >
                   <div className="flex items-center gap-4 mb-4">
-                    <span className="text-2xl">{item.icon}</span>
-                    <h3 className="text-xl font-semibold text-purple-700">
+                    <span className="text-md">{item.icon}</span>
+                    <h3 className="text-lg font-semibold text-purple-700">
                       {item.label}
                     </h3>
                   </div>
@@ -237,7 +237,7 @@ export default function PoolDetailsPage() {
                   {item.isLongText ? (
                     <ExpandableText text={item.value} maxLength={100} />
                   ) : (
-                    <p className="text-lg text-gray-700 font-medium">
+                    <p className="text-md text-gray-700 font-medium">
                       {item.value}
                     </p>
                   )}
@@ -266,7 +266,7 @@ export default function PoolDetailsPage() {
 
           {/* Right Column: Business Details */}
           <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
-            <h2 className="text-2xl font-bold text-black mb-6 flex items-center gap-2">
+            <h2 className="text-xl font-bold text-black mb-6 flex items-center gap-2">
               <FaBuilding className="text-purple-600" /> Business Details
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -300,8 +300,8 @@ export default function PoolDetailsPage() {
                   className="bg-gray-50 border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow duration-300"
                 >
                   <div className="flex items-center gap-3 mb-3">
-                    <span className="text-2xl">{item.icon}</span>
-                    <h3 className="text-xl font-semibold text-purple-700">
+                    <span className="text-md">{item.icon}</span>
+                    <h3 className="text-lg font-semibold text-purple-700">
                       {item.label}
                     </h3>
                   </div>
@@ -310,7 +310,7 @@ export default function PoolDetailsPage() {
                   {item.isLongText ? (
                     <ExpandableText text={item.value} maxLength={100} />
                   ) : (
-                    <p className="text-lg text-gray-700 font-medium">
+                    <p className="text-md text-gray-700 font-medium">
                       {item.value}
                     </p>
                   )}
@@ -329,7 +329,7 @@ export default function PoolDetailsPage() {
           <div className="space-y-6">
             {/* Unit Selection */}
             <div>
-              <h3 className="text-xl font-semibold text-purple-700 mb-4">
+              <h3 className="text-lg font-semibold text-purple-700 mb-4">
                 Select Units to Invest
               </h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -404,7 +404,7 @@ export default function PoolDetailsPage() {
             <div className="text-center">
               <button
                 disabled={!selectedUnit}
-                className={`px-12 py-4 rounded-lg text-xl font-semibold transition duration-300 shadow-lg ${
+                className={`px-12 py-2 rounded-lg text-xl font-semibold transition duration-300 shadow-lg ${
                   selectedUnit
                     ? "bg-purple-600 hover:bg-purple-700 transform hover:scale-105 text-white"
                     : "bg-gray-400 cursor-not-allowed text-white"

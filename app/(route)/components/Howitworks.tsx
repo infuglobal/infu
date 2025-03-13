@@ -12,7 +12,7 @@ const HowItWorks = () => {
     },
     {
       title: "For Businesses: Secure funding and connect with growth-focused investors",
-      src: "/i8.jpg",
+      src: "/i9.jpg",
     },
     {
       title: "For Learners: Master smart investing to build wealth and financial growth",

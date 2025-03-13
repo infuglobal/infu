@@ -3,7 +3,7 @@ import { fetchAllInvestors } from "@/lib/serveraction";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import React from "react";
-import { FaUser,  FaCheckCircle, FaTimesCircle } from "react-icons/fa";
+import { FaUser, FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 
 // Define the Investor type based on the schema
 interface Investor {
@@ -35,37 +35,40 @@ interface Investor {
 }
 
 const InvestorsPage = async () => {
-   const user = await currentUser();
-  
-    const ADMIN_EMAIL_1 = process.env.ADMIN_1_EMAIL;
-    const ADMIN_EMAIL_2 = process.env.ADMIN_2_EMAIL;
-    const ADMIN_EMAIL_3 = process.env.ADMIN_3_EMAIL;
+  const user = await currentUser();
 
-    // Redirect if the user is not an admin
-    if (
-      !user ||
-      !user.emailAddresses.some(
-        (email) =>
-          email.emailAddress === ADMIN_EMAIL_1 ||
+  const ADMIN_EMAIL_1 = process.env.ADMIN_1_EMAIL;
+  const ADMIN_EMAIL_2 = process.env.ADMIN_2_EMAIL;
+  const ADMIN_EMAIL_3 = process.env.ADMIN_3_EMAIL;
+
+  // Redirect if the user is not an admin
+  if (
+    !user ||
+    !user.emailAddresses.some(
+      (email) =>
+        email.emailAddress === ADMIN_EMAIL_1 ||
         email.emailAddress === ADMIN_EMAIL_2 ||
         email.emailAddress === ADMIN_EMAIL_3
-      )
-    ) {
-      redirect("/");
-    }
+    )
+  ) {
+    redirect("/");
+  }
   const investors: Investor[] = await fetchAllInvestors(); // Fetch investors using the server action
 
   return (
     <div className="container mx-auto px-4 pt-8 pb-12 overflow-y-auto h-screen">
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
-        <div className="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-lg p-8 text-white shadow-lg mb-8">
-          <h1 className="text-4xl font-bold mb-4 flex items-center gap-2">
-            <FaUser className="text-yellow-300" /> All Investors
-          </h1>
-          <p className="text-lg">
-            Manage and view all registered investors in the system.
-          </p>
+
+        <div className="flex flex-col md:flex-row justify-between items-center bg-gradient-to-r from-[#1E1E2E] to-[#312E81] rounded-lg p-6 md:p-8 text-white shadow-lg mb-8 space-y-4 md:space-y-0">
+          <div className="text-center md:text-left">
+            <h1 className="text-3xl font-bold mb-1">
+              All <span className="text-sky-300">Investors</span>
+            </h1>
+            <p className="text-md mt-2">
+              Manage and view all registered investors in the system.
+            </p>
+          </div>
         </div>
 
         {/* Top Section - Dashboard Boxes */}
@@ -75,21 +78,25 @@ const InvestorsPage = async () => {
               Total Investors
             </h3>
 
-            <p className="text-3xl font-bold text-blue-600">{investors.length}</p>
+            <p className="text-3xl font-bold text-blue-600">
+              {investors.length}
+            </p>
           </div>
           <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">
               Total Investments
             </h3>
             <p className="text-3xl font-bold text-green-600">0</p>
-
           </div>
           <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">
               Active Investors
             </h3>
             <p className="text-3xl font-bold text-purple-600">
-              {investors.filter((investor) => investor.accreditedInvestor).length}
+              {
+                investors.filter((investor) => investor.accreditedInvestor)
+                  .length
+              }
             </p>
           </div>
         </div>
@@ -136,7 +143,6 @@ const InvestorsPage = async () => {
                       <h3 className="text-lg font-semibold text-purple-700 mb-2">
                         Investment Amount
                       </h3>
-                      
                     </div>
 
                     {/* Risk Preference */}
@@ -185,7 +191,9 @@ const InvestorsPage = async () => {
                 </div>
               ))
             ) : (
-              <div className="text-center text-gray-800">No investors found.</div>
+              <div className="text-center text-gray-800">
+                No investors found.
+              </div>
             )}
           </div>
         </div>

@@ -797,3 +797,74 @@ export async function fetchFeedbacks() {
     throw new Error("Failed to fetch feedbacks");
   }
 }
+
+
+
+
+export const updateBusinessProfile = async (
+  userId: string, // Pass userId to identify the business
+  formData: {
+    businessName?: string;
+    description?: string[];
+    businessPitchVideo?: File | null; // Allow video file upload
+  }
+) => {
+  try {
+    await connectDB(); // Connect to MongoDB
+
+    const { businessName, description, businessPitchVideo } = formData;
+
+    // Find the business profile by userId
+    const business = await Business.findOne({ userId });
+
+    if (!business) {
+      throw new Error("Business profile not found.");
+    }
+
+    // Update fields if provided
+    if (businessName) business.businessName = businessName;
+    if (description) business.description = description;
+
+    // Handle video file upload
+    if (businessPitchVideo) {
+      const videoBuffer = await businessPitchVideo.arrayBuffer();
+      const videoArray = Buffer.from(videoBuffer);
+
+      // Upload video to Cloudinary
+      const cloudinaryResponse = await new Promise<UploadApiResponse>(
+        (resolve, reject) => {
+          cloudinary.uploader
+            .upload_stream(
+              {
+                resource_type: "video",
+                folder: "business_pitch_videos", // Organize videos in a folder
+              },
+              (error, result) => {
+                if (error) {
+                  reject(error);
+                } else if (result) {
+                  resolve(result); // Ensure result is defined before resolving
+                } else {
+                  reject(new Error("Cloudinary upload failed: No result returned"));
+                }
+              }
+            )
+            .end(videoArray);
+        }
+      );
+
+      // Update the business pitch video URL
+      business.businessPitchVideo = cloudinaryResponse.secure_url;
+    }
+
+    await business.save();
+
+    // Revalidate the path (if using Next.js caching)
+    revalidatePath("/business-dashboard"); // Adjust the path as needed
+
+    return { success: true, message: "Profile updated successfully!" };
+  } catch (error) {
+    console.error("Error updating business profile:", error);
+    return { success: false, message: "Failed to update profile." };
+  }
+};

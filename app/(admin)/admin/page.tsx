@@ -80,14 +80,18 @@ export default async function AdminDashboard() {
     <div className="container mx-auto px-4 pt-8 pb-12 h-full overflow-y-hidden">
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
-        <div className="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-lg p-6 sm:p-8 text-white shadow-lg mb-8">
-          <h1 className="text-3xl sm:text-4xl font-bold mb-4 flex items-center gap-2">
-            <FaUser className="text-yellow-300" /> Admin Dashboard
+       
+
+        <div className="flex flex-col md:flex-row justify-between items-center bg-gradient-to-r from-[#1E1E2E] to-[#312E81] rounded-lg p-6 md:p-8 text-white shadow-lg mb-8 space-y-4 md:space-y-0">
+        <div className="text-center md:text-left">
+          <h1 className="text-3xl font-bold mb-1">
+          Admin <span className="text-sky-300">Dashboard</span>
           </h1>
-          <p className="text-base sm:text-lg">
-            Manage and view all users, businesses, and investors in the system.
+          <p className="text-md mt-2">
+          Manage and view all users, businesses, and investors in the system.
           </p>
         </div>
+      </div>
 
         {/* Top Section - Dashboard Boxes */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">

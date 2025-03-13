@@ -12,6 +12,7 @@ import {
 } from "react-icons/fa";
 import VideoUploadModal from "../components/VideoUploadModal";
 import Loading from "../components/Loading";
+import EditProfileModal from "../components/EditProfileModal";
 
 // Define types
 interface Business {
@@ -75,7 +76,9 @@ const Profile = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
 
+  
   useEffect(() => {
     if (!isLoaded || !user?.id) return;
 
@@ -105,15 +108,17 @@ const Profile = () => {
   if (error) {
     return (
       <div className="container mx-auto px-4 pt-8 pb-12 overflow-y-auto h-screen">
-        <div className="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-lg p-8 text-white shadow-lg mb-8">
-          <h1 className="text-3xl font-bold mb-2">
-            Register <span className="text-yellow-300">business </span>
+       
+        <div className="flex flex-col md:flex-row justify-between items-center bg-gradient-to-r from-[#1E1E2E] to-[#312E81] rounded-lg p-6 md:p-8 text-white shadow-lg mb-8 space-y-4 md:space-y-0">
+        <div className="text-center md:text-left">
+          <h1 className="text-3xl font-bold mb-1">
+            Register <span className="text-sky-300">Business</span>
           </h1>
-          <p className="text-md">
-            Take the first step towards growth! Register your business to unlock
-            exclusive funding opportunities and manage your details seamlessly.{" "}
-          </p>
+          <p className="text-md mt-2">
+          Take the first step towards growth! Register your business to unlock
+          exclusive funding opportunities and manage your details seamlessly.{" "}          </p>
         </div>
+      </div>
 
         {/* Main Content */}
         <div className="text-center">
@@ -139,13 +144,45 @@ const Profile = () => {
 
   return (
     <div className="container mx-auto px-4 pt-8 pb-12 overflow-y-auto h-screen">
-      <div className="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-lg p-8 text-white shadow-lg mb-8">
-        <h1 className="text-3xl font-bold mb-2">
-          Your <span className="text-yellow-300">Business</span>
-        </h1>
-        <p className="text-md mt-4">Empowering Your Growth with Infinity Fund</p>
-      </div>
+      <div className="flex flex-col md:flex-row justify-between items-center bg-gradient-to-r from-[#1E1E2E] to-[#312E81] rounded-lg p-6 md:p-8 text-white shadow-lg mb-8 space-y-4 md:space-y-0">
+        <div className="text-center md:text-left">
+          <h1 className="text-3xl font-bold mb-1">
+            Your <span className="text-sky-300">Business</span>
+          </h1>
+          <p className="text-md mt-2">
+            Empowering Your Growth with Infinity Fund
+          </p>
+        </div>
 
+        {/* Edit Profile Button */}
+        <button
+          className="flex items-center justify-center gap-2 px-5 py-2 h-10 min-w-[120px] bg-white/10 backdrop-blur-sm rounded-full border border-white/20 hover:bg-white/20 transition-all duration-300 w-full md:w-auto"
+          onClick={() => setIsEditProfileModalOpen(true)}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+          </svg>
+          <span className="text-sm font-semibold">Profile</span>
+        </button>
+      </div>
+      {/* Edit Profile Modal */}
+      {businessData && (
+        <EditProfileModal
+          isOpen={isEditProfileModalOpen}
+          onClose={() => setIsEditProfileModalOpen(false)}
+          userId={user?.id || ""} // Pass the user ID
+          existingData={{
+            businessName: businessData.business.businessName,
+            description: businessData.business.description || [],
+            businessPitchVideo: businessData.business.businessPitchVideo || "",
+          }}
+        />
+      )}
       {/* Video Section */}
       {businessData?.business.businessPitchVideo ? (
         <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-300 mb-8">
@@ -166,8 +203,9 @@ const Profile = () => {
             Upload Your Pitch Video
           </h2>
           <p className="text-gray-700 mb-6">
-            A well-crafted pitch video can significantly increase your chances of
-            securing investments. Upload your video to showcase your business.
+            A well-crafted pitch video can significantly increase your chances
+            of securing investments. Upload your video to showcase your
+            business.
           </p>
           <button
             onClick={() => setIsModalOpen(true)}
@@ -179,7 +217,10 @@ const Profile = () => {
       )}
 
       {/* Video Upload Modal */}
-      <VideoUploadModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <VideoUploadModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
 
       {/* Business Details */}
       <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
@@ -277,16 +318,15 @@ const Profile = () => {
               </p>
             </div>
             {businessData.owner.emailAddress && (
-             <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow duration-300 w-full max-w-xs sm:max-w-sm md:max-w-md">
-             <div className="text-md font-semibold text-purple-700 flex items-center gap-2 flex-wrap">
-               <FaEnvelope className="flex-shrink-0" /> 
-               <span className="break-words">Email</span>
-             </div>
-             <p className="text-md text-gray-700 break-words overflow-hidden">
-               {businessData.owner.emailAddress}
-             </p>
-           </div>
-           
+              <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow duration-300 w-full max-w-xs sm:max-w-sm md:max-w-md">
+                <div className="text-md font-semibold text-purple-700 flex items-center gap-2 flex-wrap">
+                  <FaEnvelope className="flex-shrink-0" />
+                  <span className="break-words">Email</span>
+                </div>
+                <p className="text-md text-gray-700 break-words overflow-hidden">
+                  {businessData.owner.emailAddress}
+                </p>
+              </div>
             )}
           </div>
         </div>
