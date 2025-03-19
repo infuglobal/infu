@@ -59,10 +59,10 @@ const ExpandableText = ({
   const displayText = isExpanded ? text : `${text.slice(0, maxLength)}...`;
   return (
     <div>
-      <p className="text-md text-gray-700 font-medium">{displayText}</p>
+      <p className="text-sm text-gray-700 font-medium">{displayText}</p>
       <button
         onClick={toggleExpand}
-        className="text-purple-600 font-semibold mt-2 hover:underline focus:outline-none"
+        className="text-[#312E81] font-semibold mt-2 hover:underline focus:outline-none"
       >
         {isExpanded ? "Show Less" : "Show more"}
       </button>
@@ -132,7 +132,7 @@ const Profile = () => {
           <div className="mt-4">
             <a
               href="/business-dashboard/register-business"
-              className="px-4 py-2 bg-purple-600 text-white font-semibold rounded-md hover:bg-purple-700 transition"
+              className="px-4 py-2 bg-[#312E81] text-white font-semibold rounded-md hover:bg-purple-700 transition"
             >
               Register Your Business Today
             </a>
@@ -223,7 +223,7 @@ const Profile = () => {
           </p>
           <button
             onClick={() => setIsModalOpen(true)}
-            className="px-6 py-2 bg-purple-600 text-white rounded-lg text-sm font-semibold hover:bg-purple-700 transition-all duration-300"
+            className="px-6 py-2 bg-[#312E81] text-white rounded-lg text-sm font-semibold hover:bg-purple-700 transition-all duration-300"
           >
             Upload Video
           </button>
@@ -239,7 +239,7 @@ const Profile = () => {
       {/* Business Details */}
       <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
         <h2 className="text-2xl font-bold text-black mb-6 flex items-center gap-2">
-          <FaBuilding className="text-purple-600" /> Business Details
+          <FaBuilding className="text-[#312E81]" /> Business Details
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {[
@@ -275,7 +275,7 @@ const Profile = () => {
             >
               <div className="flex items-center gap-3 mb-3">
                 <span className="text-2xl">{item.icon}</span>
-                <h3 className="text-md font-semibold text-purple-700">
+                <h3 className="text-md font-semibold text-[#312E81]">
                   {item.label}
                 </h3>
               </div>
@@ -296,7 +296,7 @@ const Profile = () => {
       {businessData?.address && (
         <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-300 mt-6">
           <h2 className="text-2xl font-bold text-black mb-6 flex items-center gap-2">
-            <FaMapMarkerAlt className="text-purple-600" /> Business Address
+            <FaMapMarkerAlt className="text-[#312E81]" /> Business Address
           </h2>
           <p className="text-md text-gray-700">
             {businessData.address.address}
@@ -312,11 +312,11 @@ const Profile = () => {
       {businessData?.owner && (
         <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-300 mt-6">
           <h2 className="text-2xl font-bold text-black mb-6 flex items-center gap-2">
-            <FaUser className="text-purple-600" /> Owner Information
+            <FaUser className="text-[#312E81]" /> Owner Information
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow duration-300">
-              <h3 className="text-md font-semibold text-purple-700 flex items-center gap-2">
+              <h3 className="text-md font-semibold text-[#312E81] flex items-center gap-2">
                 <FaUser /> Name
               </h3>
               <p className="text-md text-gray-700">
@@ -324,7 +324,7 @@ const Profile = () => {
               </p>
             </div>
             <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow duration-300">
-              <h3 className="text-md font-semibold text-purple-700 flex items-center gap-2">
+              <h3 className="text-md font-semibold text-[#312E81] flex items-center gap-2">
                 <FaPhone /> Phone
               </h3>
               <p className="text-md text-gray-700">
@@ -333,7 +333,7 @@ const Profile = () => {
             </div>
             {businessData.owner.emailAddress && (
               <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow duration-300 w-full max-w-xs sm:max-w-sm md:max-w-md">
-                <div className="text-md font-semibold text-purple-700 flex items-center gap-2 flex-wrap">
+                <div className="text-md font-semibold text-[#312E81] flex items-center gap-2 flex-wrap">
                   <FaEnvelope className="flex-shrink-0" />
                   <span className="break-words">Email</span>
                 </div>
@@ -354,7 +354,7 @@ const Profile = () => {
           </p>
           <a
             href="/business-dashboard/register-business"
-            className="px-6 py-2 bg-purple-600 text-white rounded-lg text-sm font-semibold hover:bg-purple-700 transition-all duration-300"
+            className="px-6 py-2 bg-[#312E81] text-white rounded-lg text-sm font-semibold hover:bg-purple-700 transition-all duration-300"
           >
             Register Your Business
           </a>

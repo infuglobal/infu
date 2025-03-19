@@ -36,7 +36,7 @@ const Navbar = () => {
             />
             <Link
               href="/"
-              className="text-2xl font-extrabold bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text font-[Poppins] tracking-wide"
+              className="text-2xl font-extrabold bg-gradient-to-r from-[#1E1E2E] to-[#312E81] text-transparent bg-clip-text font-[Poppins] tracking-wide"
             >
               INFINITY FUND
             </Link>
@@ -47,35 +47,35 @@ const Navbar = () => {
             <a
               href="#home"
               onClick={(e) => handleScroll(e, "home")}
-              className="text-gray-700 hover:text-purple-600 font-medium transition duration-300 cursor-pointer"
+              className="text-gray-700 hover:text-[#312E81] font-medium transition duration-300 cursor-pointer"
             >
               Home
             </a>
             <a
               href="#about"
               onClick={(e) => handleScroll(e, "about")}
-              className="text-gray-700 hover:text-purple-600 font-medium transition duration-300 cursor-pointer"
+              className="text-gray-700 hover:text-[#312E81] font-medium transition duration-300 cursor-pointer"
             >
               About Us
             </a>
             <a
               href="#how-it-works"
               onClick={(e) => handleScroll(e, "how-it-works")}
-              className="text-gray-700 hover:text-purple-600 font-medium transition duration-300 cursor-pointer"
+              className="text-gray-700 hover:text-[#312E81] font-medium transition duration-300 cursor-pointer"
             >
               How It Works
             </a>
             <a
               href="#features"
               onClick={(e) => handleScroll(e, "features")}
-              className="text-gray-700 hover:text-purple-600 font-medium transition duration-300 cursor-pointer"
+              className="text-gray-700 hover:text-[#312E81] font-medium transition duration-300 cursor-pointer"
             >
               Features
             </a>
             <Link
               href="/learning-resources"
               target="_blank"
-              className="block text-gray-700 hover:text-purple-600 font-medium transition duration-300 cursor-pointer"
+              className="block text-gray-700 hover:text-[#312E81] font-medium transition duration-300 cursor-pointer"
             >
               Resources
             </Link>
@@ -89,7 +89,7 @@ const Navbar = () => {
                     ? "/investor-dashboard"
                     : "/business-dashboard"
                 }
-                className="px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-500 text-white font-semibold rounded-full shadow-md hover:shadow-lg hover:from-purple-700 hover:to-pink-600 transition duration-300"
+                className="px-6 py-2 bg-gradient-to-r from-[#1E1E2E] to-[#312E81] text-white font-semibold rounded-full shadow-md hover:shadow-lg hover:from-purple-700 hover:to-pink-600 transition duration-300"
               >
                 Dashboard
               </Link>

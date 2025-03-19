@@ -15,7 +15,7 @@ export default function RootLayout({
       </section>
 
       {/* Right Section: Image */}
-      <div className="hidden lg:block w-[65%]">
+      <div className="hidden lg:block w-full">
         <Image
           src="/i7.jpg"
           alt="login image"

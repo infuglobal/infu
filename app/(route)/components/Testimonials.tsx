@@ -30,7 +30,7 @@ const Testimonials = () => {
         <div className="text-center mb-12">
           
           <h1 className="text-5xl font-extrabold text-center text-gray-900 mb-4">
-          What Our <span className="text-purple-600">Users </span>Say
+          What Our <span className="text-[#312E81]">Users </span>Say
       </h1>
           <p className="text-gray-700 mt-4 text-lg sm:w-2/3 mx-auto">
             See how Infu is transforming lives for businesses and entrepreneurs.
@@ -45,7 +45,7 @@ const Testimonials = () => {
               className="bg-white shadow-xl border border-purple-200 rounded-2xl p-8 flex flex-col items-center text-center hover:shadow-2xl transition-all duration-300 transform "
             >
               {/* Quote Icon */}
-              <FaQuoteLeft className="text-purple-500 text-5xl mb-6 animate-bounce" />
+              <FaQuoteLeft className="text-[#312E81] text-5xl mb-6 animate-bounce" />
 
               {/* User Feedback */}
               <p className="text-gray-600 italic mb-6 text-lg max-w-xs mx-auto">

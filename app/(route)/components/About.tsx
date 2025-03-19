@@ -35,8 +35,8 @@ const About = () => {
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-5xl font-extrabold text-purple-800 mb-6 drop-shadow-lg">
-            About Infinity Fund
+          <h2 className="text-5xl font-extrabold text-[#1E1E2E]  mb-6 drop-shadow-lg">
+            About <span className="text-[#312E81]">Infinity Fund</span> 
           </h2>
           <p className="text-gray-700 text-lg mb-6 leading-relaxed">
             At Infinity Fund, we aim to bridge the gap between innovative
@@ -55,7 +55,7 @@ const About = () => {
           >
             <Link
               href="/about-infu"
-              className="inline-block bg-purple-600 text-white px-6 py-3 rounded-full font-medium shadow-lg hover:bg-purple-700 transition duration-300"
+              className="inline-block bg-gradient-to-r from-[#1E1E2E] to-[#312E81] text-white px-6 py-3 rounded-full font-medium shadow-lg hover:bg-purple-700 transition duration-300"
             >
               Learn More
             </Link>

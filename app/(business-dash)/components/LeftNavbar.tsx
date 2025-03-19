@@ -11,7 +11,7 @@ const LeftNavbar = () => {
     <div className="hidden md:block w-60 bg-white border-r border-gray-200 h-screen shadow-sm">
       {/* Sidebar Header */}
       <div className="p-6 border-b border-gray-200">
-        <h2 className="text-2xl font-bold text-purple-600 flex items-center gap-2">
+        <h2 className="text-2xl font-bold text-[#312E81] flex items-center gap-2">
           <span className="text-gray-900">Infinity</span>
           <span>Fund</span>
         </h2>

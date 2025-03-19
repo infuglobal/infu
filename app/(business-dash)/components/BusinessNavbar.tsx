@@ -23,7 +23,7 @@ const BusinessNavbar = () => {
             />
                         </Link>
 
-            <div className="text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text">
+            <div className="text-2xl font-bold bg-gradient-to-r from-[#1E1E2E] to-[#312E81] text-transparent bg-clip-text">
               Business Dashboard
             </div>
           </div>

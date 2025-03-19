@@ -40,12 +40,12 @@ const ExpandableText = ({
   const [isExpanded, setIsExpanded] = useState(false);
   return (
     <div>
-      <p className="text-lg text-gray-700 font-medium">
+      <p className="text-sm text-gray-700 font-medium">
         {isExpanded ? text : `${text.slice(0, maxLength)}...`}
       </p>
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="text-purple-600 font-semibold mt-2 hover:underline focus:outline-none"
+        className="text-[#312E81] font-semibold mt-2 hover:underline focus:outline-none"
       >
         {isExpanded ? "Show Less" : "Show More"}
       </button>
@@ -133,14 +133,14 @@ export default function FundingStatusPage() {
                   >
                     <div className="flex items-center gap-4 mb-4">
                       <span className="text-2xl">{icons[index]}</span>
-                      <h3 className="text-xl font-semibold text-purple-700">
+                      <h3 className="text-lg font-semibold text-[#312E81]">
                         {label}
                       </h3>
                     </div>
                     {isLongText ? (
                       <ExpandableText text={value} maxLength={100} />
                     ) : (
-                      <p className="text-lg text-gray-700 font-medium">
+                      <p className="text-md text-gray-700 font-medium">
                         {value}
                       </p>
                     )}
@@ -151,7 +151,7 @@ export default function FundingStatusPage() {
 
             {poolDetails.historicalPerformance && (
               <div className="mt-8">
-                <h3 className="text-xl font-semibold text-purple-700 mb-4">
+                <h3 className="text-lg font-semibold text-[#312E81] mb-4">
                   Historical Performance
                 </h3>
                 <ResponsiveContainer width="100%" height={300}>
@@ -178,7 +178,7 @@ export default function FundingStatusPage() {
             <div className="mt-4">
               <a
                 href="/business-dashboard/funding-status/create-pool"
-                className="px-4 py-2 bg-purple-600 text-white font-semibold rounded-md hover:bg-purple-700 transition"
+                className="px-4 py-2 bg-[#312E81] text-white font-semibold rounded-md hover:bg-purple-700 transition"
               >
                 Create Pool Now
               </a>

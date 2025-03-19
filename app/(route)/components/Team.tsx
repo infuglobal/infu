@@ -49,9 +49,9 @@ const Team = () => {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-center text-gray-900 mb-12 sm:mb-20 relative z-10"
+        className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-center text-[#1E1E2E]   mb-12 sm:mb-20 relative z-10"
       >
-        Meet Our <span className="text-purple-600">Team</span>
+        Meet Our <span className="text-[#312E81]">Team</span>
       </motion.h1>
 
       {/* Team Members */}
@@ -67,7 +67,7 @@ const Team = () => {
             }`}
           >
             {/* Profile Image */}
-            <div className="relative w-48 h-48 sm:w-60 sm:h-60 md:w-72 md:h-72 flex-shrink-0 rounded-full overflow-hidden border-4 border-purple-600 shadow-xl hover:scale-105 transition-transform duration-500">
+            <div className="relative w-48 h-48 sm:w-60 sm:h-60 md:w-72 md:h-72 flex-shrink-0 rounded-full overflow-hidden border-4 border-[#312E81] shadow-xl hover:scale-105 transition-transform duration-500">
               <Image
                 src={member.image}
                 alt={member.name}
@@ -82,7 +82,7 @@ const Team = () => {
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900">
                 {member.name}
               </h2>
-              <h3 className="text-base sm:text-lg text-purple-600 font-medium mb-2 sm:mb-4">
+              <h3 className="text-base sm:text-lg text-[#312E81] font-medium mb-2 sm:mb-4">
                 {member.role}
               </h3>
               <p className="text-sm sm:text-base text-gray-700 leading-relaxed">

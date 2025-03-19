@@ -14,7 +14,7 @@ const Features = () => {
         {/* Section Title */}
         <div className="text-center mb-16">
           <h2 className="text-5xl font-extrabold text-gray-900">
-            Why Choose <span className="text-purple-600">INFU?</span>
+            Why Choose <span className="text-[#312E81]">INFU?</span>
           </h2>
           <p className="mt-4 text-lg text-gray-700">
             Experience the future of investments with innovative features designed for everyone.
@@ -32,7 +32,7 @@ const Features = () => {
               }`}
             >
               {/* Check Icon */}
-              <div className="absolute -top-6 -left-6 bg-purple-600 rounded-full w-16 h-16 flex items-center justify-center shadow-lg">
+              <div className="absolute -top-6 -left-6 bg-[#312E81] rounded-full w-16 h-16 flex items-center justify-center shadow-lg">
                 <FaCheckCircle className="text-white text-3xl" />
               </div>
 
