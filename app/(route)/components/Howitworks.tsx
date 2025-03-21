@@ -24,7 +24,7 @@ const HowItWorks = () => {
   return (
     <section
       id="how-it-works"
-      className="relative bg-gradient-to-b from-purple-50 to-gray-50 bg-opacity-70 backdrop-blur-lg py-20   rounded-3xl"
+      className="w-full relative bg-gradient-to-b from-purple-50 to-gray-50 bg-opacity-70 backdrop-blur-lg py-20   rounded-3xl"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         {/* Section Title */}

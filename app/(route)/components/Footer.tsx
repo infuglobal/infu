@@ -10,7 +10,7 @@ import {
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-r from-[#1E1E2E] to-[#312E81] text-gray-300 py-10 mt-20 shadow-lg rounded-t-2xl text-lg">
+    <footer className="w-full bg-gradient-to-r from-[#1E1E2E] to-[#312E81] text-gray-300 py-10 mt-20 shadow-lg rounded-t-2xl text-lg">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Footer Top */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-20 text-center md:text-left">

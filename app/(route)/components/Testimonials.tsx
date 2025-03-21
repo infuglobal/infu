@@ -24,7 +24,7 @@ const Testimonials = () => {
   ];
 
   return (
-    <section className="bg-gradient-to-b from-purple-50 via-indigo-100 to-white py-16">
+    <section className="w-full bg-gradient-to-b from-purple-50 via-indigo-100 to-white py-16">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Section Title */}
         <div className="text-center mb-12">

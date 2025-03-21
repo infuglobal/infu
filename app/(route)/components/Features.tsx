@@ -7,7 +7,7 @@ const Features = () => {
 
 
   return (
-    <section id="features" className="relative bg-gradient-to-br from-purple-50 via-white to-green-50 py-16">
+    <section id="features" className="w-full relative bg-gradient-to-br from-purple-50 via-white to-green-50 py-16">
       <div className="absolute inset-0 bg-gradient-to-br from-purple-100 to-green-100 opacity-10 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8">

@@ -13,7 +13,6 @@ const Home = () => {
  
   return (
     <main className="w-full relative bg-white flex justify-center items-center flex-col  mt-10">
-      <div className="max-w-7xl w-full">
         {/* Critical components rendered first */}
         <Navbar />
         <Hero />
@@ -25,7 +24,6 @@ const Home = () => {
         <Features />
         <Testimonials />
         <Footer />
-      </div>
     </main>
   );
 };

@@ -63,7 +63,7 @@ const SignUpPage = () => {
           <SignUp
             appearance={{
               elements: {
-                card: "w-full h-full py-12 bg-white border-none shadow-none flex flex-col",
+                card: "w-full h-screen py-12 bg-white border-none shadow-none flex flex-col",
                 form: "flex-grow flex flex-col justify-center",
                 formButtonPrimary:
                   "bg-purple-600 text-white hover:bg-purple-700 focus:ring-2 focus:ring-purple-500",

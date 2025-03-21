@@ -9,7 +9,7 @@ const About = () => {
   return (
     <section
       id="about"
-      className="relative bg-gradient-to-br from-purple-50 to-white py-20 my-20 overflow-hidden"
+      className="w-full relative bg-gradient-to-br from-purple-50 to-white py-20 my-20 overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 flex flex-col md:flex-row items-center gap-16">
         {/* Left Section: Image with Animation */}
